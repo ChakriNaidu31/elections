@@ -1,25 +1,13 @@
 .h-100vh {
     height: 100vh !important;
 }
-
 .form-signin {
     max-width: 360px;
     padding: 1rem;
 }
-
-.signin_btn {
-    background: #004274;
-    color: #fff;
-}
-
 input[type=text],
 input[type=password] {
-    width: 100%;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
     font-size: 14px;
-    background-color: white;
     background-position: 10px 13px;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;

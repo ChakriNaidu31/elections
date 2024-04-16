@@ -2,3 +2,7 @@
 body {
     font-family: "Poppins", sans-serif !important;
 }
+.form-signin {
+    max-width: 360px;
+    padding: 1rem;
+}
