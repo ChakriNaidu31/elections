@@ -1,50 +1,53 @@
+
 <app-navbar></app-navbar>
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="row">
-        <div class="col-12 text-center">
-            <h4>User create</h4>
-        </div>
+        <div class="col-12 bg-light bg-gradient">
+            <div class="bg-white m-4 rounded">
+                <h5 class="pt-4 px-4">User create</h5>
+                <div class="d-flex align-items-center  ">
+                    <div class="form-signin w-100 m-auto f-13">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Select Role</option>
+                                    <option value="1">Role 1</option>
+                                    <option value="2">Role 2</option>
+                                    <option value="3">Role 3</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Constituency</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Select Constituency</option>
+                                    <option value="1">Constituency 1</option>
+                                    <option value="2">Constituency 2</option>
+                                    <option value="3">Constituency 3</option>
+                                </select>
+                            </div>
 
-        <div class="d-flex align-items-center py-4 ">
-            <div class="form-signin w-100 m-auto ">
-                <form>
-                    <div class="mb-3">
-                        <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp">
+                            <div class="mb-3 float-end">
+                                <button class="btn btn-primary f-13 ">Submit</button>
+                                <button class="btn btn-light f-13 ms-2">Cancel</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Role</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Select Role</option>
-                            <option value="1">Role 1</option>
-                            <option value="2">Role 2</option>
-                            <option value="3">Role 3</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Constituency</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Select Constituency</option>
-                            <option value="1">Constituency 1</option>
-                            <option value="2">Constituency 2</option>
-                            <option value="3">Constituency 3</option>
-                        </select>
-                    </div>
+                </div>
 
-                    <div class="mb-3">
-                        <button class="btn btn-primary">Submit</button>
-                        <button class="btn btn-danger float-end">Cancel</button>
-                    </div>
-
-                </form>
+               
             </div>
         </div>
     </div>

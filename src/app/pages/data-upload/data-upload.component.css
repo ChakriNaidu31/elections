@@ -1,0 +1,4 @@
+.border-dotted {
+    border: 1px solid black;
+    border-style: dashed;
+}

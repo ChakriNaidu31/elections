@@ -1,39 +1,93 @@
 <app-navbar></app-navbar>
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="row">
-        <div class="col-12 text-center">
-            <h4>User List</h4>
-        </div>
+        <div class="col-12 bg-light bg-gradient">
+            <div class="bg-white m-4 rounded">
+                <h4 class="pt-4 px-4">User List</h4>
+                <div class="d-flex align-items-center  ">
+                    <div class="form-signin w-100 m-auto f-13">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                            </div>
+                           
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Select Role</option>
+                                    <option value="1">Role 1</option>
+                                    <option value="2">Role 2</option>
+                                    <option value="3">Role 3</option>
+                                </select>
+                            </div>
 
-        <div class="d-flex align-items-center py-4 ">
-            <div class="form-signin w-100 m-auto ">
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp">
+                            <div class="mb-3">
+                                <label class="form-label">Constituency</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Select Constituency</option>
+                                    <option value="1">Constituency 1</option>
+                                    <option value="2">Constituency 2</option>
+                                    <option value="3">Constituency 3</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Region Code</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12  px-4 f-13">
+                            <form>
+                                <div class="form-group form-inline">
+                                    Search: <input class="form-control ml-2" type="text" name="searchTerm"
+                                        [(ngModel)]="service.searchTerm" />
+                                    <span class="ml-3 my-3" *ngIf="service.loading$ | async">Loading...</span>
+                                </div>
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th sortable="name" scope="col" (sort)="onSort($event)">Code</th>
+                                            <th scope="col" sortable="area" (sort)="onSort($event)">Constituency</th>
+                                            <th scope="col" sortable="population" (sort)="onSort($event)">Region</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let country of countries$ | async">
+                                            <th scope="row">{{ country.id }}</th>
+                                            <td>
+                                                <ngb-highlight [result]="country.name"
+                                                    [term]="service.searchTerm"></ngb-highlight>
+                                            </td>
+                                            <td><ngb-highlight [result]="country.area | number"
+                                                    [term]="service.searchTerm"></ngb-highlight></td>
+                                            <td><ngb-highlight [result]="country.population | number"
+                                                    [term]="service.searchTerm"></ngb-highlight></td>
+                                            <td>
+                                                <button class="btn btn-primary f-13">Add new user</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="d-flex justify-content-between p-2">
+                                    <ngb-pagination [collectionSize]="(total$ | async) || 0" [(page)]="service.page"
+                                        [pageSize]="service.pageSize">
+                                    </ngb-pagination>
+                                    <select class="custom-select" style="width: auto" name="pageSize"
+                                        [(ngModel)]="service.pageSize">
+                                        <option [ngValue]="2">2 items per page</option>
+                                        <option [ngValue]="4">4 items per page</option>
+                                        <option [ngValue]="6">6 items per page</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Role</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Select Role</option>
-                        <option value="1">Role 1</option>
-                        <option value="2">Role 2</option>
-                        <option value="3">Role 3</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Constituency</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Select Constituency</option>
-                        <option value="1">Constituency 1</option>
-                        <option value="2">Constituency 2</option>
-                        <option value="3">Constituency 3</option>
-                    </select>
-                </div>
-                table
             </div>
         </div>
     </div>
