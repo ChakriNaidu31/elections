@@ -14,6 +14,10 @@ import { RegionListComponent } from './pages/region-list/region-list.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { DataUploadComponent } from './pages/data-upload/data-upload.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbdSortableHeader } from './services/sortable.directive';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,10 @@ import { DataUploadComponent } from './pages/data-upload/data-upload.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    NgbModule,HttpClientModule,
+    NgbdSortableHeader
   ],
   providers: [],
   bootstrap: [AppComponent]
