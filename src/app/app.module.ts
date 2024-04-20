@@ -18,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbdSortableHeader } from './services/sortable.directive';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './pages/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     RegionListComponent,
     UserListComponent,
     UserCreateComponent,
-    DataUploadComponent
+    DataUploadComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
