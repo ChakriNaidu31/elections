@@ -12,6 +12,8 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { DataUploadComponent } from './pages/data-upload/data-upload.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
+import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'userlist', component: UserListComponent},
   { path: 'usercreate', component: UserCreateComponent},
   { path: 'dataupload', component: DataUploadComponent},
+  { path: 'pollingstatement', component: PollingStatementComponent},
+  { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent},
 ];
 
 @NgModule({

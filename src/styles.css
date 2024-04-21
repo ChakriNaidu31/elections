@@ -33,3 +33,8 @@ select.custom-select {
     height: 38px;
     padding: 0px 11px;
 }
+input.form-control {
+    font-size: 13px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
