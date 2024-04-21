@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbdSortableHeader } from './services/sortable.directive';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './pages/footer/footer.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FooterComponent } from './pages/footer/footer.component';
     UserListComponent,
     UserCreateComponent,
     DataUploadComponent,
-    FooterComponent
+    FooterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
