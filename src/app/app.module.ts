@@ -20,6 +20,10 @@ import { NgbdSortableHeader } from './services/sortable.directive';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './pages/footer/footer.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
+import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatStepperModule }  from '@angular/material/stepper'; 
 
 @NgModule({
   declarations: [
@@ -36,14 +40,18 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     UserCreateComponent,
     DataUploadComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    PollingStatementComponent,
+    PollingStatementDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     NgbModule,HttpClientModule,
-    NgbdSortableHeader
+    NgbdSortableHeader,
+    BrowserAnimationsModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

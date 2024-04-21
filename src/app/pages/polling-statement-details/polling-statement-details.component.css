@@ -1,0 +1,31 @@
+.number {
+    background: black;
+    color: #fff;
+    padding: 4px 9px;
+    border-radius: 50%;
+    margin-right: 10px;
+    line-height: 38px;
+}
+label.form-label {
+    font-size: 13px;
+}
+button.btn {
+    font-size: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 14px;
+}
+::ng-deep .mat-horizontal-content-container.ng-tns-c3676410898-0 {
+    padding: 0 !important;
+}
+::ng-deep .mat-horizontal-stepper-header-container.ng-tns-c3676410898-0 {
+    display: none !important;
+}
+input.form-control {
+    width: 100% ;
+}
+@media (min-width: 768px) {
+    input.form-control {
+        width: 50%;
+    }
+  }
