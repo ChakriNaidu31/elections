@@ -2,7 +2,7 @@ label.form-label {
     font-size: 13px;
 }
 .number {
-    background: black;
+    background: #00000070;;
     color: #fff;
     padding: 4px 9px;
     border-radius: 50%;
@@ -10,7 +10,7 @@ label.form-label {
     line-height: 38px;
 }
 .numbers {
-    background: black;
+    background: #00000070;;
     color: #fff;
     padding: 4px 6px;
     border-radius: 50%;
