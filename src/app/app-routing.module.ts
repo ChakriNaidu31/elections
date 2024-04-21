@@ -11,10 +11,12 @@ import { RegionCreateComponent } from './pages/region-create/region-create.compo
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { DataUploadComponent } from './pages/data-upload/data-upload.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
   { path: 'signin', component: SigninComponent },
+  { path: 'dashboard', component: DashboardComponent},
   { path: 'navbar', component: NavbarComponent},
   { path: 'pollingstationlist', component: PollingstationListComponent},
   { path: 'pollingstationcreate', component: PollingstationCreateComponent},
