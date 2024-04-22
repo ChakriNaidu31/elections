@@ -1,10 +1,12 @@
 .h-100vh {
     height: 100vh !important;
 }
+
 .form-signin {
     max-width: 360px;
     padding: 1rem;
 }
+
 input[type=text],
 input[type=password] {
     font-size: 14px;
@@ -22,6 +24,7 @@ input[type=text] {
 input[type=password] {
     background-image: url('../../../assets/signin/password.png');
 }
+
 .error_msg {
     color: red;
     font-size: 14px;

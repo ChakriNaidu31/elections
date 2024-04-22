@@ -1,11 +1,11 @@
 .f-15 {
     font-size: 15px;
 }
+
 .profilepic .dropdown-toggle::after {
     content: none;
 }
+
 .dropdown-item {
     font-size: 13px;
 }
-
-

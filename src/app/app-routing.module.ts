@@ -16,8 +16,8 @@ import { PollingStatementComponent } from './pages/polling-statement/polling-sta
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: 'signin', component: SigninComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'login', component: SigninComponent },
   { path: 'dashboard', component: DashboardComponent},
   { path: 'navbar', component: NavbarComponent},
   { path: 'pollingstationlist', component: PollingstationListComponent},
