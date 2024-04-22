@@ -12,7 +12,7 @@
                         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
                             <div class="col-12">
                                 <div class="mb-3">
-                                  <label class="form-label"><span class="number">1</span> What is the number of Ballots issued to this polling station?</label>
+                                  <label class="form-label"><span class="number">1</span> What is the number of Ballots issued to this polling station?<span class="text-danger"> *</span></label>
                                   <input type="text" class="form-control" formControlName="ballotsIssued" [ngClass]="{ 'is-invalid': myForm.get('ballotsIssued')?.invalid && myForm.get('ballotsIssued')?.touched }">
                                   <div *ngIf="myForm.get('ballotsIssued')?.invalid && myForm.get('ballotsIssued')?.touched" class="text-danger f-13">This field is required.</div>
                                 </div>
@@ -22,7 +22,7 @@
 
                             <div class="col-12">
                                 <div class="mb-3">
-                                  <label class="form-label"><span class="number">2</span> What is the range of serial numbers of the ballot papers issued to the polling station? </label>
+                                  <label class="form-label"><span class="number">2</span> What is the range of serial numbers of the ballot papers issued to the polling station? <span class="text-danger"> *</span></label>
                                   <input type="text" class="form-control" formControlName="serialNumberRange" [ngClass]="{ 'is-invalid': myForm.get('serialNumberRange')?.invalid && myForm.get('serialNumberRange')?.touched }">
                                   <div *ngIf="myForm.get('serialNumberRange')?.invalid && myForm.get('serialNumberRange')?.touched" class="text-danger f-13">This field is required.</div>
                                 </div>
@@ -30,7 +30,7 @@
 
                               <div class="col-12">
                                 <div class="mb-3">
-                                  <label class="form-label"><span class="number">2a</span> Range of 100 booklets</label>
+                                  <label class="form-label"><span class="number">2a</span> Range of 100 booklets<span class="text-danger"> *</span></label>
                                    <input type="text" class="form-control" formControlName="rangeHundred" [ngClass]="{ 'is-invalid': myForm.get('rangeHundred')?.invalid && myForm.get('rangeHundred')?.touched }">
 
                                   <div *ngIf="myForm.get('rangeHundred')?.invalid && myForm.get('rangeHundred')?.touched" class="text-danger f-13">This field is required.</div>
@@ -39,20 +39,20 @@
 
                               <div class="col-12">
                                 <div class="mb-3">
-                                  <label class="form-label"><span class="number">2b</span> Range of 50 booklets</label>
+                                  <label class="form-label"><span class="number">2b</span> Range of 50 booklets<span class="text-danger"> *</span></label>
                                   <input type="text" class="form-control" formControlName="range50" [ngClass]="{ 'is-invalid': myForm.get('range50')?.invalid && myForm.get('range50')?.touched }">                                  <div *ngIf="myForm.get('range50')?.invalid && myForm.get('range50')?.touched" class="text-danger f-13">This field is required.</div>
                                 </div>
                               </div>
                               <div class="col-12">
                                 <div class="mb-3">
-                                  <label class="form-label"><span class="number">2c</span> Range of 25 booklets</label>
+                                  <label class="form-label"><span class="number">2c</span> Range of 25 booklets<span class="text-danger"> *</span></label>
                                   <input type="text" class="form-control" formControlName="range25" [ngClass]="{ 'is-invalid': myForm.get('range25')?.invalid && myForm.get('range25')?.touched }">                                  <div *ngIf="myForm.get('range25')?.invalid && myForm.get('range25')?.touched" class="text-danger f-13">This field is required.</div>
                                 </div>
                               </div>
 
                               <div class="col-12">
                                 <div class="mb-3">
-                                  <label class="form-label"><span class="number">2c</span> Range of 10 booklets</label>
+                                  <label class="form-label"><span class="number">2c</span> Range of 10 booklets<span class="text-danger"> *</span></label>
                                   <input type="text" class="form-control" formControlName="range10" [ngClass]="{ 'is-invalid': myForm.get('range10')?.invalid && myForm.get('range10')?.touched }">                                  <div *ngIf="myForm.get('range10')?.invalid && myForm.get('range10')?.touched" class="text-danger f-13">This field is required.</div>
                                 </div>
                               </div>
@@ -63,7 +63,7 @@
                           
                             <div class="col-12">
                               <div class="mb-3 float-end">
-                                <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary f-13" routerLink="/pollingstatementdetails">Submit</button>
+                                <button type="submit" [disabled]="myForm.invaslid" class="btn btn-primary f-13" routerLink="/pollingstatementdetails">Submit</button>
                                 <button type="button" class="btn btn-light f-13 ms-2" (click)="myForm.reset()">Cancel</button>
                               </div>
                             </div>
