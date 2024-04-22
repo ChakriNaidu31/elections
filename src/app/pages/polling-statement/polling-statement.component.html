@@ -5,57 +5,72 @@
             <div class="bg-white mx-2 my-4 rounded">
                 <div class="container p-3">
                     <div class="row">
-                        <div class="col-12 my-3">
-                            <h4>Polling Station List</h4>
+                        <div class="col-12 my-2">
+                            <h4>Polling Station Statement</h4>
                         </div>
 
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label   "><span class="number">1</span> What is the number of Ballots issued to this polling station?</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
-                            </div>
-                        </div>
+                        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                  <label class="form-label"><span class="number">1</span> What is the number of Ballots issued to this polling station?</label>
+                                  <input type="text" class="form-control" formControlName="ballotsIssued" [ngClass]="{ 'is-invalid': myForm.get('ballotsIssued')?.invalid && myForm.get('ballotsIssued')?.touched }">
+                                  <div *ngIf="myForm.get('ballotsIssued')?.invalid && myForm.get('ballotsIssued')?.touched" class="text-danger f-13">This field is required.</div>
+                                </div>
+                              </div>
+                              
 
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label   "><span class="number">2</span> What is the range of serial numbers of the ballot papers issued to the polling station?</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
-                            </div>
-                        </div>
 
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label   "><span class="numbers">2a</span> Range of 100 booklets </label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label   ">⁠<span class="numbers">2b</span> Range of 50 booklets</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label   ">⁠<span class="numbers">2c</span> Range of 25 booklets</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
-                            </div>
-                        </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                  <label class="form-label"><span class="number">2</span> What is the range of serial numbers of the ballot papers issued to the polling station? </label>
+                                  <input type="text" class="form-control" formControlName="serialNumberRange" [ngClass]="{ 'is-invalid': myForm.get('serialNumberRange')?.invalid && myForm.get('serialNumberRange')?.touched }">
+                                  <div *ngIf="myForm.get('serialNumberRange')?.invalid && myForm.get('serialNumberRange')?.touched" class="text-danger f-13">This field is required.</div>
+                                </div>
+                              </div>
 
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label   "><span class="numbers">2d</span> Range of 10 booklets </label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
-                            </div>
-                        </div>
+                              <div class="col-12">
+                                <div class="mb-3">
+                                  <label class="form-label"><span class="number">2a</span> Range of 100 booklets</label>
+                                   <input type="text" class="form-control" formControlName="rangeHundred" [ngClass]="{ 'is-invalid': myForm.get('rangeHundred')?.invalid && myForm.get('rangeHundred')?.touched }">
 
-                        <div class="col-12">
-                            <div class="mb-3 float-end">
-                                <button class="btn btn-primary f-13 " routerLink="/pollingstatementdetails">Submit</button>
-                                <button class="btn btn-light f-13 ms-2">Cancel</button>
+                                  <div *ngIf="myForm.get('rangeHundred')?.invalid && myForm.get('rangeHundred')?.touched" class="text-danger f-13">This field is required.</div>
+                                </div>
+                              </div>
+
+                              <div class="col-12">
+                                <div class="mb-3">
+                                  <label class="form-label"><span class="number">2b</span> Range of 50 booklets</label>
+                                  <input type="text" class="form-control" formControlName="range50" [ngClass]="{ 'is-invalid': myForm.get('range50')?.invalid && myForm.get('range50')?.touched }">                                  <div *ngIf="myForm.get('range50')?.invalid && myForm.get('range50')?.touched" class="text-danger f-13">This field is required.</div>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <div class="mb-3">
+                                  <label class="form-label"><span class="number">2c</span> Range of 25 booklets</label>
+                                  <input type="text" class="form-control" formControlName="range25" [ngClass]="{ 'is-invalid': myForm.get('range25')?.invalid && myForm.get('range25')?.touched }">                                  <div *ngIf="myForm.get('range25')?.invalid && myForm.get('range25')?.touched" class="text-danger f-13">This field is required.</div>
+                                </div>
+                              </div>
+
+                              <div class="col-12">
+                                <div class="mb-3">
+                                  <label class="form-label"><span class="number">2c</span> Range of 10 booklets</label>
+                                  <input type="text" class="form-control" formControlName="range10" [ngClass]="{ 'is-invalid': myForm.get('range10')?.invalid && myForm.get('range10')?.touched }">                                  <div *ngIf="myForm.get('range10')?.invalid && myForm.get('range10')?.touched" class="text-danger f-13">This field is required.</div>
+                                </div>
+                              </div>
+                          
+                           
+                          
+                            <!-- Other form fields -->
+                          
+                            <div class="col-12">
+                              <div class="mb-3 float-end">
+                                <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary f-13" routerLink="/pollingstatementdetails">Submit</button>
+                                <button type="button" class="btn btn-light f-13 ms-2" (click)="myForm.reset()">Cancel</button>
+                              </div>
                             </div>
-                        </div>
-                        
+                          </form>
+  
+
+                       
                       
                     </div>
                 </div>
@@ -64,4 +79,4 @@
     </div>
 </div>
 
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>
