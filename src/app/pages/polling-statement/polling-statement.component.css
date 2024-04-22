@@ -25,3 +25,8 @@ input.form-control {
         width: 50%;
     }
   }
+
+  .is-invalid {
+    border-color: red;
+  }
+

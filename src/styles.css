@@ -23,10 +23,18 @@ html #footer {
     bottom: 0;
     width: 100%;
     position: absolute;
-    height: 60px;
+}
+html #footer {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
 }
 html #footer .footer-block {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 select.custom-select {
     font-size: 13px;
