@@ -14,6 +14,7 @@ import { DataUploadComponent } from './pages/data-upload/data-upload.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'dataupload', component: DataUploadComponent},
   { path: 'pollingstatement', component: PollingStatementComponent},
   { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent},
+  { path: '404pagenotfound', component: PagenotfoundComponent},
 ];
 
 @NgModule({

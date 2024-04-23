@@ -23,7 +23,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatStepperModule }  from '@angular/material/stepper'; 
+import { MatStepperModule }  from '@angular/material/stepper';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component'; 
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatStepperModule }  from '@angular/material/stepper';
     FooterComponent,
     DashboardComponent,
     PollingStatementComponent,
-    PollingStatementDetailsComponent
+    PollingStatementDetailsComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
