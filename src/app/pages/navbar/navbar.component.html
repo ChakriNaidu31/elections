@@ -1,21 +1,20 @@
 <div class="container-fluid py-3 border-bottom bg-white">
   <div class="row">
     <div class="col-9">
-      <img src="../../../assets/signin/logo.png" alt="" width="32" height="32"  alt="election commission logo">
+      <img src="../../../assets/signin/logo.png" alt="" width="32" height="32" alt="election commission logo">
       <span class=" f-1 ms-2 fw-bold">Election commision of india</span>
-
-      
     </div>
+
     <div class="col-3 text-end">
       <div class="dropdown">
-        
-          <img src="../../../assets/dashboard/dummy_profilepic.png" alt="mdo" width="36" height="36"
+        <img src="../../../assets/dashboard/dummy_profilepic.png" alt="mdo" width="36" height="36"
           class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        
+
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item f-14" href="#">Sign out</a></li>
+          <li><a class="dropdown-item f-14" href="#" (click)="logoutUser()">Sign out</a></li>
         </ul>
       </div>
+
     </div>
   </div>
 </div>
@@ -26,6 +25,7 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -36,18 +36,19 @@
                 Administration
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" routerLink="/pollingstationlist">Polling Station List</a></li>
-                <li><a class="dropdown-item" routerLink="/pollingstationcreate">Polling Station Create</a></li>
-                <li><a class="dropdown-item" routerLink="/constituencylist">Constituency List</a></li>
-                <li><a class="dropdown-item" routerLink="/constituencycreate">Constituency Create</a></li>
-                <li><a class="dropdown-item" routerLink="/regionlist">Region List</a></li>
-                <li><a class="dropdown-item" routerLink="/regioncreate">Region Create</a></li>
-                <li><a class="dropdown-item" routerLink="/userlist">User List</a></li>
-                <li><a class="dropdown-item" routerLink="/usercreate">User Create</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/station">Polling Station List</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/station/create">Polling Station Create</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/constituency">Constituency List</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/constituency/create">Constituency Create</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/region">Region List</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/region/create">Region Create</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/user">User List</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/user/create">User Create</a></li>
                 <li><a class="dropdown-item" routerLink="/dataupload">Upload</a></li>
                 <li><a class="dropdown-item" href="#">Election</a></li>
               </ul>
             </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle f-13 fw-bold" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -55,7 +56,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                <li><a class="dropdown-item" routerLink="/pollingstatement">Polling Statement</a></li>
+                <li><a class="dropdown-item" routerLink="/pollingstatement">Statement of Poll</a></li>
                 <li><a class="dropdown-item" href="#">Map</a></li>
               </ul>
             </li>
@@ -65,6 +66,3 @@
     </div>
   </div>
 </nav>
-
-
-

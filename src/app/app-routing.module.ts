@@ -17,21 +17,42 @@ import { PollingStatementDetailsComponent } from './pages/polling-statement-deta
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: 'signin', component: SigninComponent },
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'navbar', component: NavbarComponent},
-  { path: 'pollingstationlist', component: PollingstationListComponent},
-  { path: 'pollingstationcreate', component: PollingstationCreateComponent},
-  { path: 'constituencycreate', component: ConstituencyCreateComponent},
-  { path: 'constituencylist', component: ConstituencyListComponent},
-  { path: 'regionlist', component: RegionListComponent},
-  { path: 'regioncreate', component: RegionCreateComponent},
-  { path: 'userlist', component: UserListComponent},
-  { path: 'usercreate', component: UserCreateComponent},
-  { path: 'dataupload', component: DataUploadComponent},
-  { path: 'pollingstatement', component: PollingStatementComponent},
-  { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent},
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'login', component: SigninComponent },
+  {
+    path: 'admin', children: [
+      {
+        path: 'station', children: [
+          { path: '', component: PollingstationListComponent },
+          { path: 'create', component: PollingstationCreateComponent },
+        ],
+      },
+      {
+        path: 'constituency', children: [
+          { path: '', component: ConstituencyListComponent },
+          { path: 'create', component: ConstituencyCreateComponent },
+        ],
+      },
+      {
+        path:'region', children: [
+          { path: '', component: RegionListComponent },
+          { path: 'create', component: RegionCreateComponent },
+        ],
+      },
+      {
+        path: 'user', children: [
+          { path: '', component: UserListComponent },
+          { path: 'create', component: UserCreateComponent },
+        ],
+      }
+    ]
+  },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'navbar', component: NavbarComponent },
+  { path: 'dataupload', component: DataUploadComponent },
+  { path: 'pollingstatement', component: PollingStatementComponent },
+  { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent },
+  // { path: '*', component: NotFoundComponent },
   { path: '404pagenotfound', component: PagenotfoundComponent},
 ];
 

@@ -15,7 +15,7 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { DataUploadComponent } from './pages/data-upload/data-upload.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbdSortableHeader } from './services/sortable.directive';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './pages/footer/footer.component';
@@ -24,6 +24,8 @@ import { PollingStatementComponent } from './pages/polling-statement/polling-sta
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule }  from '@angular/material/stepper';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { BallotAccessService } from './services/ballot-access.service';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component'; 
 
 @NgModule({
@@ -50,13 +52,17 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule,HttpClientModule,
+    NgbModule,
+    HttpClientModule,
     NgbdSortableHeader,
     BrowserAnimationsModule,
     MatStepperModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    BallotAccessService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
