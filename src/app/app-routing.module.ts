@@ -34,7 +34,13 @@ const routes: Routes = [
         ],
       },
       {
-        path:'region', children: [
+        path: 'ward', children: [
+          { path: '', component: ConstituencyListComponent },
+          { path: 'create', component: ConstituencyCreateComponent },
+        ],
+      },
+      {
+        path: 'region', children: [
           { path: '', component: RegionListComponent },
           { path: 'create', component: RegionCreateComponent },
         ],
@@ -52,8 +58,7 @@ const routes: Routes = [
   { path: 'dataupload', component: DataUploadComponent },
   { path: 'pollingstatement', component: PollingStatementComponent },
   { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent },
-  // { path: '*', component: NotFoundComponent },
-  { path: '404pagenotfound', component: PagenotfoundComponent},
+  { path: '*', component: PagenotfoundComponent }
 ];
 
 @NgModule({

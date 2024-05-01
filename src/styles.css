@@ -2,28 +2,35 @@
 body {
     font-family: "Poppins", sans-serif !important;
 }
+
 .form-signin {
     max-width: 360px;
     padding: 1rem;
 }
+
 .f-13 {
     font-size: 13px;
 }
+
 select.form-select {
     font-size: 13px;
 }
+
 html {
     min-height: 100%;
     position: relative;
 }
+
 html body {
     margin-bottom: 60px;
 }
+
 html #footer {
     bottom: 0;
     width: 100%;
     position: absolute;
 }
+
 html #footer {
     bottom: 0;
     width: 100%;
@@ -33,16 +40,27 @@ html #footer {
     width: 100%;
     background-color: #343a40;
 }
+
 html #footer .footer-block {
     margin: 15px 0;
 }
+
 select.custom-select {
     font-size: 13px;
     height: 38px;
     padding: 0px 11px;
 }
+
 input.form-control {
     font-size: 13px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

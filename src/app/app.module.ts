@@ -23,10 +23,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatStepperModule }  from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { BallotAccessService } from './services/ballot-access.service';
-import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component'; 
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
