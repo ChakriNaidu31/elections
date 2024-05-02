@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
-                                <label class="form-label">constituency</label>
+                                <label class="form-label">Constituency</label>
                                 <select class="form-select" (change)="filterWardByConstituency($event)">
                                     <option selected value="">Select constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}

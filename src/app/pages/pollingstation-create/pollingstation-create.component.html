@@ -6,43 +6,50 @@
                 <h5 class="pt-4 px-4">Polling Station Create</h5>
                 <div class="d-flex align-items-center  ">
                     <div class="form-signin w-100 m-auto f-13">
-                        <form>
+                        <form [formGroup]="stationForm" (submit)="createStation()">
                             <div class="mb-3">
-                                <label class="form-label">Station Name</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <label class="form-label">Station Name<span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="name">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Station Code</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <label class="form-label">Station Code<span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="code">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Region</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <label class="form-label">Region<span style="color: red">*</span></label>
+                                <select class="form-select" formControlName="region"
+                                    (change)="loadConstituency($event)">
                                     <option selected>Select Region</option>
-                                    <option value="1">Region 1</option>
-                                    <option value="2">Region 2</option>
-                                    <option value="3">Region 3</option>
+                                    <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Constituency</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <label class="form-label">Constituency<span style="color: red">*</span></label>
+                                <select class="form-select" formControlName="constituency" (change)="loadWard($event)">
                                     <option selected>Select Constituency</option>
-                                    <option value="1">Constituency 1</option>
-                                    <option value="2">Constituency 2</option>
-                                    <option value="3">Constituency 3</option>
+                                    <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
+                                    </option>
                                 </select>
                             </div>
-        
+                            <div class="mb-3">
+                                <label class="form-label">Ward<span style="color: red">*</span></label>
+                                <select class="form-select" formControlName="ward">
+                                    <option selected>Select Ward</option>
+                                    <option *ngFor="let con of wardList" value="{{con._id}}">{{con.name}}
+                                    </option>
+                                </select>
+                            </div>
+
                             <div class="mb-3 float-end">
-                                <button class="btn btn-primary f-13 ">Submit</button>
-                                <button class="btn btn-light f-13 ms-2">Cancel</button>
+                                <button class="btn btn-primary f-13 " [disabled]="!stationForm.valid">Submit</button>
+                                <button class="btn btn-light f-13 ms-2" (click)="redirectToList()">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-               
+
             </div>
         </div>
     </div>

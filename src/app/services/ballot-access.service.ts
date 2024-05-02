@@ -97,6 +97,23 @@ export class BallotAccessService {
     return this.http.delete(this.apiUrl + '/ward/' + id, { headers: this.getHttpHeaders() });
   }
 
+  // Polling station APIs
+  getPollingStationList() {
+    return this.http.get(this.apiUrl + '/station', { headers: this.getHttpHeaders() });
+  }
+  getPollingStationById(id: string) {
+    return this.http.get(this.apiUrl + '/station/' + id, { headers: this.getHttpHeaders() });
+  }
+  createPollingStation(pollingStation: any) {
+    return this.http.post(this.apiUrl + '/station', pollingStation, { headers: this.getHttpHeaders() });
+  }
+  updatePollingStation(id: string, pollingStation: any) {
+    return this.http.patch(this.apiUrl + '/station/' + id, pollingStation, { headers: this.getHttpHeaders() });
+  }
+  deletePollingStation(id: string) {
+    return this.http.delete(this.apiUrl + '/station/' + id, { headers: this.getHttpHeaders() });
+  }
+
   /******************* METHODS END ************************/
 
 

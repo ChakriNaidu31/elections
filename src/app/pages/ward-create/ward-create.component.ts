@@ -11,7 +11,7 @@ import { BallotAccessService } from 'src/app/services/ballot-access.service';
   templateUrl: './ward-create.component.html',
   styleUrls: ['./ward-create.component.css']
 })
-export class WardCreateComponent implements OnInit{
+export class WardCreateComponent implements OnInit {
 
   wardForm: FormGroup = this._fb.group({
     name: ['', Validators.required],
@@ -55,6 +55,7 @@ export class WardCreateComponent implements OnInit{
 
   loadConstituency(event: Event): void {
     const regionId: string = (event.target as HTMLSelectElement).value;
+    this.wardForm.controls['constituency'].setValue('');
     this._service.getConstituencyList()
       .pipe(catchError((error) => {
         this._service.showError(error.error?.error?.message);
