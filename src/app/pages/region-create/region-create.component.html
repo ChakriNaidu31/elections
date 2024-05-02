@@ -3,22 +3,24 @@
     <div class="row">
         <div class="col-12 bg-light bg-gradient">
             <div class="bg-white m-4 rounded">
-                <h5 class="pt-4 px-4">Region Create</h5>
+                <h5 class="pt-4 px-4">{{pageTitle}}</h5>
                 <div class="d-flex align-items-center  ">
                     <div class="form-signin w-100 m-auto f-13">
-                        <form>
+                        <form [formGroup]="regionForm" (submit)="createRegion()">
                             <div class="mb-3">
-                                <label class="form-label">Region Name</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <label for="name" class="form-label">Region Name<span
+                                        style="color: red">*</span></label>
+                                <input type="text" id="name" class="form-control" formControlName="name">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Region Code</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <label for="code" class="form-label">Region Code</label>
+                                <input type="text" id="code" class="form-control" formControlName="code">
                             </div>
 
                             <div class="mb-3 float-end">
-                                <button class="btn btn-primary f-13 ">Submit</button>
-                                <button class="btn btn-light f-13 ms-2">Cancel</button>
+                                <button type="submit" class="btn btn-primary f-13"
+                                    [disabled]="!regionForm.valid">Submit</button>
+                                <button class="btn btn-light f-13 ms-2" (click)="redirectToList()">Cancel</button>
                             </div>
                         </form>
                     </div>

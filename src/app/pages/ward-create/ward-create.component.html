@@ -6,30 +6,42 @@
                 <h5 class="pt-4 px-4">{{pageTitle}}</h5>
                 <div class="d-flex align-items-center  ">
                     <div class="form-signin w-100 m-auto f-13">
-                        <form [formGroup]="constituencyForm" (submit)="createConstituency()">
+                        <form [formGroup]="wardForm" (submit)="createWard()">
                             <div class="mb-3">
-                                <label class="form-label">Constituency Name<span
+                                <label class="form-label">Ward Name<span
                                     style="color: red">*</span></label>
                                 <input type="text" class="form-control" formControlName="name">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Constituency Code<span
-                                    style="color: red">*</span></label>
+                                <label class="form-label">Ward Code</label>
                                 <input type="text" class="form-control" formControlName="code">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Ward Location</label>
+                                <input type="text" class="form-control" formControlName="location">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Region<span
                                     style="color: red">*</span></label>
-                                <select class="form-select" formControlName="region">
+                                <select class="form-select" formControlName="region" (change)="loadConstituency($event)">
                                     <option selected>Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Constituency<span
+                                    style="color: red">*</span></label>
+                                <select class="form-select" formControlName="constituency">
+                                    <option selected>Select Constituency</option>
+                                    <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
                             </div>
 
                             <div class="mb-3 float-end">
                                 <button type="submit" class="btn btn-primary f-13"
-                                    [disabled]="!constituencyForm.valid">Submit</button>
+                                    [disabled]="!wardForm.valid">Submit</button>
                                 <button class="btn btn-light f-13 ms-2" (click)="redirectToList()">Cancel</button>
                             </div>
                         </form>

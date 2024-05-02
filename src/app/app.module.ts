@@ -27,6 +27,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { BallotAccessService } from './services/ballot-access.service';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { WardListComponent } from './pages/ward-list/ward-list.component';
+import { WardCreateComponent } from './pages/ward-create/ward-create.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
     DashboardComponent,
     PollingStatementComponent,
     PollingStatementDetailsComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    WardListComponent,
+    WardCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,12 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
     NgbdSortableHeader,
     BrowserAnimationsModule,
     MatStepperModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      maxOpened: 3,
+      autoDismiss: true,
+      preventDuplicates: true
+    })
   ],
   providers: [
     BallotAccessService,

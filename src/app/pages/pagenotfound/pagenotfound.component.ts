@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class PagenotfoundComponent {
 
+  constructor(private _location: Location) { }
+
+  clickBack() {
+    this._location.back();
+  }
 }

@@ -6,49 +6,62 @@
                 <div class="container pt-4 px-4">
                     <div class="row">
                         <div class="col-lg-9 col-sm-12 col-md-9 my-3">
-                            <h4>Constituency List</h4>
+                            <h4>Ward List</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
-                            <button class="btn btn-primary f-13" (click)="addNewConstituency()">Add new
-                                constituency</button>
+                            <button class="btn btn-primary f-13" (click)="addNewWard()">Add new
+                                ward</button>
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Region</label>
-                                <select class="form-select" (change)="filterConstituencyByRegion($event)">
+                                <select class="form-select" (change)="filterWardByRegion($event)">
                                     <option selected value="">Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12 col-md-12"></div>
+                        <div class="col-lg-6 col-sm-12 col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">constituency</label>
+                                <select class="form-select" (change)="filterWardByConstituency($event)">
+                                    <option selected value="">Select constituency</option>
+                                    <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="width: 30%;" scope="col">Name</th>
+                                        <th style="width: 20%;" scope="col">Name</th>
                                         <th style="width: 20%;" scope="col">Code</th>
-                                        <th style="width: 30%;" scope="col">Region</th>
+                                        <th style="width: 20%;" scope="col">Region</th>
+                                        <th style="width: 20%;" scope="col">Constituency</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let constituency of constituencyList">
+                                    <tr *ngFor="let ward of wardList">
                                         <td>
-                                            {{constituency.name}}
+                                            {{ward.name}}
                                         </td>
                                         <td>
-                                            {{constituency.code}}
+                                            {{ward.code}}
                                         </td>
                                         <td>
-                                            {{constituency.region.name}}
+                                            {{ward.region.name}}
                                         </td>
                                         <td>
-                                            <span (click)="editConstituency(constituency)"><img
+                                            {{ward.constituency.name}}
+                                        </td>
+                                        <td>
+                                            <span (click)="editWard(ward)"><img
                                                     src="../../../assets/dashboard/editicon.png" class="me-2"
                                                     width="16px" height="16px" alt="edit icon">Edit</span>
-                                            <span (click)="deleteConstituency(constituency)" class="ms-4"><img
+                                            <span (click)="deleteWard(ward)" class="ms-4"><img
                                                     src="../../../assets/dashboard/deleteicon.png" class="me-2"
                                                     width="16px" height="16px" alt="Delete icon">Delete</span>
                                         </td>

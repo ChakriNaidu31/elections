@@ -1,40 +1,70 @@
-import {Component, QueryList, ViewChildren} from '@angular/core';
-import {DecimalPipe} from '@angular/common';
-import {Observable} from 'rxjs';
-import {VotersService} from '../../services/voters.service';
-import {Country} from '../../services/country';
-import {NgbdSortableHeader, SortEvent} from '../../services/sortable.directive';
+import { Component, OnInit } from '@angular/core';
+import { catchError } from 'rxjs';
+import { BallotAccessService } from 'src/app/services/ballot-access.service';
+import { Region } from 'src/app/models/region';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-region-list',
   templateUrl: './region-list.component.html',
-  styleUrls: ['./region-list.component.css'],
-  providers: [VotersService, DecimalPipe]
+  styleUrls: ['./region-list.component.css']
 })
 
 
-export class RegionListComponent {
-  countries$: Observable<Country[]>;
-  total$: Observable<number>;
+export class RegionListComponent implements OnInit {
 
-  @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
+  regionList!: Region[];
+  regionListFull!: Region[];
+  pageSize: number = 5;
+  totalItems: number = 0;
+  pageNumber: number = 1;
 
-  constructor(public service: VotersService) {
-    this.countries$ = service.countries$;
-    this.total$ = service.total$;
+  constructor(private _service: BallotAccessService, private _router: Router) {
   }
 
-  onSort({column, direction}: SortEvent) {
-
-    // resetting other headers
-    this.headers.forEach(header => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+  ngOnInit(): void {
+    this.fetchRegionList();
   }
+
+  fetchRegionList(): void {
+    this._service.getRegionList()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.regionListFull = response.data?.regions;
+        this.totalItems = response.meta?.totalItems;
+        this.getData();
+      });
+  }
+
+  getData() {
+    this.regionList = this.regionListFull
+      .slice((this.pageNumber - 1) * this.pageSize, (this.pageNumber - 1) * this.pageSize + this.pageSize);
+  }
+
+  addNewRegion() {
+    this._router.navigateByUrl('/admin/region/create');
+  }
+
+  editRegion(region: Region) {
+    this._router.navigateByUrl('/admin/region/create/' + region._id);
+  }
+
+  deleteRegion(region: Region) {
+    this._service.deleteRegion(region._id)
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        if (response.success) {
+          this._service.showSuccess('Success', 'Region deleted successfully');
+          this.fetchRegionList();
+        }
+      });
+  }
+
 }

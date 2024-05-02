@@ -6,36 +6,32 @@
                 <div class="container pt-4 px-4">
                     <div class="row">
                         <div class="col-lg-9 col-sm-12 col-md-9 my-3">
-                            <h4>Region List</h4>
+                            <h4>Regions List</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
-                            <button class="btn btn-primary f-13">Add new region</button>
+                            <button class="btn btn-primary f-13" (click)="addNewRegion()">Add new region</button>
                         </div>
                         <div class="col-12">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Name</th>
-                                        <th sortable="name" scope="col" (sort)="onSort($event)">Code</th>
-                                        <th scope="col" sortable="population" (sort)="onSort($event)">Region</th>
+                                        <th style="width: 35%;" scope="col">Name</th>
+                                        <th style="width: 35%;" scope="col">Code</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let country of countries$ | async">
-                                        <th scope="row">{{ country.id }}</th>
+                                    <tr *ngFor="let region of regionList">
                                         <td>
-                                            <ngb-highlight [result]="country.name"
-                                                [term]="service.searchTerm"></ngb-highlight>
+                                            {{region.name}}
                                         </td>
-                                        <td><ngb-highlight [result]="country.area | number"
-                                                [term]="service.searchTerm"></ngb-highlight></td>
-                                        <td><ngb-highlight [result]="country.population | number"
-                                                [term]="service.searchTerm"></ngb-highlight></td>
                                         <td>
-                                            <span><img src="../../../assets/dashboard/editicon.png" class="me-2"
+                                            {{region.code}}
+                                        </td>
+                                        <td>
+                                            <span (click)="editRegion(region)"><img src="../../../assets/dashboard/editicon.png" class="me-2"
                                                     width="16px" height="16px" alt="edit icon">Edit</span>
-                                            <span class="ms-4"><img src="../../../assets/dashboard/deleteicon.png"
+                                            <span (click)="deleteRegion(region)" class="ms-4"><img src="../../../assets/dashboard/deleteicon.png"
                                                     class="me-2" width="16px" height="16px"
                                                     alt="Delete icon">Delete</span>
                                         </td>
@@ -45,13 +41,13 @@
 
                             <div class="d-flex justify-content-between p-2">
                                 <select class="custom-select" style="width: auto" name="pageSize"
-                                    [(ngModel)]="service.pageSize">
-                                    <option [ngValue]="2">2 items per page</option>
-                                    <option [ngValue]="4">4 items per page</option>
-                                    <option [ngValue]="6">6 items per page</option>
+                                    [(ngModel)]="pageSize" (ngModelChange)="getData()">
+                                    <option [ngValue]="5">5 items per page</option>
+                                    <option [ngValue]="10">10 items per page</option>
+                                    <option [ngValue]="25">25 items per page</option>
                                 </select>
-                                <ngb-pagination [collectionSize]="(total$ | async) || 0" [(page)]="service.page"
-                                    [pageSize]="service.pageSize">
+                                <ngb-pagination [collectionSize]="totalItems || 0" [(page)]="pageNumber"
+                                    [pageSize]="pageSize" (pageChange)="getData()">
                                 </ngb-pagination>
                             </div>
                         </div>

@@ -1,14 +1,15 @@
 <div class="d-flex align-items-center py-4 bg-body-tertiary h-100vh">
     <div class="form-signin w-100 m-auto text-center">
-        <form (submit)="submitUserLogin()">
+        <form [formGroup]="myForm" (submit)="submitUserLogin()">
             <img class="mb-4" src="../../../assets/signin/logo.png" alt="" width="60" height="57"
                 alt="election commission logo">
             <h1 class="h3 fw-normal">Login to your account</h1>
-            <p class="error_msg">Invalid login credentials</p>
-            <input type="text" class="form-control" id="email" aria-describedby="email" placeholder="E-mail Address">
-            <input type="password" class="form-control" id="password" aria-describedby="password"
-                placeholder="Password">
-            <button class="btn btn-primary w-100 py-2 mt-3" type="submit">Login</button>
+            <p class="error_msg" *ngIf="errorMessage">{{errorMessage}}</p>
+            <input type="text" formControlName="username" class="form-control" id="username" aria-describedby="username"
+                placeholder="E-mail Address">
+            <input type="password" formControlName="password" class="form-control" id="password"
+                aria-describedby="password" placeholder="Password">
+            <button class="btn btn-primary w-100 py-2 mt-3" type="submit" [disabled]="!myForm.valid">Login</button>
         </form>
     </div>
 </div>

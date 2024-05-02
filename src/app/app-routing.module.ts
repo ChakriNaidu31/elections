@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './pages/signin/signin.component';
-import { NavbarComponent } from './pages/navbar/navbar.component';
 import { PollingstationListComponent } from './pages/pollingstation-list/pollingstation-list.component';
 import { PollingstationCreateComponent } from './pages/pollingstation-create/pollingstation-create.component';
 import { ConstituencyCreateComponent } from './pages/constituency-create/constituency-create.component';
@@ -15,6 +14,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { authGuard } from './services/auth.guard';
+import { WardListComponent } from './pages/ward-list/ward-list.component';
+import { WardCreateComponent } from './pages/ward-create/ward-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -25,24 +27,28 @@ const routes: Routes = [
         path: 'station', children: [
           { path: '', component: PollingstationListComponent },
           { path: 'create', component: PollingstationCreateComponent },
+          { path: 'create/:id', component: PollingstationCreateComponent },
         ],
       },
       {
         path: 'constituency', children: [
           { path: '', component: ConstituencyListComponent },
           { path: 'create', component: ConstituencyCreateComponent },
+          { path: 'create/:id', component: ConstituencyCreateComponent },
         ],
       },
       {
         path: 'ward', children: [
-          { path: '', component: ConstituencyListComponent },
-          { path: 'create', component: ConstituencyCreateComponent },
+          { path: '', component: WardListComponent },
+          { path: 'create', component: WardCreateComponent },
+          { path: 'create/:id', component: WardCreateComponent },
         ],
       },
       {
         path: 'region', children: [
           { path: '', component: RegionListComponent },
           { path: 'create', component: RegionCreateComponent },
+          { path: 'create/:id', component: RegionCreateComponent },
         ],
       },
       {
@@ -51,14 +57,15 @@ const routes: Routes = [
           { path: 'create', component: UserCreateComponent },
         ],
       }
-    ]
+    ],
+    canActivate: [authGuard],
+    canActivateChild: [authGuard]
   },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'navbar', component: NavbarComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'dataupload', component: DataUploadComponent },
   { path: 'pollingstatement', component: PollingStatementComponent },
   { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent },
-  { path: '*', component: PagenotfoundComponent }
+  { path: '**', component: PagenotfoundComponent }
 ];
 
 @NgModule({

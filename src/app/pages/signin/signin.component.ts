@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
+import { LoginResponse } from 'src/app/models/login-response';
+import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
 @Component({
   selector: 'app-signin',
@@ -7,13 +12,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SigninComponent implements OnInit {
 
-  constructor() { }
+  myForm: FormGroup = this._fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+  errorMessage: string = '';
+
+  constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _router: Router) { }
 
   ngOnInit() {
   }
 
   submitUserLogin() {
-    
+    this._service.loginUser(this.myForm.controls['username'].value, this.myForm.controls['password'].value)
+      .pipe(catchError((error) => {
+        this.errorMessage = error.error?.error?.message;
+        return '';
+      }))
+      .subscribe((data: any) => {
+        const loginResponse: LoginResponse = data.data;
+        this._service.setSessionToken(loginResponse.userToken);
+        this._router.navigateByUrl('/dashboard');
+      });
   }
 
 }
