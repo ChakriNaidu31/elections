@@ -114,6 +114,17 @@ export class BallotAccessService {
     return this.http.delete(this.apiUrl + '/station/' + id, { headers: this.getHttpHeaders() });
   }
 
+  // User APIs
+  getUserList() {
+    return this.http.get(this.apiUrl + '/user', { headers: this.getHttpHeaders() });
+  }
+  getUserById(id: string) {
+    return this.http.get(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() });
+  }
+  createUser(user: any) {
+    return this.http.post(this.apiUrl + '/user', user, { headers: this.getHttpHeaders() });
+  }
+
   /******************* METHODS END ************************/
 
 

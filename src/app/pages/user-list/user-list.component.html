@@ -11,95 +11,92 @@
                             <h4>User List</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
-                            <button class="btn btn-primary f-13">Add new user</button>
+                            <button class="btn btn-primary f-13" style="margin-right: 10px;" (click)="addNewUser()">Add new user</button>
+                            <button class="btn btn-primary f-13" (click)="addNewAdmin()">Add new admin</button>
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" (input)="filterByName($event)">
                             </div>
-                          </div>
-                          <div class="col-lg-6 col-sm-12 col-md-12">
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Role</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select Role</option>
-                                    <option value="1">Role 1</option>
-                                    <option value="2">Role 2</option>
-                                    <option value="3">Role 3</option>
+                                <select class="form-select" (change)="filterByRole($event)">
+                                    <option selected value="">Select Role</option>
+                                    <option *ngFor="let role of roleList" value="{{role.key}}">{{role.value}}
+                                    </option>
                                 </select>
                             </div>
-                          </div>
-                          <div class="col-lg-6 col-sm-12 col-md-12">
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Constituency</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select Constituency</option>
-                                    <option value="1">Constituency 1</option>
-                                    <option value="2">Constituency 2</option>
-                                    <option value="3">Constituency 3</option>
+                                <select class="form-select" (change)="filterByConstituency($event)">
+                                    <option selected value="">Select constituency</option>
+                                    <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
+                                    </option>
                                 </select>
                             </div>
-                          </div>
-                          <div class="col-lg-6 col-sm-12 col-md-12">
-                            <div class="form-group form-inline">
-                                <label class="form-label invisible">Region</label>
-                                <input class="form-control ml-2" type="text" name="searchTerm"
-                                    placeholder="Search" [(ngModel)]="service.searchTerm" />
-                                <span class="ml-3 my-3"
-                                    *ngIf="service.loading$ | async">Loading...</span>
-                            </div>
-                          </div>
-                          <div class="col-12">
+                        </div>
+                        <div class="col-12">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Name</th>
-                                        <th sortable="name" scope="col" (sort)="onSort($event)">Code</th>
-                                        <th scope="col" sortable="area" (sort)="onSort($event)">Constituency
-                                        </th>
-                                        <th scope="col" sortable="population" (sort)="onSort($event)">Region
-                                        </th>
+                                        <th scope="col">ID</th>
+                                        <th style="width: 20%;" scope="col">Name</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Email</th>
+                                        <th style="width: 18%;" scope="col">Last Logged-in</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let country of countries$ | async">
-                                        <th scope="row">{{ country.id }}</th>
+                                    <tr *ngFor="let user of userList">
                                         <td>
-                                            <ngb-highlight [result]="country.name"
-                                                [term]="service.searchTerm"></ngb-highlight>
+                                            {{user.userId.substring(0, 4)}} ... {{user.userId.substring(user.userId.length-4, user.userId.length)}}
                                         </td>
-                                        <td><ngb-highlight [result]="country.area | number"
-                                                [term]="service.searchTerm"></ngb-highlight></td>
-                                        <td><ngb-highlight [result]="country.population | number"
-                                                [term]="service.searchTerm"></ngb-highlight></td>
                                         <td>
-                                            <span><img src="../../../assets/dashboard/editicon.png" class="me-2" width="16px" height="16px" alt="edit icon">Edit</span>
-                                            <span class="ms-4"><img src="../../../assets/dashboard/deleteicon.png" class="me-2" width="16px" height="16px" alt="Delete icon">Delete</span>
-                                            </td>
+                                            {{user.firstName}} {{user.lastName}}
+                                        </td>
+                                        <td>
+                                            {{user.role}}
+                                        </td>
+                                        <td>
+                                            {{user.email}}
+                                        </td>
+                                        <td>
+                                            {{user.lastLoggedIn}}
+                                        </td>
+                                        <td>
+                                            <!-- <span (click)="editWard(user)"><img
+                                                    src="../../../assets/dashboard/editicon.png" class="me-2"
+                                                    width="16px" height="16px" alt="edit icon">Deactivate</span>
+                                            <span (click)="deleteWard(ward)" class="ms-4"><img
+                                                    src="../../../assets/dashboard/deleteicon.png" class="me-2"
+                                                    width="16px" height="16px" alt="Delete icon">Delete</span> -->
+                                                    <!-- TODO -->
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div class="d-flex justify-content-between p-2">
-                                
-                                <select class="custom-select" style="width: auto" name="pageSize"
-                                    [(ngModel)]="service.pageSize">
-                                    <option [ngValue]="2">2 items per page</option>
-                                    <option [ngValue]="4">4 items per page</option>
-                                    <option [ngValue]="6">6 items per page</option>
+                                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"
+                                    (ngModelChange)="getData()">
+                                    <option [ngValue]="5">5 items per page</option>
+                                    <option [ngValue]="10">10 items per page</option>
+                                    <option [ngValue]="25">25 items per page</option>
                                 </select>
-                                <ngb-pagination [collectionSize]="(total$ | async) || 0" [(page)]="service.page"
-                                    [pageSize]="service.pageSize">
+                                <ngb-pagination [collectionSize]="totalItems || 0" [(page)]="pageNumber"
+                                    [pageSize]="pageSize" (pageChange)="getData()">
                                 </ngb-pagination>
                             </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
-             
 
-              
             </div>
         </div>
     </div>
