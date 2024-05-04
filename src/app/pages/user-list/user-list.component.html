@@ -11,8 +11,7 @@
                             <h4>User List</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
-                            <button class="btn btn-primary f-13" style="margin-right: 10px;" (click)="addNewUser()">Add new user</button>
-                            <button class="btn btn-primary f-13" (click)="addNewAdmin()">Add new admin</button>
+                            <button class="btn btn-primary f-13" (click)="addNewUser()">Add new user</button>
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
@@ -61,13 +60,13 @@
                                             {{user.firstName}} {{user.lastName}}
                                         </td>
                                         <td>
-                                            {{user.role}}
+                                            {{getRoleNameFromRole(user.role)}}
                                         </td>
                                         <td>
                                             {{user.email}}
                                         </td>
                                         <td>
-                                            {{user.lastLoggedIn}}
+                                            {{user.lastLoggedIn | date: 'dd-MM-yyyy hh:mm a'}}
                                         </td>
                                         <td>
                                             <!-- <span (click)="editWard(user)"><img

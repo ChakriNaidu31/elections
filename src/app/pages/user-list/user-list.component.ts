@@ -18,6 +18,7 @@ export class UserListComponent implements OnInit {
   userListFull!: User[];
   constituencyList: Constituency[] = [];
   roleList = [
+    { key: 'SUPER_ADMIN', value: 'Super Admin' },
     { key: 'ADMIN', value: 'Admin' },
     { key: 'RETUNRING_OFFICER', value: 'Returning Officer' },
     { key: 'POLLING_OFFICER', value: 'Polling Officer' }
@@ -100,11 +101,17 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  addNewUser() {
-    this._router.navigateByUrl('/admin/user/create');
+  getRoleNameFromRole(role: string) {
+    let roleName: string = '';
+    this.roleList.forEach((element: any) => {
+      if (element.key === role) {
+        roleName = element.value;
+      }
+    });
+    return roleName;
   }
 
-  addNewAdmin() {
+  addNewUser() {
     this._router.navigateByUrl('/admin/user/create');
   }
 

@@ -4,44 +4,50 @@
     <div class="row">
         <div class="col-12 bg-light bg-gradient">
             <div class="bg-white m-4 rounded">
-                <h5 class="pt-4 px-4">User create</h5>
+                <h5 class="pt-4 px-4">{{pageTitle}}</h5>
                 <div class="d-flex align-items-center  ">
                     <div class="form-signin w-100 m-auto f-13">
-                        <form>
+                        <form [formGroup]="userForm" (submit)="createUser()">
                             <div class="mb-3">
                                 <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" formControlName="firstName">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" formControlName="lastName">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" aria-describedby="emailHelp">
+                                <input type="email" class="form-control" formControlName="email">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Role</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select Role</option>
-                                    <option value="1">Role 1</option>
-                                    <option value="2">Role 2</option>
-                                    <option value="3">Role 3</option>
+                                <select class="form-select" formControlName="role">
+                                    <option selected value="">Select Role</option>
+                                    <option *ngFor="let role of roleList" value="{{role.key}}">{{role.value}}
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Constituency</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" formControlName="constituency" (change)="loadStation($event)">
                                     <option selected>Select Constituency</option>
-                                    <option value="1">Constituency 1</option>
-                                    <option value="2">Constituency 2</option>
-                                    <option value="3">Constituency 3</option>
+                                    <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Station</label>
+                                <select class="form-select" formControlName="station">
+                                    <option selected>Select Station</option>
+                                    <option *ngFor="let station of stationList" value="{{station._id}}">{{station.name}}
+                                    </option>
                                 </select>
                             </div>
 
                             <div class="mb-3 float-end">
-                                <button class="btn btn-primary f-13 ">Submit</button>
-                                <button class="btn btn-light f-13 ms-2">Cancel</button>
+                                <button type="submit" class="btn btn-primary f-13" [disabled]="!userForm.valid">Submit</button>
+                                <button class="btn btn-light f-13 ms-2" (click)="redirectToList()">Cancel</button>
                             </div>
                         </form>
                     </div>
