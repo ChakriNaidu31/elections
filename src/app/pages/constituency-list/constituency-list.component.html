@@ -45,12 +45,8 @@
                                             {{constituency.region.name}}
                                         </td>
                                         <td>
-                                            <span (click)="editConstituency(constituency)"><img
-                                                    src="../../../assets/dashboard/editicon.png" class="me-2"
-                                                    width="16px" height="16px" alt="edit icon">Edit</span>
-                                            <span (click)="deleteConstituency(constituency)" class="ms-4"><img
-                                                    src="../../../assets/dashboard/deleteicon.png" class="me-2"
-                                                    width="16px" height="16px" alt="Delete icon">Delete</span>
+                                            <span (click)="editConstituency(constituency)">  <i class="fa-solid fa-pen me-2"  width="16px" height="16px" alt="edit icon"></i>Edit</span>
+                                            <span (click)="deleteConstituency(constituency)" class="ms-4"><i class="fa-solid fa-trash me-2" width="16px" height="16px" alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
                                         </td>
                                     </tr>
                                 </tbody>
