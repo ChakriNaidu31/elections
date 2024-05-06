@@ -51,7 +51,7 @@
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngIf="userList && userList.length > 0; else noItemsFound">
                                     <tr *ngFor="let user of userList">
                                         <td>
                                             {{user.userId.substring(0, 4)}} ...
@@ -70,21 +70,28 @@
                                             {{user.lastLoggedIn | date: 'dd-MM-yyyy hh:mm a'}}
                                         </td>
                                         <td>
-                                            <span *ngIf="user.isActive" (click)="deactivateUser(user)"><img
-                                                    src="../../../assets/dashboard/editicon.png" class="me-2"
-                                                    width="16px" height="16px" alt="edit icon">Deactivate</span>
-                                            <span *ngIf="!user.isActive" (click)="activateUser(user)"><img
-                                                    src="../../../assets/dashboard/editicon.png" class="me-2"
-                                                    width="16px" height="16px" alt="edit icon">Activate</span>
-                                            <span (click)="viewUser(user)" class="ms-4"><img
-                                                    src="../../../assets/dashboard/deleteicon.png" class="me-2"
-                                                    width="16px" height="16px" alt="Delete icon">View</span>
+                                            <span *ngIf="user.isActive" (click)="deactivateUser(user)"> <i
+                                                    class="fa-solid fa-pen me-2" width="16px" height="16px"
+                                                    alt="Deactivate icon"></i>Deactivate</span>
+                                            <span *ngIf="!user.isActive" (click)="activateUser(user)"> <i
+                                                    class="fa-solid fa-pen me-2" width="16px" height="16px"
+                                                    alt="Activate icon"></i>Activate</span>
+                                            <span (click)="viewUser(user)" class="ms-4"><i
+                                                    class="fa-solid fa-trash me-2" width="16px" height="16px"
+                                                    alt="View icon" style="color: #ff0000;"></i>View</span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <ng-template #noItemsFound>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6">No users found for the filters applied</td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
 
-                            <div class="d-flex justify-content-between p-2">
+                            <div class="d-flex justify-content-between p-2" *ngIf="userList && userList.length > 0">
                                 <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"
                                     (ngModelChange)="getData()">
                                     <option [ngValue]="5">5 items per page</option>

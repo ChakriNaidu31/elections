@@ -59,32 +59,37 @@
                                         <td>{{station.constituency.name}}</td>
                                         <td>{{station.ward.name}}</td>
                                         <td>
-                                            <span (click)="editStation(station)">
-            
-                                                <i class="fa-solid fa-pen me-2"  width="16px" height="16px" alt="edit icon"></i>Edit
-                                            </span>
-                                            <span (click)="deleteStation(station)" class="ms-4">
-                                                <i class="fa-solid fa-trash me-2" width="16px" height="16px" alt="Delete icon" style="color: #ff0000;"></i>Delete
-                                            </span>
+                                            <span (click)="editStation(station)"> <i class="fa-solid fa-pen me-2"
+                                                    width="16px" height="16px" alt="edit icon"></i>Edit</span>
+                                            <span (click)="deleteStation(station)" class="ms-4"><i
+                                                    class="fa-solid fa-trash me-2" width="16px" height="16px"
+                                                    alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <ng-template #noItemsFound>
-                                <div class="col-12 mt-3">No items found</div>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5">No stations found for the filters applied</td>
+                                    </tr>
+                                </tbody>
                             </ng-template>
-                        
-                            <div class="d-flex justify-content-between p-2" *ngIf="stationList && stationList.length > 0">
-                                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="getData()">
+
+                            <div class="d-flex justify-content-between p-2"
+                                *ngIf="stationList && stationList.length > 0">
+                                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"
+                                    (ngModelChange)="getData()">
                                     <option [ngValue]="5">5 items per page</option>
                                     <option [ngValue]="10">10 items per page</option>
                                     <option [ngValue]="25">25 items per page</option>
                                 </select>
-                                <ngb-pagination [collectionSize]="totalItems || 0" [(page)]="pageNumber" [pageSize]="pageSize" (pageChange)="getData()">
+                                <ngb-pagination [collectionSize]="totalItems || 0" [(page)]="pageNumber"
+                                    [pageSize]="pageSize" (pageChange)="getData()">
                                 </ngb-pagination>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

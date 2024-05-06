@@ -43,7 +43,7 @@
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngIf="wardList && wardList.length > 0; else noItemsFound">
                                     <tr *ngFor="let ward of wardList">
                                         <td>
                                             {{ward.name}}
@@ -58,15 +58,24 @@
                                             {{ward.constituency.name}}
                                         </td>
                                         <td>
-                                            <span (click)="editWard(ward)">  <i class="fa-solid fa-pen me-2"  width="16px" height="16px" alt="edit icon"></i>Edit</span>
-                                            <span (click)="deleteWard(ward)" class="ms-4"><i class="fa-solid fa-trash me-2" width="16px" height="16px" alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
-
+                                            <span (click)="editWard(ward)"> <i class="fa-solid fa-pen me-2" width="16px"
+                                                    height="16px" alt="edit icon"></i>Edit</span>
+                                            <span (click)="deleteWard(ward)" class="ms-4"><i
+                                                    class="fa-solid fa-trash me-2" width="16px" height="16px"
+                                                    alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <ng-template #noItemsFound>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5">No wards found for the filters applied</td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
 
-                            <div class="d-flex justify-content-between p-2">
+                            <div class="d-flex justify-content-between p-2" *ngIf="wardList && wardList.length > 0">
                                 <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"
                                     (ngModelChange)="getData()">
                                     <option [ngValue]="5">5 items per page</option>

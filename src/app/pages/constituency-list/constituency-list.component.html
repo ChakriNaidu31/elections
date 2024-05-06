@@ -33,7 +33,7 @@
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngIf="constituencyList && constituencyList.length > 0; else noItemsFound">
                                     <tr *ngFor="let constituency of constituencyList">
                                         <td>
                                             {{constituency.name}}
@@ -45,13 +45,24 @@
                                             {{constituency.region.name}}
                                         </td>
                                         <td>
-                                            <span (click)="editConstituency(constituency)">  <i class="fa-solid fa-pen me-2"  width="16px" height="16px" alt="edit icon"></i>Edit</span>
-                                            <span (click)="deleteConstituency(constituency)" class="ms-4"><i class="fa-solid fa-trash me-2" width="16px" height="16px" alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
+                                            <span (click)="editConstituency(constituency)"> <i
+                                                    class="fa-solid fa-pen me-2" width="16px" height="16px"
+                                                    alt="edit icon"></i>Edit</span>
+                                            <span (click)="deleteConstituency(constituency)" class="ms-4"><i
+                                                    class="fa-solid fa-trash me-2" width="16px" height="16px"
+                                                    alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-between p-2">
+                            <ng-template #noItemsFound>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">No constituencies found for the filters applied</td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                            <div class="d-flex justify-content-between p-2" *ngIf="constituencyList && constituencyList.length > 0">
                                 <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"
                                     (ngModelChange)="getData()">
                                     <option [ngValue]="5">5 items per page</option>
