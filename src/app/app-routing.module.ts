@@ -61,10 +61,16 @@ const routes: Routes = [
     canActivate: [authGuard],
     canActivateChild: [authGuard]
   },
+  {
+    path: 'statement', children: [
+      { path: '', component: PollingStatementComponent },
+      { path: 'details', component: PollingStatementDetailsComponent },
+    ],
+    canActivate: [authGuard],
+    canActivateChild: [authGuard]
+  },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'dataupload', component: DataUploadComponent, canActivate: [authGuard] },
-  { path: 'pollingstatement', component: PollingStatementComponent, canActivate: [authGuard] },
-  { path: 'pollingstatementdetails', component: PollingStatementDetailsComponent, canActivate: [authGuard] },
   { path: '**', component: PagenotfoundComponent }
 ];
 

@@ -114,7 +114,7 @@ export class BallotAccessService {
     return this.http.delete(this.apiUrl + '/station/' + id, { headers: this.getHttpHeaders() });
   }
 
-  // User APIs
+  // User APIs - TODO: Some of the below methods are unused
   getUserList() {
     return this.http.get(this.apiUrl + '/user', { headers: this.getHttpHeaders() });
   }
@@ -129,6 +129,11 @@ export class BallotAccessService {
   }
   deactivateUser(id: string) {
     return this.http.delete(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() });
+  }
+
+  // Poll APIs
+  saveDetailsBeforePoll(details: any) {
+    return this.http.post(this.apiUrl + '/poll/before', details, { headers: this.getHttpHeaders() });
   }
 
   /******************* METHODS END ************************/

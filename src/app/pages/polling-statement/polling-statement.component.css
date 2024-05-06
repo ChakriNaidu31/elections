@@ -1,32 +1,37 @@
 label.form-label {
     font-size: 13px;
 }
+
 .number {
-    background: #00000070;;
+    background: #00000070;
+    ;
     color: #fff;
     padding: 8px 14px;
     border-radius: 50%;
     margin-right: 10px;
     line-height: 38px;
 }
+
 .numbers {
-    background: #00000070;;
+    background: #00000070;
+    ;
     color: #fff;
     padding: 8px 12px;
     border-radius: 50%;
     margin-right: 10px;
     line-height: 38px;
 }
+
 input.form-control {
-    width: 100% ;
+    width: 100%;
 }
+
 @media (min-width: 768px) {
-    input.form-control {
+    input.form-control:not(.full-width) {
         width: 50%;
     }
-  }
+}
 
-  .is-invalid {
+.is-invalid {
     border-color: red;
-  }
-
+}
