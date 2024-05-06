@@ -29,9 +29,13 @@
                                             {{region.code}}
                                         </td>
                                         <td>
-                                            <span (click)="editRegion(region)"><img src="../../../assets/dashboard/editicon.png" class="me-2"
+                                            <span (click)="editRegion(region)">  <i class="fa-solid fa-pen me-2"  width="16px" height="16px" alt="edit icon"></i>Edit</span>
+                                            <span (click)="deleteRegion(region)" class="ms-4"><i class="fa-solid fa-trash me-2" width="16px" height="16px" alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
+
+
+                                            <span ><img src="../../../assets/dashboard/editicon.png" class="me-2"
                                                     width="16px" height="16px" alt="edit icon">Edit</span>
-                                            <span (click)="deleteRegion(region)" class="ms-4"><img src="../../../assets/dashboard/deleteicon.png"
+                                            <span  class="ms-4"><img src="../../../assets/dashboard/deleteicon.png"
                                                     class="me-2" width="16px" height="16px"
                                                     alt="Delete icon">Delete</span>
                                         </td>
