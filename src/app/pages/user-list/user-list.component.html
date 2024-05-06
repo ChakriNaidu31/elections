@@ -54,7 +54,8 @@
                                 <tbody>
                                     <tr *ngFor="let user of userList">
                                         <td>
-                                            {{user.userId.substring(0, 4)}} ... {{user.userId.substring(user.userId.length-4, user.userId.length)}}
+                                            {{user.userId.substring(0, 4)}} ...
+                                            {{user.userId.substring(user.userId.length-4, user.userId.length)}}
                                         </td>
                                         <td>
                                             {{user.firstName}} {{user.lastName}}
@@ -69,13 +70,15 @@
                                             {{user.lastLoggedIn | date: 'dd-MM-yyyy hh:mm a'}}
                                         </td>
                                         <td>
-                                            <!-- <span (click)="editWard(user)"><img
+                                            <span *ngIf="user.isActive" (click)="deactivateUser(user)"><img
                                                     src="../../../assets/dashboard/editicon.png" class="me-2"
                                                     width="16px" height="16px" alt="edit icon">Deactivate</span>
-                                            <span (click)="deleteWard(ward)" class="ms-4"><img
+                                            <span *ngIf="!user.isActive" (click)="activateUser(user)"><img
+                                                    src="../../../assets/dashboard/editicon.png" class="me-2"
+                                                    width="16px" height="16px" alt="edit icon">Activate</span>
+                                            <span (click)="viewUser(user)" class="ms-4"><img
                                                     src="../../../assets/dashboard/deleteicon.png" class="me-2"
-                                                    width="16px" height="16px" alt="Delete icon">Delete</span> -->
-                                                    <!-- TODO -->
+                                                    width="16px" height="16px" alt="Delete icon">View</span>
                                         </td>
                                     </tr>
                                 </tbody>

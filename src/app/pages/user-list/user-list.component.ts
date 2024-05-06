@@ -115,6 +115,14 @@ export class UserListComponent implements OnInit {
     this._router.navigateByUrl('/admin/user/create');
   }
 
+  activateUser(user: User) {
+    // TODO:
+  }
+
+  viewUser(user: User) {
+    // TODO:
+  }
+
   deactivateUser(user: User) {
     // this._service.deleteWard(ward._id)
     //   .pipe(catchError((error) => {

@@ -1,4 +1,3 @@
-
 <app-navbar></app-navbar>
 <div class="container-fluid ">
     <div class="row">
@@ -30,7 +29,8 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Constituency</label>
-                                <select class="form-select" formControlName="constituency" (change)="loadStation($event)">
+                                <select class="form-select" formControlName="constituency"
+                                    (change)="loadStation($event)">
                                     <option selected>Select Constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
@@ -46,14 +46,15 @@
                             </div>
 
                             <div class="mb-3 float-end">
-                                <button type="submit" class="btn btn-primary f-13" [disabled]="!userForm.valid">Submit</button>
+                                <button type="submit" class="btn btn-primary f-13"
+                                    [disabled]="!userForm.valid">Submit</button>
                                 <button class="btn btn-light f-13 ms-2" (click)="redirectToList()">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-               
+
             </div>
         </div>
     </div>

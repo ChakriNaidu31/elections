@@ -9,8 +9,9 @@ export class User {
     station: PollingStation;
     isLoggedIn: boolean;
     lastLoggedIn: Date;
+    isActive: boolean;
 
-    constructor(userId: string, firstName: string, lastName: string, role: string, email: string, station: PollingStation, isLoggedIn: boolean, lastLoggedIn: Date) {
+    constructor(userId: string, firstName: string, lastName: string, role: string, email: string, station: PollingStation, isLoggedIn: boolean, lastLoggedIn: Date, isActive: boolean) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,6 +20,7 @@ export class User {
         this.station = station;
         this.isLoggedIn = isLoggedIn;
         this.lastLoggedIn = lastLoggedIn;
+        this.isActive = isActive;
     }
 
 }

@@ -121,8 +121,14 @@ export class BallotAccessService {
   getUserById(id: string) {
     return this.http.get(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() });
   }
+  getMyDetails() {
+    return this.http.get(this.apiUrl + '/user/single', { headers: this.getHttpHeaders() });
+  }
   createUser(user: any) {
     return this.http.post(this.apiUrl + '/user', user, { headers: this.getHttpHeaders() });
+  }
+  deactivateUser(id: string) {
+    return this.http.delete(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() });
   }
 
   /******************* METHODS END ************************/
