@@ -45,12 +45,14 @@
                                             {{constituency.region.name}}
                                         </td>
                                         <td>
-                                            <span (click)="editConstituency(constituency)"> <i
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="editConstituency(constituency)"> <i
                                                     class="fa-solid fa-pen me-2" width="16px" height="16px"
-                                                    alt="edit icon"></i>Edit</span>
-                                            <span (click)="deleteConstituency(constituency)" class="ms-4"><i
+                                                    alt="edit icon"></i>Edit</button>
+                                            <button type="button" class="btn btn-danger ms-4"
+                                                (click)="deleteConstituency(constituency)"><i
                                                     class="fa-solid fa-trash me-2" width="16px" height="16px"
-                                                    alt="Delete icon" style="color: #ff0000;"></i>Delete</span>
+                                                    alt="Delete icon"></i>Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -62,7 +64,8 @@
                                     </tr>
                                 </tbody>
                             </ng-template>
-                            <div class="d-flex justify-content-between p-2" *ngIf="constituencyList && constituencyList.length > 0">
+                            <div class="d-flex justify-content-between p-2"
+                                *ngIf="constituencyList && constituencyList.length > 0">
                                 <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize"
                                     (ngModelChange)="getData()">
                                     <option [ngValue]="5">5 items per page</option>
