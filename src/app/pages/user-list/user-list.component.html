@@ -40,50 +40,63 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th style="width: 20%;" scope="col">Name</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Email</th>
-                                        <th style="width: 18%;" scope="col">Last Logged-in</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngIf="userList && userList.length > 0; else noItemsFound">
-                                    <tr *ngFor="let user of userList">
-                                        <td>
-                                            {{user.userId.substring(0, 4)}} ...
-                                            {{user.userId.substring(user.userId.length-4, user.userId.length)}}
-                                        </td>
-                                        <td>
-                                            {{user.firstName}} {{user.lastName}}
-                                        </td>
-                                        <td>
-                                            {{getRoleNameFromRole(user.role)}}
-                                        </td>
-                                        <td>
-                                            {{user.email}}
-                                        </td>
-                                        <td>
-                                            {{user.lastLoggedIn | date: 'dd-MM-yyyy hh:mm a'}}
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning" *ngIf="user.isActive"
-                                                (click)="deactivateUser(user)"> <i class="fa-solid fa-times me-2"
-                                                    width="16px" height="16px"
-                                                    alt="Deactivate icon"></i>Deactivate</button>
-                                            <button type="button" class="btn btn-primary" *ngIf="!user.isActive"
-                                                (click)="activateUser(user)"> <i class="fa-solid fa-check me-2"
-                                                    width="16px" height="16px" alt="Activate icon"></i>Activate</button>
-                                            <button type="button" class="btn btn-info ms-4" (click)="viewUser(user)"><i
-                                                    class="fa-solid fa-eye me-2" width="16px" height="16px"
-                                                    alt="View icon"></i>View</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th style="width: 20%;" scope="col">Name <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th scope="col">Role <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th scope="col">Email <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th style="width: 18%;" scope="col">Last Logged-in <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="userList && userList.length > 0; else noItemsFound">
+                                        <tr *ngFor="let user of userList">
+                                            <td>
+                                                {{user.userId.substring(0, 4)}} ...
+                                                {{user.userId.substring(user.userId.length-4, user.userId.length)}}
+                                            </td>
+                                            <td>
+                                                {{user.firstName}} {{user.lastName}}
+                                            </td>
+                                            <td>
+                                                {{getRoleNameFromRole(user.role)}}
+                                            </td>
+                                            <td>
+                                                {{user.email}}
+                                            </td>
+                                            <td>
+                                                {{user.lastLoggedIn | date: 'dd-MM-yyyy hh:mm a'}}
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" *ngIf="user.isActive"
+                                                    (click)="deactivateUser(user)"> <i class="fa-solid fa-times me-2"
+                                                        width="16px" height="16px"
+                                                        alt="Deactivate icon"></i>Deactivate</button>
+                                                <button type="button" class="btn btn-primary" *ngIf="!user.isActive"
+                                                    (click)="activateUser(user)"> <i class="fa-solid fa-check me-2"
+                                                        width="16px" height="16px" alt="Activate icon"></i>Activate</button>
+                                                <button type="button" class="btn btn-info ms-4" (click)="viewUser(user)"><i
+                                                        class="fa-solid fa-eye me-2" width="16px" height="16px"
+                                                        alt="View icon"></i>View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
                             <ng-template #noItemsFound>
                                 <tbody>
                                     <tr>

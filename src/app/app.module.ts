@@ -30,6 +30,8 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { WardListComponent } from './pages/ward-list/ward-list.component';
 import { WardCreateComponent } from './pages/ward-create/ward-create.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
+import { ElectionsDetailsComponent } from './pages/elections-details/elections-details.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { ToastrModule } from 'ngx-toastr';
     PollingStatementDetailsComponent,
     PagenotfoundComponent,
     WardListComponent,
-    WardCreateComponent
+    WardCreateComponent,
+    ElectionsListComponent,
+    ElectionsDetailsComponent
   ],
   imports: [
     BrowserModule,
