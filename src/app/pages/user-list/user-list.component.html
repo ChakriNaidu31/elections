@@ -74,10 +74,10 @@
                                                 (click)="deactivateUser(user)"> <i class="fa-solid fa-times me-2"
                                                     width="16px" height="16px"
                                                     alt="Deactivate icon"></i>Deactivate</button>
-                                            <button type="button" class="btn btn-primary" *ngIf="!user.isActive"
+                                            <button type="button" class="btn btn-primary" *ngIf="!user.isActive && user.lastLoggedIn"
                                                 (click)="activateUser(user)"> <i class="fa-solid fa-check me-2"
                                                     width="16px" height="16px" alt="Activate icon"></i>Activate</button>
-                                            <button type="button" class="btn btn-info ms-4" (click)="viewUser(user)"><i
+                                            <button type="button" class="btn btn-info ms-3" (click)="viewUser(user)"><i
                                                     class="fa-solid fa-eye me-2" width="16px" height="16px"
                                                     alt="View icon"></i>View</button>
                                         </td>
