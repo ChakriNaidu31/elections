@@ -9,7 +9,10 @@
                         <form [formGroup]="wardForm" (submit)="createWard()">
                             <div class="mb-3">
                                 <label class="form-label">Ward Name<span style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="name">
+                                <input type="text" class="form-control" formControlName="name"
+                                    [ngClass]="{ 'is-invalid': wardForm.get('name')?.invalid && wardForm.get('name')?.touched }">
+                                <div *ngIf="wardForm.get('name')?.invalid && wardForm.get('name')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Ward Code</label>
@@ -22,19 +25,25 @@
                             <div class="mb-3">
                                 <label class="form-label">Region<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="region"
+                                    [ngClass]="{ 'is-invalid': wardForm.get('region')?.invalid && wardForm.get('region')?.touched }"
                                     (change)="loadConstituency($event)">
                                     <option selected>Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="wardForm.get('region')?.invalid && wardForm.get('region')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Constituency<span style="color: red">*</span></label>
-                                <select class="form-select" formControlName="constituency">
+                                <select class="form-select" formControlName="constituency"
+                                    [ngClass]="{ 'is-invalid': wardForm.get('constituency')?.invalid && wardForm.get('constituency')?.touched }">
                                     <option selected>Select Constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="wardForm.get('constituency')?.invalid && wardForm.get('constituency')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
 
                             <div class="mb-3 float-end">

@@ -9,36 +9,49 @@
                         <form [formGroup]="stationForm" (submit)="createStation()">
                             <div class="mb-3">
                                 <label class="form-label">Station Name<span style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="name">
+                                <input type="text" class="form-control" formControlName="name"
+                                    [ngClass]="{ 'is-invalid': stationForm.get('name')?.invalid && stationForm.get('name')?.touched }">
+                                <div *ngIf="stationForm.get('name')?.invalid && stationForm.get('name')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Station Code<span style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="code">
+                                <input type="text" class="form-control" formControlName="code"
+                                    [ngClass]="{ 'is-invalid': stationForm.get('code')?.invalid && stationForm.get('code')?.touched }">
+                                <div *ngIf="stationForm.get('code')?.invalid && stationForm.get('code')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Region<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="region"
+                                [ngClass]="{ 'is-invalid': stationForm.get('region')?.invalid && stationForm.get('region')?.touched }"
                                     (change)="loadConstituency($event)">
                                     <option selected>Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="stationForm.get('region')?.invalid && stationForm.get('region')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Constituency<span style="color: red">*</span></label>
-                                <select class="form-select" formControlName="constituency" (change)="loadWard($event)">
+                                <select class="form-select" formControlName="constituency" (change)="loadWard($event)" [ngClass]="{ 'is-invalid': stationForm.get('constituency')?.invalid && stationForm.get('constituency')?.touched }">
                                     <option selected>Select Constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="stationForm.get('constituency')?.invalid && stationForm.get('constituency')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Ward<span style="color: red">*</span></label>
-                                <select class="form-select" formControlName="ward">
+                                <select class="form-select" formControlName="ward" [ngClass]="{ 'is-invalid': stationForm.get('ward')?.invalid && stationForm.get('ward')?.touched }">
                                     <option selected>Select Ward</option>
                                     <option *ngFor="let con of wardList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="stationForm.get('ward')?.invalid && stationForm.get('ward')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
 
                             <div class="mb-3 float-end">

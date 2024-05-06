@@ -10,11 +10,14 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Region Name<span
                                         style="color: red">*</span></label>
-                                <input type="text" id="name" class="form-control" formControlName="name">
+                                <input type="text" class="form-control" formControlName="name"
+                                    [ngClass]="{ 'is-invalid': regionForm.get('name')?.invalid && regionForm.get('name')?.touched }">
+                                <div *ngIf="regionForm.get('name')?.invalid && regionForm.get('name')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="code" class="form-label">Region Code</label>
-                                <input type="text" id="code" class="form-control" formControlName="code">
+                                <input type="text" class="form-control" formControlName="code">
                             </div>
 
                             <div class="mb-3 float-end">

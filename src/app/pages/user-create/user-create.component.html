@@ -8,24 +8,36 @@
                     <div class="form-signin w-100 m-auto f-13">
                         <form [formGroup]="userForm" (submit)="createUser()">
                             <div class="mb-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" formControlName="firstName">
+                                <label class="form-label">First Name<span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="firstName"
+                                    [ngClass]="{ 'is-invalid': userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched }">
+                                <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" formControlName="lastName">
+                                <label class="form-label">Last Name<span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="lastName"
+                                    [ngClass]="{ 'is-invalid': userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched }">
+                                <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" formControlName="email">
+                                <label class="form-label">Email<span style="color: red">*</span></label>
+                                <input type="email" class="form-control" formControlName="email"
+                                    [ngClass]="{ 'is-invalid': userForm.get('email')?.invalid && userForm.get('email')?.touched }">
+                                <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+                                    class="text-danger f-13">Enter a valid email</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Role</label>
-                                <select class="form-select" formControlName="role">
+                                <label class="form-label">Role<span style="color: red">*</span></label>
+                                <select class="form-select" formControlName="role"
+                                    [ngClass]="{ 'is-invalid': userForm.get('role')?.invalid && userForm.get('role')?.touched }">
                                     <option selected value="">Select Role</option>
                                     <option *ngFor="let role of roleList" value="{{role.key}}">{{role.value}}
                                     </option>
                                 </select>
+                                <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Constituency</label>

@@ -8,23 +8,29 @@
                     <div class="form-signin w-100 m-auto f-13">
                         <form [formGroup]="constituencyForm" (submit)="createConstituency()">
                             <div class="mb-3">
-                                <label class="form-label">Constituency Name<span
-                                    style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="name">
+                                <label class="form-label">Constituency Name<span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="name"
+                                    [ngClass]="{ 'is-invalid': constituencyForm.get('name')?.invalid && constituencyForm.get('name')?.touched }">
+                                <div *ngIf="constituencyForm.get('name')?.invalid && constituencyForm.get('name')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Constituency Code<span
-                                    style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="code">
+                                <label class="form-label">Constituency Code<span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="code"
+                                    [ngClass]="{ 'is-invalid': constituencyForm.get('code')?.invalid && constituencyForm.get('code')?.touched }">
+                                <div *ngIf="constituencyForm.get('code')?.invalid && constituencyForm.get('code')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Region<span
-                                    style="color: red">*</span></label>
-                                <select class="form-select" formControlName="region">
+                                <label class="form-label">Region<span style="color: red">*</span></label>
+                                <select class="form-select" formControlName="region"
+                                    [ngClass]="{ 'is-invalid': constituencyForm.get('region')?.invalid && constituencyForm.get('region')?.touched }">
                                     <option selected>Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="constituencyForm.get('region')?.invalid && constituencyForm.get('region')?.touched"
+                                    class="text-danger f-13">This field is required.</div>
                             </div>
 
                             <div class="mb-3 float-end">
