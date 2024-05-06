@@ -25,7 +25,7 @@
                                 <label class="form-label">Region<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="region"
                                     [ngClass]="{ 'is-invalid': constituencyForm.get('region')?.invalid && constituencyForm.get('region')?.touched }">
-                                    <option selected>Select Region</option>
+                                    <option selected value="">Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>

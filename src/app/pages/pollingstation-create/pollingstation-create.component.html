@@ -26,7 +26,7 @@
                                 <select class="form-select" formControlName="region"
                                 [ngClass]="{ 'is-invalid': stationForm.get('region')?.invalid && stationForm.get('region')?.touched }"
                                     (change)="loadConstituency($event)">
-                                    <option selected>Select Region</option>
+                                    <option selected value="">Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
@@ -36,7 +36,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Constituency<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="constituency" (change)="loadWard($event)" [ngClass]="{ 'is-invalid': stationForm.get('constituency')?.invalid && stationForm.get('constituency')?.touched }">
-                                    <option selected>Select Constituency</option>
+                                    <option selected value="">Select Constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
@@ -46,7 +46,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Ward<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="ward" [ngClass]="{ 'is-invalid': stationForm.get('ward')?.invalid && stationForm.get('ward')?.touched }">
-                                    <option selected>Select Ward</option>
+                                    <option selected value="">Select Ward</option>
                                     <option *ngFor="let con of wardList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>

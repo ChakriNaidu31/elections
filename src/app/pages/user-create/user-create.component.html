@@ -43,7 +43,7 @@
                                 <label class="form-label">Constituency</label>
                                 <select class="form-select" formControlName="constituency"
                                     (change)="loadStation($event)">
-                                    <option selected>Select Constituency</option>
+                                    <option selected value="">Select Constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
@@ -51,7 +51,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Station</label>
                                 <select class="form-select" formControlName="station">
-                                    <option selected>Select Station</option>
+                                    <option selected value="">Select Station</option>
                                     <option *ngFor="let station of stationList" value="{{station._id}}">{{station.name}}
                                     </option>
                                 </select>

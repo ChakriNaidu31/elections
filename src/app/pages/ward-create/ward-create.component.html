@@ -27,7 +27,7 @@
                                 <select class="form-select" formControlName="region"
                                     [ngClass]="{ 'is-invalid': wardForm.get('region')?.invalid && wardForm.get('region')?.touched }"
                                     (change)="loadConstituency($event)">
-                                    <option selected>Select Region</option>
+                                    <option selected value="">Select Region</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
@@ -38,7 +38,7 @@
                                 <label class="form-label">Constituency<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="constituency"
                                     [ngClass]="{ 'is-invalid': wardForm.get('constituency')?.invalid && wardForm.get('constituency')?.touched }">
-                                    <option selected>Select Constituency</option>
+                                    <option selected value="">Select Constituency</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
