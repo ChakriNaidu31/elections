@@ -17,6 +17,8 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { authGuard } from './services/auth.guard';
 import { WardListComponent } from './pages/ward-list/ward-list.component';
 import { WardCreateComponent } from './pages/ward-create/ward-create.component';
+import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
+import { ElectionsDetailsComponent } from './pages/elections-details/elections-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -55,6 +57,12 @@ const routes: Routes = [
         path: 'user', children: [
           { path: '', component: UserListComponent },
           { path: 'create', component: UserCreateComponent },
+        ],
+      },
+      {
+        path: 'elections', children: [
+          { path: '', component: ElectionsListComponent },
+          { path: 'create', component: ElectionsDetailsComponent },
         ],
       }
     ],

@@ -64,3 +64,9 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.fa-arrow-up,.fa-arrow-down {
+    cursor: pointer;
+}
+.modal-content {
+    width: 400px;
+}
