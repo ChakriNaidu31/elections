@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-12 bg-light bg-gradient">
+            <div class="bg-white m-4 rounded">
+                <h5 class="pt-4 px-4">Create Elections List</h5>
+                <div class="d-flex align-items-center  ">
+                    <div class="form-signin w-100 m-auto f-13 px-0">
+                        <form >
+                            <div class="mb-3">
+                                <label for="name" class="form-label">EC Name<span
+                                        style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="code" class="form-label">EC Logo</label>
+                                <input type="file" class="form-control" formControlName="code">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Election Name<span
+                                        style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Election Date<span
+                                        style="color: red">*</span></label>
+                                <input type="date" class="form-control" formControlName="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Region<span
+                                        style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="name">
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3 text-end">
+                                    <button class="btn btn-primary f-13 ms-2" (click)="addCandidate()">Add Candidate</button>
+                                </div>
+                                <div class="col-12" *ngFor="let candidate of candidates; let i = index">
+                                    <div class="row mb-3">
+                                        <div class="col-5">
+                                            <label for="name" class="form-label">Candidate Name<span style="color: red">*</span></label>
+                                            <input type="text" class="form-control" formControlName="name{{i}}">
+                                        </div>
+                                        <div class="col-5">
+                                            <label for="party" class="form-label">Candidate Party<span style="color: red">*</span></label>
+                                            <input type="text" class="form-control" formControlName="party{{i}}">
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="delete" class="form-label"></label>
+                                            <button class="btn  form-control mt-4" ><i class="fa-solid fa-xmark" (click)="deleteCandidate(i)"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="mb-3 mt-3 float-end">
+                                <button type="submit" class="btn btn-primary f-13"
+                                    >Submit</button>
+                                <button class="btn btn-light f-13 ms-2" >Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

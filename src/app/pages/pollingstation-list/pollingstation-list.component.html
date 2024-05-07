@@ -42,34 +42,45 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 20%;" scope="col">Name</th>
-                                        <th style="width: 20%;" scope="col">Code</th>
-                                        <th style="width: 20%;" scope="col">Constituency</th>
-                                        <th style="width: 20%;" scope="col">Ward</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngIf="stationList && stationList.length > 0; else noItemsFound">
-                                    <tr *ngFor="let station of stationList">
-                                        <td>{{station.name}}</td>
-                                        <td>{{station.code}}</td>
-                                        <td>{{station.constituency.name}}</td>
-                                        <td>{{station.ward.name}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary"
-                                                (click)="editStation(station)"> <i class="fa-solid fa-pen me-2"
-                                                    width="16px" height="16px" alt="edit icon"></i>Edit</button>
-                                            <button type="button" class="btn btn-danger ms-3"
-                                                (click)="deleteStation(station)"><i
-                                                    class="fa-solid fa-trash me-2" width="16px" height="16px"
-                                                    alt="Delete icon"></i>Delete</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20%;" scope="col">Name <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th style="width: 20%;" scope="col">Code <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th style="width: 20%;" scope="col">Constituency <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th style="width: 20%;" scope="col">Ward <i
+                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
+                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="stationList && stationList.length > 0; else noItemsFound">
+                                        <tr *ngFor="let station of stationList">
+                                            <td>{{station.name}}</td>
+                                            <td>{{station.code}}</td>
+                                            <td>{{station.constituency.name}}</td>
+                                            <td>{{station.ward.name}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="editStation(station)"> <i class="fa-solid fa-pen me-2"
+                                                        width="16px" height="16px" alt="edit icon"></i>Edit</button>
+                                                <button type="button" class="btn btn-danger ms-3"
+                                                    (click)="deleteStation(station)"><i
+                                                        class="fa-solid fa-trash me-2" width="16px" height="16px"
+                                                        alt="Delete icon"></i>Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
                             <ng-template #noItemsFound>
                                 <tbody>
                                     <tr>
