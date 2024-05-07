@@ -7,7 +7,8 @@
         <div class="container p-3">
           <div class="row">
             <div class="col-12 my-2">
-              <h4>Polling Station Statement</h4>
+              <h4>Polling Station Statement - Ballot Information</h4>
+              <h6>(To be filled in at START of poll)</h6>
             </div>
 
             <form [formGroup]="statementForm" (submit)="saveDetails()">
@@ -37,8 +38,9 @@
                   <div class="row">
                     <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf100BookletsFrom">
                     </div> -
-                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf100BookletsTo">
+                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf100BookletsTo" (blur)="validateDetails()">
                     </div>
+                    <div class="col-1">({{rangeOf100}})</div>
                   </div>
                 </div>
               </div>
@@ -49,8 +51,9 @@
                   <div class="row">
                     <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf50BookletsFrom">
                     </div> -
-                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf50BookletsTo">
+                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf50BookletsTo" (blur)="validateDetails()">
                     </div>
+                    <div class="col-1">({{rangeOf50}})</div>
                   </div>
                 </div>
               </div>
@@ -61,8 +64,9 @@
                   <div class="row">
                     <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf25BookletsFrom">
                     </div> -
-                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf25BookletsTo">
+                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf25BookletsTo" (blur)="validateDetails()">
                     </div>
+                    <div class="col-1">({{rangeOf25}})</div>
                   </div>
                 </div>
               </div>
@@ -73,8 +77,9 @@
                   <div class="row">
                     <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf10BookletsFrom">
                     </div> -
-                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf10BookletsTo">
+                    <div class="col-5"><input type="text" class="form-control full-width" formControlName="rangeOf10BookletsTo" (blur)="validateDetails()">
                     </div>
+                    <div class="col-1">({{rangeOf10}})</div>
                   </div>
                 </div>
               </div>

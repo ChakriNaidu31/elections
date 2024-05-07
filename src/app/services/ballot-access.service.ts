@@ -135,6 +135,12 @@ export class BallotAccessService {
   saveDetailsBeforePoll(details: any) {
     return this.http.post(this.apiUrl + '/poll/before', details, { headers: this.getHttpHeaders() });
   }
+  saveDetailsAtPoll(details: any) {
+    return this.http.post(this.apiUrl + '/poll/at', details, { headers: this.getHttpHeaders() });
+  }
+  saveDetailsAfterPoll(details: any) {
+    return this.http.post(this.apiUrl + '/poll/after', details, { headers: this.getHttpHeaders() });
+  }
 
   /******************* METHODS END ************************/
 
