@@ -57,6 +57,7 @@ const routes: Routes = [
         path: 'user', children: [
           { path: '', component: UserListComponent },
           { path: 'create', component: UserCreateComponent },
+          { path: 'create/admin', component: UserCreateComponent },
         ],
       },
       {

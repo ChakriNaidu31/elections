@@ -144,6 +144,9 @@ export class BallotAccessService {
   createUser(user: any) {
     return this.http.post(this.apiUrl + '/user', user, { headers: this.getHttpHeaders() });
   }
+  createAdminUser(user: any) {
+    return this.http.post(this.apiUrl + '/user/createAdmin', user, { headers: this.getHttpHeaders() });
+  }
   deactivateUser(id: string) {
     return this.http.delete(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() });
   }

@@ -28,6 +28,10 @@
                                 <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
                                     class="text-danger f-13">Enter a valid email</div>
                             </div>
+                            <div class="mb-3" *ngIf="enableAdmin">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" formControlName="password">
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Role<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="role"

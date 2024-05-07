@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { Constituency } from 'src/app/models/constituency';
 import { PollingStation } from 'src/app/models/polling-station';
@@ -18,6 +18,7 @@ export class UserCreateComponent implements OnInit {
     lastName: ['', Validators.required],
     role: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    password: [''],
     station: [''],
     constituency: ['']
   });
@@ -25,16 +26,20 @@ export class UserCreateComponent implements OnInit {
   stationList: PollingStation[] = [];
   constituencyList: Constituency[] = [];
   roleList = [
-    { key: 'SUPER_ADMIN', value: 'Super Admin' },
     { key: 'ADMIN', value: 'Admin' },
     { key: 'RETUNRING_OFFICER', value: 'Returning Officer' },
     { key: 'POLLING_OFFICER', value: 'Polling Officer' }
   ];
+  enableAdmin: boolean = false;
 
-  constructor(private _service: BallotAccessService, private _fb: FormBuilder, private _router: Router) { }
+  constructor(private _service: BallotAccessService, private _fb: FormBuilder, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchConstituencyList();
+    const urlSegments = this._activatedRoute.snapshot.url;
+    if (urlSegments && urlSegments.length > 1 && urlSegments[1].path === 'admin') {
+      this.enableAdmin = true;
+    }
   }
 
 
@@ -64,16 +69,29 @@ export class UserCreateComponent implements OnInit {
   }
 
   createUser() {
-    this._service.createUser(this.userForm.value)
-      .pipe(catchError((error) => {
-        this._service.showError(error.error?.error?.message);
-        return '';
-      }))
-      .subscribe((response: any) => {
-        this.userForm.reset();
-        this._service.showSuccess('Success', 'User created successfully');
-        this._router.navigateByUrl('/admin/user');
-      });
+    if (this.enableAdmin) {
+      this._service.createAdminUser(this.userForm.value)
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          this.userForm.reset();
+          this._service.showSuccess('Success', 'User created successfully');
+          this._router.navigateByUrl('/admin/user');
+        });
+    } else {
+      this._service.createUser(this.userForm.value)
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          this.userForm.reset();
+          this._service.showSuccess('Success', 'User created successfully');
+          this._router.navigateByUrl('/admin/user');
+        });
+    }
   }
 
   redirectToList() {
