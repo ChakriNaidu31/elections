@@ -27,12 +27,24 @@ export class BallotAccessService {
     return sessionStorage.getItem('brToken') || '';
   }
 
+  getRolesFromSession(): string[] {
+    return JSON.parse(sessionStorage.getItem('brPermissions') || '[]');
+  }
+
   private clearSessionToken(): void {
     sessionStorage.removeItem('brToken');
   }
 
+  private clearSessionRoles(): void {
+    sessionStorage.removeItem('brPermissions');
+  }
+
   setSessionToken(sessionToken: string) {
     sessionStorage.setItem('brToken', sessionToken);
+  }
+
+  setSessionRoles(roles: string[]) {
+    sessionStorage.setItem('brPermissions', JSON.stringify(roles));
   }
 
 
@@ -43,7 +55,12 @@ export class BallotAccessService {
 
   logoutUser() {
     this.clearSessionToken();
+    this.clearSessionRoles();
     return this.http.post(this.apiUrl + '/user/logout', {}, { headers: this.getHttpHeaders() });
+  }
+
+  getUserAccess() {
+    return this.http.get(this.apiUrl + '/user/access', { headers: this.getHttpHeaders() });
   }
 
   // Region APIs
