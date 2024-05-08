@@ -59,6 +59,15 @@ export class BallotAccessService {
     return this.http.post(this.apiUrl + '/user/logout', {}, { headers: this.getHttpHeaders() });
   }
 
+  setPassword(plainPassword: string, token: string) {
+    return this.http.post(this.apiUrl + '/user/setPassword', { password: plainPassword }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': token
+      })
+    });
+  }
+
   getUserAccess() {
     return this.http.get(this.apiUrl + '/user/access', { headers: this.getHttpHeaders() });
   }
@@ -129,6 +138,23 @@ export class BallotAccessService {
   }
   deletePollingStation(id: string) {
     return this.http.delete(this.apiUrl + '/station/' + id, { headers: this.getHttpHeaders() });
+  }
+
+  // Election APIs
+  getElectionList() {
+    return this.http.get(this.apiUrl + '/election', { headers: this.getHttpHeaders() });
+  }
+  createElection(election: any) {
+    return this.http.post(this.apiUrl + '/election', election, { headers: this.getHttpHeaders() });
+  }
+  updateElection(id: string, election: any) {
+    return this.http.patch(this.apiUrl + '/election/' + id, election, { headers: this.getHttpHeaders() });
+  }
+  activateElection(id: string) {
+    return this.http.post(this.apiUrl + '/election/activate/' + id, { headers: this.getHttpHeaders() });
+  }
+  getCurrentElectionDetails() {
+    return this.http.get(this.apiUrl + '/election/current', { headers: this.getHttpHeaders() });
   }
 
   // User APIs - TODO: Some of the below methods are unused

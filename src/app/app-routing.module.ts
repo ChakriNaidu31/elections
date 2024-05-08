@@ -19,10 +19,12 @@ import { WardListComponent } from './pages/ward-list/ward-list.component';
 import { WardCreateComponent } from './pages/ward-create/ward-create.component';
 import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
 import { ElectionsDetailsComponent } from './pages/elections-details/elections-details.component';
+import { SetPasswordComponent } from './pages/set-password/set-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'login', component: SigninComponent },
+  { path: 'user/set-password', component: SetPasswordComponent },
   {
     path: 'admin', children: [
       {
@@ -64,6 +66,7 @@ const routes: Routes = [
         path: 'elections', children: [
           { path: '', component: ElectionsListComponent },
           { path: 'create', component: ElectionsDetailsComponent },
+          { path: 'create/:id', component: ElectionsDetailsComponent },
         ],
       }
     ],

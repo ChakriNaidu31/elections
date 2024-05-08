@@ -32,6 +32,7 @@ import { WardCreateComponent } from './pages/ward-create/ward-create.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
 import { ElectionsDetailsComponent } from './pages/elections-details/elections-details.component';
+import { SetPasswordComponent } from './pages/set-password/set-password.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ElectionsDetailsComponent } from './pages/elections-details/elections-d
     WardListComponent,
     WardCreateComponent,
     ElectionsListComponent,
-    ElectionsDetailsComponent
+    ElectionsDetailsComponent,
+    SetPasswordComponent
   ],
   imports: [
     BrowserModule,
