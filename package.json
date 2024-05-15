@@ -22,6 +22,7 @@
     "@angular/router": "^16.2.12",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@popperjs/core": "^2.11.6",
+    "@types/google.visualization": "^0.0.74",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
     "ngx-toastr": "^18.0.0",
