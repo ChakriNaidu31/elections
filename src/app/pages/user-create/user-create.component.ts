@@ -27,7 +27,7 @@ export class UserCreateComponent implements OnInit {
   constituencyList: Constituency[] = [];
   roleList = [
     { key: 'ADMIN', value: 'Admin' },
-    { key: 'RETUNRING_OFFICER', value: 'Returning Officer' },
+    { key: 'RETURNING_OFFICER', value: 'Returning Officer' },
     { key: 'POLLING_OFFICER', value: 'Polling Officer' }
   ];
   enableAdmin: boolean = false;
@@ -37,6 +37,8 @@ export class UserCreateComponent implements OnInit {
   ngOnInit(): void {
     this.fetchConstituencyList();
     const urlSegments = this._activatedRoute.snapshot.url;
+    console.log(urlSegments[1]);
+    console.log(this._activatedRoute.snapshot);
     if (urlSegments && urlSegments.length > 1 && urlSegments[1].path === 'admin') {
       this.enableAdmin = true;
     }
@@ -69,6 +71,7 @@ export class UserCreateComponent implements OnInit {
   }
 
   createUser() {
+    console.log(this.enableAdmin);
     if (this.enableAdmin) {
       this._service.createAdminUser(this.userForm.value)
         .pipe(catchError((error) => {

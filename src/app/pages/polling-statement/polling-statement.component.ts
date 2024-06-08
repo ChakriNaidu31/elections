@@ -36,7 +36,7 @@ export class PollingStatementComponent implements OnInit {
     // TODO: check if this page is already filled, if so redirect to details page
   }
 
-  validateDetails() {
+  async validateDetails() {
     this.rangeOf100 = parseInt(this.statementForm.value.rangeOf100BookletsTo) - parseInt(this.statementForm.value.rangeOf100BookletsFrom);
     if (this.rangeOf100 < 0) {
       this._service.showError('Range of 100 booklets is invalid');
@@ -78,10 +78,10 @@ export class PollingStatementComponent implements OnInit {
     return remainingBallots;
   }
 
-  saveDetails() {
+  async saveDetails() {
 
     try {
-      const remainingBallots = this.validateDetails();
+      const remainingBallots = await this.validateDetails();
       if (remainingBallots && remainingBallots > 0) {
         this._service.showError('Number of ballots entered is not matching with the total based on entered ranges');
         return;
@@ -101,10 +101,11 @@ export class PollingStatementComponent implements OnInit {
           return '';
         }))
         .subscribe((response: any) => {
-          console.log(response); // TODO:
           this.statementForm.reset();
           this._service.showSuccess('Success', 'Details saved successfully');
-          this._router.navigateByUrl('/statement/details');
+          if (response.data?.pollStatementBeforePoll) {
+            this._router.navigateByUrl('/statement/details/' + response.data.pollStatementBeforePoll._id);
+          }
         });
     } catch (error: any) {
       this._service.showError("Internal Server Error. Please enter valid numbers");

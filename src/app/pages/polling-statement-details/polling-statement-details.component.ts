@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
@@ -22,7 +22,7 @@ export class PollingStatementDetailsComponent implements OnInit {
     stampNumber: ['', Validators.required]
   });
 
-  constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     // TODO: check if this page is already filled, if so redirect to next page
@@ -47,6 +47,7 @@ export class PollingStatementDetailsComponent implements OnInit {
         this._service.showError('Total number of transfer voters should be a valid number');
         return;
       }
+      const beforePollId: string = this._activatedRoute.snapshot.paramMap.get('id') || '';
 
       const requestBody = {
         totalNumberOfRegisteredVoters: this.statementForm.value.totalNumberOfRegisteredVoters,
@@ -55,7 +56,8 @@ export class PollingStatementDetailsComponent implements OnInit {
         totalNumberOfTransferVoters: this.statementForm.value.totalNumberOfTransferVoters,
         serialNumberOfBVD: this.statementForm.value.serialNumberOfBVD,
         serialNumberOfReplacedBVD: this.statementForm.value.serialNumberOfReplacedBVD,
-        stampNumber: this.statementForm.value.stampNumber
+        stampNumber: this.statementForm.value.stampNumber,
+        ballotBeforePollId: beforePollId
       }
       this._service.saveDetailsAtPoll(requestBody)
         .pipe(catchError((error) => {

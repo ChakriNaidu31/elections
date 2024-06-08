@@ -3,61 +3,122 @@
     <div class="row">
         <div class="col-12 bg-light bg-gradient">
             <div class="bg-white m-4 rounded">
-                <h5 class="pt-4 px-4">Create Elections List</h5>
-                <div class="d-flex align-items-center  ">
-                    <div class="form-signin w-100 m-auto f-13 px-0">
-                        <form >
-                            <div class="mb-3">
-                                <label for="name" class="form-label">EC Name<span
-                                        style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="code" class="form-label">EC Logo</label>
-                                <input type="file" class="form-control" formControlName="code">
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Election Name<span
-                                        style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Election Date<span
-                                        style="color: red">*</span></label>
-                                <input type="date" class="form-control" formControlName="name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Region<span
-                                        style="color: red">*</span></label>
-                                <input type="text" class="form-control" formControlName="name">
-                            </div>
+                <h5 class="pt-4 px-4">Add New Election</h5>
+                <div class="d-flex align-items-center px-4 pt-4">
+                    <div class="w-100 m-auto f-13 px-0">
+                        <form [formGroup]="electionForm" (submit)="createElection()">
                             <div class="row">
-                                <div class="col-12 mb-3 text-end">
-                                    <button class="btn btn-primary f-13 ms-2" (click)="addCandidate()">Add Candidate</button>
-                                </div>
-                                <div class="col-12" *ngFor="let candidate of candidates; let i = index">
-                                    <div class="row mb-3">
-                                        <div class="col-5">
-                                            <label for="name" class="form-label">Candidate Name<span style="color: red">*</span></label>
-                                            <input type="text" class="form-control" formControlName="name{{i}}">
-                                        </div>
-                                        <div class="col-5">
-                                            <label for="party" class="form-label">Candidate Party<span style="color: red">*</span></label>
-                                            <input type="text" class="form-control" formControlName="party{{i}}">
-                                        </div>
-                                        <div class="col-2">
-                                            <label for="delete" class="form-label"></label>
-                                            <button class="btn  form-control mt-4" ><i class="fa-solid fa-xmark" (click)="deleteCandidate(i)"></i></button>
-                                        </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Election Commission Name<span
+                                                style="color: red">*</span></label>
+                                        <input type="text" class="form-control" formControlName="commissionName">
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="code" class="form-label">Election Commission Logo</label>
+                                        <input type="file" class="form-control" formControlName="commissionLogo">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Election Name<span
+                                                style="color: red">*</span></label>
+                                        <input type="text" class="form-control" formControlName="electionName">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Election Date<span
+                                                style="color: red">*</span></label>
+                                        <input type="date" class="form-control" formControlName="electionDate">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Region</label>
+                                        <select class="form-select" formControlName="region"
+                                            (change)="loadConstituency($event)">
+                                            <option selected value="">Select Region</option>
+                                            <option *ngFor="let region of regionList" value="{{region._id}}">
+                                                {{region.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Constituency</label>
+                                        <select class="form-select" formControlName="constituency">
+                                            <option selected value="">Select constituency</option>
+                                            <option *ngFor="let con of constituencyList" value="{{con._id}}">
+                                                {{con.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <form [formGroup]="candidatesForm">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <div class="row mb-3">
+                                                    <div class="col-5">
+                                                        <label for="name" class="form-label">Candidate Name<span
+                                                                style="color: red">*</span></label>
+                                                        <input type="text" class="form-control" formControlName="name">
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <label for="party" class="form-label">Party Name<span
+                                                                style="color: red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="partyName">
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <label for="party" class="form-label">Party Symbol<span
+                                                                style="color: red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="partySymbol">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-3 text-end">
+                                                <button class="btn btn-primary f-13 ms-2" [disabled]="!this.candidatesForm.valid" (click)="addCandidate()">Add
+                                                    Candidate</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 50%;" scope="col">Candidate </th>
+                                                    <th style="width: 30%;" scope="col">Party</th>
+                                                    <th style="width: 20%;" scope="col">Symbol</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="candidates && candidates.length > 0; else noItemsFound">
+                                                <tr *ngFor="let candidate of candidates">
+                                                    <td>{{candidate.name}}</td>
+                                                    <td>{{candidate.partyName}}</td>
+                                                    <td>{{candidate.partySymbol}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info ms-4"
+                                                            (click)="deleteCandidate(candidate)"><i
+                                                                class="fa-solid fa-trash me-2" width="16px" height="16px"
+                                                                alt="Delete icon"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <ng-template #noItemsFound>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3">No candidates found</td>
+                                            </tr>
+                                        </tbody>
+                                    </ng-template>
+
                                 </div>
                             </div>
-                            
 
                             <div class="mb-3 mt-3 float-end">
                                 <button type="submit" class="btn btn-primary f-13"
-                                    >Submit</button>
-                                <button class="btn btn-light f-13 ms-2" >Cancel</button>
+                                    [disabled]="!electionForm.valid">Submit</button>
+                                <button class="btn btn-light f-13 ms-2" (click)="redirectToList()">Cancel</button>
                             </div>
                         </form>
                     </div>

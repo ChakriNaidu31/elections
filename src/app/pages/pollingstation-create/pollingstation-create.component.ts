@@ -40,6 +40,10 @@ export class PollingstationCreateComponent {
         }))
         .subscribe((response: any) => {
           this.stationForm.patchValue(response?.data?.station);
+          this.stationForm.controls['region'].setValue(response?.data?.station?.region?._id);
+          this.loadConstituencyAndWardsByRegion(response?.data?.station?.region?._id, response?.data?.station?.constituency?._id);
+          this.stationForm.controls['constituency'].setValue(response?.data?.station?.constituency?._id);
+          this.stationForm.controls['ward'].setValue(response?.data?.station?.ward?._id);
         });
     }
   }
@@ -72,6 +76,28 @@ export class PollingstationCreateComponent {
   loadWard(event: Event): void {
     const constituencyId: string = (event.target as HTMLSelectElement).value;
     this.stationForm.controls['ward'].setValue('');
+    this._service.getWardList()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        const wards = response.data?.wards;
+        this.wardList = wards.filter((ward: Ward) => ward.constituency._id === constituencyId);
+      });
+  }
+
+  loadConstituencyAndWardsByRegion(regionId: string, constituencyId: string): void {
+    this._service.getConstituencyList()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        const constituencies = response.data?.constituencies;
+        this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
+      });
+
     this._service.getWardList()
       .pipe(catchError((error) => {
         this._service.showError(error.error?.error?.message);

@@ -9,56 +9,54 @@
                             <h4>Elections List</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
-                            <button class="btn btn-primary f-13" (click)="addNewElections()">Add new
-                                Election</button>
+                            <button class="btn btn-primary f-13" (click)="addNewElection()">Add new
+                                election</button>
                         </div>
-                        
+
                         <div class="col-lg-6 col-sm-12 col-md-12"></div>
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30%;" scope="col">Logo </th>
+                                            <th style="width: 15%;" scope="col">Logo </th>
                                             <th style="width: 20%;" scope="col">Election name</th>
-                                            <th style="width: 30%;" scope="col">Election date </th>
+                                            <th style="width: 20%;" scope="col">Election date </th>
+                                            <th style="width: 15%;" scope="col">candidates</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody >
-                                        <tr >
+                                    <tbody *ngIf="electionList && electionList.length > 0; else noItemsFound">
+                                        <tr *ngFor="let election of electionList">
                                             <td>
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Flag_of_the_United_Nations.svg/640px-Flag_of_the_United_Nations.svg.png" style="height: 37px;">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Flag_of_the_United_Nations.svg/640px-Flag_of_the_United_Nations.svg.png"
+                                                    style="height: 37px;">
                                             </td>
-                                            <td>
-                                                add2
-                                            </td>
-                                            <td>
-                                                add3
-                                            </td>
+                                            <td>{{election?.electionName}}</td>
+                                            <td>{{election?.electionDate | date: 'dd/MM/yyyy'}}</td>
+                                            <td>{{election?.candidates?.length}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary"
-                                                    > <i
-                                                        class="fa-solid fa-pen me-2" width="16px" height="16px"
-                                                        alt="edit icon"></i>Edit</button>
-                                                <button type="button" class="btn btn-danger ms-4"
-                                                    ><i
-                                                        class="fa-solid fa-trash me-2" width="16px" height="16px"
-                                                        alt="Delete icon"></i>Delete</button>
+                                                    (click)="editElection(election)"> <i class="fa-solid fa-pen me-2"
+                                                        width="16px" height="16px" alt="edit icon"></i>Edit</button>
+                                                <button type="button" class="btn btn-info ms-4"
+                                                    (click)="activateElection(election)"><i
+                                                        class="fa-solid fa-tick me-2" width="16px" height="16px" *ngIf="!election.isCurrent"
+                                                        alt="Activate icon"></i>Activate</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <ng-template #noItemsFound>
                                 <tbody>
                                     <tr>
-                                        <td colspan="4">No constituencies found for the filters applied</td>
+                                        <td colspan="5">No elections found</td>
                                     </tr>
                                 </tbody>
                             </ng-template>
-                            
+
                         </div>
                     </div>
                 </div>

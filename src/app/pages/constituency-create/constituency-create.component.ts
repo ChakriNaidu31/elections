@@ -34,6 +34,7 @@ export class ConstituencyCreateComponent implements OnInit {
         }))
         .subscribe((response: any) => {
           this.constituencyForm.patchValue(response?.data?.constituency);
+          this.constituencyForm.controls['region'].setValue(response?.data?.constituency?.region?._id);
         });
     }
   }

@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
   roleList = [
     { key: 'SUPER_ADMIN', value: 'Super Admin' },
     { key: 'ADMIN', value: 'Admin' },
-    { key: 'RETUNRING_OFFICER', value: 'Returning Officer' },
+    { key: 'RETURNING_OFFICER', value: 'Returning Officer' },
     { key: 'POLLING_OFFICER', value: 'Polling Officer' }
   ];
   pageSize: number = 5;

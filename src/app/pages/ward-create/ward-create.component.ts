@@ -38,6 +38,9 @@ export class WardCreateComponent implements OnInit {
         }))
         .subscribe((response: any) => {
           this.wardForm.patchValue(response?.data?.ward);
+          this.wardForm.controls['region'].setValue(response?.data?.ward?.region?._id);
+          this.loadConstituencyByRegion(response?.data?.ward?.region?._id);
+          this.wardForm.controls['constituency'].setValue(response?.data?.ward?.constituency?._id);
         });
     }
   }
@@ -62,6 +65,18 @@ export class WardCreateComponent implements OnInit {
         return '';
       }))
       .subscribe((response: any) => {
+        const constituencies = response.data?.constituencies;
+        this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
+      });
+  }
+
+  loadConstituencyByRegion(regionId: string): void {
+    this._service.getConstituencyList()
+     .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+     .subscribe((response: any) => {
         const constituencies = response.data?.constituencies;
         this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
       });
