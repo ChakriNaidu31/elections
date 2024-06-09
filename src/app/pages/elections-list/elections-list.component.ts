@@ -36,7 +36,7 @@ export class ElectionsListComponent implements OnInit {
   }
 
   editElection(election: Election) {
-    this._router.navigateByUrl('/admin/elections/create/' + election._id);
+    this._router.navigateByUrl('/admin/elections/create/' + election.unique);
   }
 
   activateElection(election: Election) {

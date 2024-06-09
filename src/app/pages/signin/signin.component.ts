@@ -32,6 +32,19 @@ export class SigninComponent implements OnInit {
       .subscribe((data: any) => {
         const loginResponse: LoginResponse = data.data;
         this._service.setSessionToken(loginResponse.userToken);
+        this.getUserRoles();
+      });
+  }
+
+  getUserRoles() {
+    this._service.getUserAccess()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        const roles = response.data?.roles;
+        this._service.setSessionRoles(roles);
         this._router.navigateByUrl('/dashboard');
       });
   }

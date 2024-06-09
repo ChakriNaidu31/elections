@@ -29,7 +29,7 @@
                                     <tbody *ngIf="electionList && electionList.length > 0; else noItemsFound">
                                         <tr *ngFor="let election of electionList">
                                             <td>
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Flag_of_the_United_Nations.svg/640px-Flag_of_the_United_Nations.svg.png"
+                                                <img src="{{election?.commissionLogo ? election?.commissionLogo : '../../../assets/dashboard/no-logo.png'}}"
                                                     style="height: 37px;">
                                             </td>
                                             <td>{{election?.electionName}}</td>
@@ -40,9 +40,13 @@
                                                     (click)="editElection(election)"> <i class="fa-solid fa-pen me-2"
                                                         width="16px" height="16px" alt="edit icon"></i>Edit</button>
                                                 <button type="button" class="btn btn-info ms-4"
-                                                    (click)="activateElection(election)"><i
-                                                        class="fa-solid fa-tick me-2" width="16px" height="16px" *ngIf="!election.isCurrent"
+                                                    (click)="activateElection(election)" *ngIf="!election.isCurrent"><i
+                                                        class="fa-solid fa-thumbs-up me-2" width="16px" height="16px"
                                                         alt="Activate icon"></i>Activate</button>
+                                                <button type="button" class="btn btn-success ms-4"
+                                                    *ngIf="election.isCurrent"><i class="fa-solid fa-check me-2"
+                                                        width="16px" height="16px"
+                                                        alt="Activate icon"></i>Current</button>
                                             </td>
                                         </tr>
                                     </tbody>

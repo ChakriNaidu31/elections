@@ -10,29 +10,40 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Election Commission Name<span
+                                        <label for="commissionName" class="form-label">Election Commission Name<span
                                                 style="color: red">*</span></label>
-                                        <input type="text" class="form-control" formControlName="commissionName">
+                                        <input type="text" class="form-control" formControlName="commissionName"
+                                            [ngClass]="{ 'is-invalid': electionForm.get('commissionName')?.invalid && electionForm.get('commissionName')?.touched }">
+                                        <div *ngIf="electionForm.get('commissionName')?.invalid && electionForm.get('commissionName')?.touched"
+                                            class="text-danger f-13">This field is required.</div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="code" class="form-label">Election Commission Logo</label>
+                                        <label for="commissionLogo" class="form-label">Election Commission Logo</label>
                                         <input type="file" class="form-control" formControlName="commissionLogo">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Election Name<span
+                                        <label for="electionName" class="form-label">Election Name<span
                                                 style="color: red">*</span></label>
-                                        <input type="text" class="form-control" formControlName="electionName">
+                                        <input type="text" class="form-control" formControlName="electionName"
+                                            [ngClass]="{ 'is-invalid': electionForm.get('electionName')?.invalid && electionForm.get('electionName')?.touched }">
+                                        <div *ngIf="electionForm.get('electionName')?.invalid && electionForm.get('electionName')?.touched"
+                                            class="text-danger f-13">This field is required.</div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Election Date<span
+                                        <label for="electionDate" class="form-label">Election Date<span
                                                 style="color: red">*</span></label>
-                                        <input type="date" class="form-control" formControlName="electionDate">
+                                        <input type="date" class="form-control" formControlName="electionDate" value="{{electionForm.controls['electionDate'].value}}" (change)="validateElectionDate($event)"
+                                            [ngClass]="{ 'is-invalid': electionForm.get('electionDate')?.invalid && electionForm.get('electionDate')?.touched }" min="{{ minElectionDate | date: 'dd/MM/yyyy'}}">
+                                        <div *ngIf="electionForm.get('electionDate')?.errors?.['required'] && electionForm.get('electionDate')?.touched"
+                                            class="text-danger f-13">This field is required.</div>
+                                        <div *ngIf="electionForm.get('electionDate')?.errors?.['invalidDate'] && electionForm.get('electionDate')?.touched"
+                                            class="text-danger f-13">Invalid date</div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Region</label>
                                         <select class="form-select" formControlName="region"
                                             (change)="loadConstituency($event)">
-                                            <option selected value="">Select Region</option>
+                                            <option selected value="">All Regions</option>
                                             <option *ngFor="let region of regionList" value="{{region._id}}">
                                                 {{region.name}}
                                             </option>
@@ -41,7 +52,7 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Constituency</label>
                                         <select class="form-select" formControlName="constituency">
-                                            <option selected value="">Select constituency</option>
+                                            <option selected value="">All constituencies</option>
                                             <option *ngFor="let con of constituencyList" value="{{con._id}}">
                                                 {{con.name}}
                                             </option>
@@ -54,24 +65,34 @@
                                                     <div class="col-5">
                                                         <label for="name" class="form-label">Candidate Name<span
                                                                 style="color: red">*</span></label>
-                                                        <input type="text" class="form-control" formControlName="name">
+                                                        <input type="text" class="form-control" formControlName="name"
+                                                            [ngClass]="{ 'is-invalid': candidatesForm.get('name')?.invalid && candidatesForm.get('name')?.touched }">
+                                                        <div *ngIf="candidatesForm.get('name')?.invalid && candidatesForm.get('name')?.touched"
+                                                            class="text-danger f-13">This field is required.</div>
                                                     </div>
                                                     <div class="col-5">
-                                                        <label for="party" class="form-label">Party Name<span
+                                                        <label for="partyName" class="form-label">Party Name<span
                                                                 style="color: red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="partyName">
+                                                            formControlName="partyName"
+                                                            [ngClass]="{ 'is-invalid': candidatesForm.get('partyName')?.invalid && candidatesForm.get('partyName')?.touched }">
+                                                        <div *ngIf="candidatesForm.get('partyName')?.invalid && candidatesForm.get('partyName')?.touched"
+                                                            class="text-danger f-13">This field is required.</div>
                                                     </div>
                                                     <div class="col-5">
-                                                        <label for="party" class="form-label">Party Symbol<span
+                                                        <label for="partySymbol" class="form-label">Party Symbol<span
                                                                 style="color: red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="partySymbol">
+                                                            formControlName="partySymbol"
+                                                            [ngClass]="{ 'is-invalid': candidatesForm.get('partySymbol')?.invalid && candidatesForm.get('partySymbol')?.touched }">
+                                                        <div *ngIf="candidatesForm.get('partySymbol')?.invalid && candidatesForm.get('partySymbol')?.touched"
+                                                            class="text-danger f-13">This field is required.</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 mb-3 text-end">
-                                                <button class="btn btn-primary f-13 ms-2" [disabled]="!this.candidatesForm.valid" (click)="addCandidate()">Add
+                                                <button class="btn btn-primary f-13 ms-2"
+                                                    [disabled]="!this.candidatesForm.valid" (click)="addCandidate()">Add
                                                     Candidate</button>
                                             </div>
                                         </div>
@@ -96,8 +117,8 @@
                                                     <td>
                                                         <button type="button" class="btn btn-info ms-4"
                                                             (click)="deleteCandidate(candidate)"><i
-                                                                class="fa-solid fa-trash me-2" width="16px" height="16px"
-                                                                alt="Delete icon"></i></button>
+                                                                class="fa-solid fa-trash me-2" width="16px"
+                                                                height="16px" alt="Delete icon"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>

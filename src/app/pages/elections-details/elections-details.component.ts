@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
@@ -13,6 +14,7 @@ import { BallotAccessService } from 'src/app/services/ballot-access.service';
 })
 export class ElectionsDetailsComponent implements OnInit {
 
+    minElectionDate: Date = new Date();
     electionForm: FormGroup = this._fb.group({
         electionName: ['', Validators.required],
         electionDate: ['', Validators.required],
@@ -31,11 +33,10 @@ export class ElectionsDetailsComponent implements OnInit {
     regionList: Region[] = [];
     constituencyList: Constituency[] = [];
 
-    constructor(private _service: BallotAccessService, private _fb: FormBuilder, private _router: Router, private _activatedRoute: ActivatedRoute) { }
+    constructor(private _service: BallotAccessService, private _fb: FormBuilder, private _router: Router, private _activatedRoute: ActivatedRoute, private _cdr: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.fetchRegionList();
-        this.fetchConstituencyList();
         const electionId: string = this._activatedRoute.snapshot.paramMap.get('id') || '';
         if (electionId) {
             this.pageTitle = "Edit Election";
@@ -46,6 +47,21 @@ export class ElectionsDetailsComponent implements OnInit {
                 }))
                 .subscribe((response: any) => {
                     this.electionForm.patchValue(response?.data?.election);
+                    this.electionForm.controls['region'].setValue("");
+                    this.electionForm.controls['constituency'].setValue("");
+                    const electionDate: string = response?.data?.election?.electionDate;
+
+                    if (response?.data?.election?.region?._id) {
+                        this.electionForm.controls['region'].setValue(response?.data?.election?.region?._id);
+                        this.loadConstituencyByRegion(response?.data?.election?.region?._id);
+                    }
+                    if (response?.data?.election?.constituency?._id) {
+                        this.electionForm.controls['constituency'].setValue(response?.data?.election?.constituency?._id);
+                    }
+                    if (electionDate) {
+                        this.electionForm.controls['electionDate'].setValue(formatDate(new Date(electionDate), 'yyyy-MM-dd', 'en'));
+                    }
+                    this.candidates = response.data?.election?.candidates;
                 });
         }
     }
@@ -96,14 +112,15 @@ export class ElectionsDetailsComponent implements OnInit {
             });
     }
 
-    fetchConstituencyList(): void {
+    loadConstituencyByRegion(regionId: string): void {
         this._service.getConstituencyList()
             .pipe(catchError((error) => {
                 this._service.showError(error.error?.error?.message);
                 return '';
             }))
             .subscribe((response: any) => {
-                this.constituencyList = response.data?.constituencies;
+                const constituencies = response.data?.constituencies;
+                this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
             });
     }
 
@@ -137,5 +154,13 @@ export class ElectionsDetailsComponent implements OnInit {
         }
     }
 
+    validateElectionDate(event: Event) {
+        const electionDate: Date = new Date((event.target as HTMLInputElement).value);
+        if (!electionDate || (electionDate <= this.minElectionDate)) {
+            this.electionForm.controls['electionDate'].setErrors({ invalidDate: true });
+        } else {
+            this.electionForm.controls['electionDate'].setErrors(null);
+        }
+    }
 
 }

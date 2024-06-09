@@ -19,16 +19,7 @@ export class NavbarComponent implements OnInit {
     if (rolesInSession.length > 0) {
       this.roles = rolesInSession;
     } else {
-      this._service.getUserAccess()
-        .pipe(catchError((error) => {
-          this._service.showError(error.error?.error?.message);
-          return '';
-        }))
-        .subscribe((response: any) => {
-          const roles = response.data?.roles;
-          this._service.setSessionRoles(roles);
-          this.roles = roles;
-        });
+      this._service.logoutUser();
     }
   }
 
