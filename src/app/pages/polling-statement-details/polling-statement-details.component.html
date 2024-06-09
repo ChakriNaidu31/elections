@@ -93,8 +93,11 @@
 
                                                     <div class="col-12">
                                                         <div class="mb-3 float-end">
-                                                            <button class="btn btn-primary f-13" matStepperNext
-                                                                (click)="saveDetailsAtPoll(stepper)"
+                                                            <button class="btn btn-secondary f-13"
+                                                                (click)="editBallotInformation()">Edit Ballot
+                                                                Info</button>
+                                                            <button class="btn btn-primary f-13 ms-2" matStepperNext
+                                                                (click)="saveDetailsAtPoll()"
                                                                 [disabled]="!statementForm.valid">Next</button>
                                                         </div>
                                                     </div>
@@ -106,97 +109,87 @@
                                     </mat-step>
                                     <mat-step>
                                         <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12 my-5">
-                                                    <h3>BALLOT ACCOUNTING</h3>
-                                                </div>
+                                            <form [formGroup]="accountingForm">
+                                                <div class="row">
+                                                    <div class="col-12 my-5">
+                                                        <h4>BALLOT ACCOUNTING</h4>
+                                                        <h6>(To be filled in at END of poll, before counting)</h6>
+                                                    </div>
 
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">1</span> What
-                                                            is the number of ballots issued to voters on the polling
-                                                            station register? </label>
-                                                        <input type="text" class="form-control">
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"><span class="number">1</span>
+                                                                What is the number of ballots issued to voters on the
+                                                                polling station register? </label>
+                                                            <input type="number" class="form-control"
+                                                                formControlName="numberOfBallotsIssuedToRegisteredVoters"
+                                                                (change)="updateTotalCount()">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"><span class="number">2</span>
+                                                                What is the numbers of ballots issued to voters on the
+                                                                Proxy Voters List?</label>
+                                                            <input type="number" class="form-control"
+                                                                formControlName="numberOfBallotsIssuedToProxyVoters"
+                                                                (change)="updateTotalCount()">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"><span class="number">3</span>
+                                                                What is the Total number of <b>SPOILT</b> ballots?
+                                                            </label>
+                                                            <input type="number" class="form-control"
+                                                                formControlName="numberOfSpoiltBallots"
+                                                                (change)="updateTotalCount()">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"><span class="number">4</span>
+                                                                What is the total number of <b>UNUSED</b> ballots?
+                                                            </label>
+                                                            <input type="number" class="form-control"
+                                                                formControlName="numberOfUnusedBallots"
+                                                                (change)="updateTotalCount()">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"><span class="number">5</span>
+                                                                Total number of ballots </label>
+                                                            <input type="number" class="form-control" readonly
+                                                                formControlName="totalNumberOfBallots">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"><span class="number">6</span>
+                                                                What is the total number of persons Manually Verified to
+                                                                vote?
+                                                            </label>
+                                                            <input type="number" class="form-control"
+                                                                formControlName="numberOfPersonsManuallyVerified">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3 float-end">
+                                                            <button class="btn btn-light f-13 "
+                                                                matStepperPrevious>Back</button>
+                                                            <button class="btn btn-primary f-13 ms-2"
+                                                                matStepperNext>Next</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">2</span> What
-                                                            is the numbers of ballots issued to voters on the Proxy
-                                                            Voters List?</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">3</span> What
-                                                            is the Total number of SPOILT ballots? </label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">4</span> What
-                                                            is the total number of UNUSED ballots? </label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">5</span> Total
-                                                            number of ballots </label>
-                                                        <input type="text" class="form-control" readonly>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">6</span> What
-                                                            is the total number of persons Manually Verified to vote?
-                                                        </label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3 float-end">
-                                                        <button class="btn btn-light f-13 "
-                                                            matStepperPrevious>Back</button>
-                                                        <button class="btn btn-primary f-13 ms-2"
-                                                            matStepperNext>Next</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </mat-step>
-                                    <mat-step>
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12 my-5">
-                                                    <h3>REJECTED BALLOT REPORT</h3>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label class="form-label  "><span class="number">1</span> What
-                                                            is the TOTAL number of Rejected Ballots? </label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="mb-3 float-end">
-                                                        <button class="btn btn-light f-13 "
-                                                            matStepperPrevious>Back</button>
-                                                        <button class="btn btn-primary f-13 ms-2"
-                                                            matStepperNext>Next</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </mat-step>
 
@@ -209,11 +202,11 @@
 
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <span>POLLING STATION NAME</span> : <span
+                                                        <span>POLLING STATION NAME</span>: <span
                                                             class="fw-bold">MUSHEERABAD</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
-                                                        <span>POLLING STATION NAME</span> : <span
+                                                        <span>POLLING STATION CODE</span>: <span
                                                             class="fw-bold">MSD</span>
                                                     </div>
 
@@ -267,35 +260,36 @@
                                                         <div class="col-12 question">
                                                             <span class="number">1</span> What is
                                                             the number of voters on the polling station register?<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{statementForm.value.totalNumberOfRegisteredVoters}}</span>
                                                         </div>
 
                                                         <div class="col-12 question">
                                                             <span class="number">2</span> What
                                                             is the numbers of voters on the Proxy Voters List?<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{statementForm.value.totalNumberOfProxyVoters}}</span>
                                                         </div>
 
                                                         <div class="col-12 question">
                                                             <span class="number">3</span>What
                                                             is the number of voters on the Absent Voters List?<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{statementForm.value.totalNumberOfAbsentVoters}}</span>
                                                         </div>
 
                                                         <div class="col-12 question">
                                                             <span class="number">4</span>What
                                                             is the number of voters on the Transfer Voters List?<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{statementForm.value.totalNumberOfTransferVoters}}</span>
                                                         </div>
 
                                                         <div class="col-12 question">
                                                             <span class="number">5</span>What
-                                                            is the serial number of the BVD<span class="fw-bold">
-                                                                120</span>
+                                                            is the serial number of the BVD? <span
+                                                                class="fw-bold bold-with-box">{{statementForm.value.serialNumberOfBVD}}</span>
                                                             What
                                                             is the serial number of the replaced BVD, if any? <span
-                                                                class="fw-bold">120</span>
-                                                            Validating stamp number?<span class="fw-bold"> 120</span>
+                                                                class="fw-bold">{{statementForm.value.serialNumberOfReplacedBVD}}</span>
+                                                            Validating stamp number? <span
+                                                                class="fw-bold bold-with-box">{{statementForm.value.stampNumber}}</span>
                                                         </div>
                                                     </div>
 
@@ -307,31 +301,34 @@
                                                         <div class="col-12 question">
                                                             <span class="number">1</span> What
                                                             is the number of ballots issued to voters on the polling
-                                                            station register?<span class="float-end fw-bold">120</span>
+                                                            station register?<span
+                                                                class="float-end fw-bold">{{accountingForm.value.numberOfBallotsIssuedToRegisteredVoters}}</span>
                                                         </div>
                                                         <div class="col-12 question">
                                                             <span class="number">2</span> What
                                                             is the numbers of ballots issued to voters on the Proxy
-                                                            Voters List?<span class="float-end fw-bold">120</span>
+                                                            Voters List?<span
+                                                                class="float-end fw-bold">{{accountingForm.value.numberOfBallotsIssuedToProxyVoters}}</span>
                                                         </div>
                                                         <div class="col-12 question">
                                                             <span class="number">3</span> What
                                                             is the Total number of SPOILT ballots?<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{accountingForm.value.numberOfSpoiltBallots}}</span>
                                                         </div>
                                                         <div class="col-12 question">
                                                             <span class="number">4</span> What
                                                             is the total number of UNUSED ballots?<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{accountingForm.value.numberOfUnusedBallots}}</span>
                                                         </div>
                                                         <div class="col-12 question">
                                                             <span class="number">5</span> Total
-                                                            number of ballots<span class="float-end fw-bold">120</span>
+                                                            number of ballots<span
+                                                                class="float-end fw-bold">{{accountingForm.value.totalNumberOfBallots}}</span>
                                                         </div>
                                                         <div class="col-12 question">
                                                             <span class="number">6</span> What
                                                             is the total number of persons Manually Verified<span
-                                                                class="float-end fw-bold">120</span>
+                                                                class="float-end fw-bold">{{accountingForm.value.numberOfPersonsManuallyVerified}}</span>
                                                         </div>
                                                     </div>
 
@@ -342,14 +339,15 @@
                                                     <div class="summary-questions">
                                                         <div class="col-12 question">
                                                             <span class="number">1</span> What is the TOTAL number of
-                                                            Rejected Ballots? <span class="float-end fw-bold">120</span>
+                                                            Rejected Ballots? <span class="float-end fw-bold">0</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="mb-3 float-end">
                                                         <button class="btn btn-light " matStepperPrevious>Back</button>
-                                                        <button class="btn btn-primary  ms-2">Submit</button>
+                                                        <button class="btn btn-primary ms-2"
+                                                            (click)="saveDetailsAfterPoll()">Submit</button>
                                                     </div>
                                                 </div>
 

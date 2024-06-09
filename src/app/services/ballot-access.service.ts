@@ -144,6 +144,9 @@ export class BallotAccessService {
   getElectionList() {
     return this.http.get(this.apiUrl + '/election', { headers: this.getHttpHeaders() });
   }
+  getElectionDetails(id: string) {
+    return this.http.get(this.apiUrl + '/election/' + id, { headers: this.getHttpHeaders() });
+  }
   createElection(election: any) {
     return this.http.post(this.apiUrl + '/election', election, { headers: this.getHttpHeaders() });
   }
@@ -151,10 +154,10 @@ export class BallotAccessService {
     return this.http.patch(this.apiUrl + '/election/' + id, election, { headers: this.getHttpHeaders() });
   }
   activateElection(id: string) {
-    return this.http.post(this.apiUrl + '/election/activate/' + id, { headers: this.getHttpHeaders() });
+    return this.http.post(this.apiUrl + '/election/activate/' + id, {}, { headers: this.getHttpHeaders() });
   }
   getCurrentElectionDetails() {
-    return this.http.get(this.apiUrl + '/election/current', { headers: this.getHttpHeaders() });
+    return this.http.post(this.apiUrl + '/election/current', {}, { headers: this.getHttpHeaders() });
   }
 
   // User APIs - TODO: Some of the below methods are unused
@@ -167,6 +170,12 @@ export class BallotAccessService {
   createAdminUser(user: any) {
     return this.http.post(this.apiUrl + '/user/createAdmin', user, { headers: this.getHttpHeaders() });
   }
+  deactivateUser(id: string) {
+    return this.http.delete(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() } );
+  }
+  getUserDetails(id: string) {
+    return this.http.get(this.apiUrl + '/user/single/' + id, { headers: this.getHttpHeaders() });
+  }
 
   // Poll APIs
   saveDetailsBeforePoll(details: any) {
@@ -177,6 +186,15 @@ export class BallotAccessService {
   }
   saveDetailsAfterPoll(details: any) {
     return this.http.post(this.apiUrl + '/poll/after', details, { headers: this.getHttpHeaders() });
+  }
+  getDetailsBeforePoll() {
+    return this.http.get(this.apiUrl + '/poll/before', { headers: this.getHttpHeaders() });
+  }
+  getDetailsAtPoll() {
+    return this.http.get(this.apiUrl + '/poll/at', { headers: this.getHttpHeaders() });
+  }
+  getDetailsAfterPoll() {
+    return this.http.get(this.apiUrl + '/poll/after', { headers: this.getHttpHeaders() });
   }
 
   /******************* METHODS END ************************/

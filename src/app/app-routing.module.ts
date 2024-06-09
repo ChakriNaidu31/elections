@@ -76,6 +76,7 @@ const routes: Routes = [
   {
     path: 'statement', children: [
       { path: '', component: PollingStatementComponent },
+      { path: ':id', component: PollingStatementComponent },
       { path: 'details/:id', component: PollingStatementDetailsComponent },
     ],
     canActivate: [authGuard],

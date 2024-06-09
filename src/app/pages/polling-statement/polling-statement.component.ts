@@ -2,8 +2,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
+import { Election } from 'src/app/models/election';
 import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
 @Component({
@@ -29,11 +30,44 @@ export class PollingStatementComponent implements OnInit {
   rangeOf50: number = 0;
   rangeOf25: number = 0;
   rangeOf10: number = 0;
+  currentElection!: Election;
 
-  constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // TODO: check if this page is already filled, if so redirect to details page
+    this.getCurrentElectionDetails();
+    this.getDetailsBeforePoll();
+  }
+
+  getCurrentElectionDetails() {
+    this._service.getCurrentElectionDetails().pipe(
+      catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      })
+    ).subscribe((response: any) => {
+      this.currentElection = response.data?.election;
+    });
+  }
+
+  getDetailsBeforePoll() {
+    const beforePollId: string = this._activatedRoute.snapshot.paramMap.get('id') || '';
+    this._service.getDetailsBeforePoll().subscribe((response: any) => {
+      if (beforePollId) {
+        this.statementForm.patchValue(response.data?.pollStatementBeforePoll);
+        this.statementForm.controls['rangeOf100BookletsFrom'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[0]?.range?.split('-')[0]);
+        this.statementForm.controls['rangeOf100BookletsTo'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[0]?.range?.split('-')[1]);
+        this.statementForm.controls['rangeOf50BookletsFrom'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[1]?.range?.split('-')[0]);
+        this.statementForm.controls['rangeOf50BookletsTo'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[1]?.range?.split('-')[1]);
+        this.statementForm.controls['rangeOf25BookletsFrom'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[2]?.range?.split('-')[0]);
+        this.statementForm.controls['rangeOf25BookletsTo'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[2]?.range?.split('-')[1]);
+        this.statementForm.controls['rangeOf10BookletsFrom'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[3]?.range?.split('-')[0]);
+        this.statementForm.controls['rangeOf10BookletsTo'].setValue(response.data?.pollStatementBeforePoll?.serialNumberRange[3]?.range?.split('-')[1]);
+        this.validateDetails();
+      } else if (response.data?.pollStatementBeforePoll) {
+        this._router.navigate(['/statement/details/' + response.data?.pollStatementBeforePoll?._id])
+      }
+    });
   }
 
   async validateDetails() {
@@ -82,7 +116,7 @@ export class PollingStatementComponent implements OnInit {
 
     try {
       const remainingBallots = await this.validateDetails();
-      if (remainingBallots && remainingBallots > 0) {
+      if (remainingBallots && remainingBallots !== 0) {
         this._service.showError('Number of ballots entered is not matching with the total based on entered ranges');
         return;
       }
