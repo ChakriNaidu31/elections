@@ -33,6 +33,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
 import { ElectionsDetailsComponent } from './pages/elections-details/elections-details.component';
 import { SetPasswordComponent } from './pages/set-password/set-password.component';
+import { ResultEntryComponent } from './pages/result-entry/result-entry.component';
+import { ResultComponent } from './pages/result/result.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { SetPasswordComponent } from './pages/set-password/set-password.componen
     WardCreateComponent,
     ElectionsListComponent,
     ElectionsDetailsComponent,
-    SetPasswordComponent
+    SetPasswordComponent,
+    ResultEntryComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

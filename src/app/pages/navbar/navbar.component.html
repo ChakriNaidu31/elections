@@ -54,6 +54,7 @@
               <ul class="dropdown-menu">
                 <li *ngIf="findAccess('DASHBOARD')"><a class="dropdown-item" href="#">Dashboard</a></li>
                 <li *ngIf="findAccess('STATEMENT')"><a class="dropdown-item" routerLink="/statement">Statement of Poll</a></li>
+                <li *ngIf="findAccess('RESULT')"><a class="dropdown-item" routerLink="/result">Result</a></li>
                 <li *ngIf="findAccess('MAP')"><a class="dropdown-item" href="#">Map</a></li>
               </ul>
             </li>

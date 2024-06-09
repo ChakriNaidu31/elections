@@ -137,6 +137,7 @@ export class PollingStatementDetailsComponent implements OnInit {
         }))
         .subscribe((response: any) => {
           this._service.showSuccess('Success', 'Details saved successfully');
+          this._router.navigateByUrl('/dashboard');
         });
     } catch (error: any) {
       this._service.showError("Internal Server Error. Please enter valid numbers");
