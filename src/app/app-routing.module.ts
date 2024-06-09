@@ -20,8 +20,6 @@ import { WardCreateComponent } from './pages/ward-create/ward-create.component';
 import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
 import { ElectionsDetailsComponent } from './pages/elections-details/elections-details.component';
 import { SetPasswordComponent } from './pages/set-password/set-password.component';
-import { ResultComponent } from './pages/result/result.component';
-import { ResultEntryComponent } from './pages/result-entry/result-entry.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -72,28 +70,17 @@ const routes: Routes = [
         ],
       }
     ],
-    canActivate: [authGuard],
-    canActivateChild: [authGuard]
+    
   },
   {
     path: 'statement', children: [
       { path: '', component: PollingStatementComponent },
-      { path: ':id', component: PollingStatementComponent },
       { path: 'details/:id', component: PollingStatementDetailsComponent },
     ],
-    canActivate: [authGuard],
-    canActivateChild: [authGuard]
+ 
   },
-  {
-    path: 'result', children: [
-      { path: '', component: ResultComponent },
-      { path: 'entry', component: ResultEntryComponent }
-    ],
-    canActivate: [authGuard],
-    canActivateChild: [authGuard]
-  },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'dataupload', component: DataUploadComponent, canActivate: [authGuard] },
+  { path: 'dashboard', component: DashboardComponent,  },
+  { path: 'dataupload', component: DataUploadComponent,  },
   { path: '**', component: PagenotfoundComponent }
 ];
 

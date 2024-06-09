@@ -6,7 +6,7 @@
                 <div class="container pt-4 px-4">
                     <div class="row">
                         <div class="col-lg-9 col-sm-12 col-md-9 my-3">
-                            <h4>Polling Station - Result</h4>
+                            <h4>Polling Station - Result Entry</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
                             <button class="btn btn-primary f-13">Update result</button>
@@ -41,7 +41,7 @@
                                 </select>
                             </div>
                         </div> -->
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -52,7 +52,7 @@
                                             <th style="width: 20%;" scope="col">Ward</th>
                                             <th scope="col">Actions</th>
                                         </tr>
-                                    </thead>
+                                    </thead> -->
                                     <!-- <tbody *ngIf="stationList && stationList.length > 0; else noItemsFound">
                                         <tr *ngFor="let station of stationList">
                                             <td>{{station.name}}</td>
@@ -70,6 +70,65 @@
                                             </td>
                                         </tr>
                                     </tbody> -->
+                                <!-- </table>
+                            </div>
+                            
+                            <ng-template #noItemsFound>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5">No stations found for the filters applied</td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+
+                        </div> -->
+
+                        <div class="col-lg-6 col-sm-12 col-md-12">
+                            <div>
+                                <span class="form-label fw-bold me-3">Polling Station Name : </span>
+                                <span class="form-label">Saint Frankas Street</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-md-12">
+                            <div>
+                                <span class="form-label fw-bold me-3">Polling Station Code : </span>
+                                <span class="form-label">AD-1442</span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 mt-4">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;" scope="col">S/No.</th>
+                                            <th style="width: 20%;" scope="col">NAME OF CANDIDATE</th>
+                                            <th style="width: 20%;" scope="col">PARTY INITAL</th>
+                                            <th style="width: 15%;" scope="col">VOTES OBTAINED<br>(IN FIGURES)</th>
+                                            <th style="width: 35%;" scope="col">VOTES OBTAINED<br>(IN WORDS)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>Andrews</td>
+                                            <td>Cycle</td>
+                                            <td><input type="number" class="form-control"></td>
+                                            <td>
+                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.</td>
+                                            <td>Sibal</td>
+                                            <td>Fan</td>
+                                            <td><input type="number" class="form-control"></td>
+                                            <td>
+                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             
@@ -81,6 +140,14 @@
                                 </tbody>
                             </ng-template>
 
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3 float-end">
+                                <button class="btn btn-light ">Cancel</button>
+                                <button class="btn btn-primary ms-2"
+                                    >Submit</button>
+                            </div>
                         </div>
 
                     </div>
