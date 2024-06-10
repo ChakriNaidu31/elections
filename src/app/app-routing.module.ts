@@ -14,7 +14,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollingStatementComponent } from './pages/polling-statement/polling-statement.component';
 import { PollingStatementDetailsComponent } from './pages/polling-statement-details/polling-statement-details.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
-import { authGuard } from './services/auth.guard';
+// import { authGuard } from './services/auth.guard';
 import { WardListComponent } from './pages/ward-list/ward-list.component';
 import { WardCreateComponent } from './pages/ward-create/ward-create.component';
 import { ElectionsListComponent } from './pages/elections-list/elections-list.component';
@@ -72,8 +72,7 @@ const routes: Routes = [
         ],
       }
     ],
-    canActivate: [authGuard],
-    canActivateChild: [authGuard]
+
   },
   {
     path: 'statement', children: [
@@ -81,19 +80,17 @@ const routes: Routes = [
       { path: ':id', component: PollingStatementComponent },
       { path: 'details/:id', component: PollingStatementDetailsComponent },
     ],
-    canActivate: [authGuard],
-    canActivateChild: [authGuard]
+   
   },
   {
     path: 'result', children: [
       { path: '', component: ResultComponent },
       { path: 'entry', component: ResultEntryComponent }
     ],
-    canActivate: [authGuard],
-    canActivateChild: [authGuard]
+  
   },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'dataupload', component: DataUploadComponent, canActivate: [authGuard] },
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'dataupload', component: DataUploadComponent},
   { path: '**', component: PagenotfoundComponent }
 ];
 
