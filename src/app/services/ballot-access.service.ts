@@ -197,6 +197,19 @@ export class BallotAccessService {
     return this.http.get(this.apiUrl + '/poll/after', { headers: this.getHttpHeaders() });
   }
 
+  // Result APIs
+  addResult(result: any) {
+    return this.http.post(this.apiUrl + '/result', result, { headers: this.getHttpHeaders() });
+  }
+  getResult() {
+    return this.http.get(this.apiUrl + '/result', { headers: this.getHttpHeaders() });
+  }
+
+  // Dashboard API
+  fetchDashboard() {
+    return this.http.get(this.apiUrl + '/dashboard', { headers: this.getHttpHeaders() });
+  }
+
   /******************* METHODS END ************************/
 
 

@@ -1,4 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { catchError } from 'rxjs';
+import { Election } from 'src/app/models/election';
+import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
 declare var google: any;
 
@@ -11,9 +14,21 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild('chart', { static: true }) chartElement!: ElementRef;
 
-  constructor() { }
+  election!: Election;
+  status: string = '';
+
+  constructor(private _service: BallotAccessService) { }
 
   ngOnInit(): void {
+    this._service.fetchDashboard().pipe(
+      catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+     .subscribe((response: any) => {
+      this.election = response.election;
+      this.status = response.status;
+    });
     if (typeof google !== 'undefined' && google.charts) {
       google.charts.load('current', {
         'packages': ['geochart'],

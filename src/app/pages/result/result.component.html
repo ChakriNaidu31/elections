@@ -9,7 +9,8 @@
                             <h4>Polling Station - Result</h4>
                         </div>
                         <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
-                            <button class="btn btn-primary f-13">Update result</button>
+                            <button class="btn btn-primary f-13" (click)="redirectToResultEntry()">Update
+                                result</button>
                         </div>
                         <!-- <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
@@ -53,7 +54,7 @@
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead> -->
-                                    <!-- <tbody *ngIf="stationList && stationList.length > 0; else noItemsFound">
+                        <!-- <tbody *ngIf="stationList && stationList.length > 0; else noItemsFound">
                                         <tr *ngFor="let station of stationList">
                                             <td>{{station.name}}</td>
                                             <td>{{station.code}}</td>
@@ -70,7 +71,7 @@
                                             </td>
                                         </tr>
                                     </tbody> -->
-                                <!-- </table>
+                        <!-- </table>
                             </div>
                             
                             <ng-template #noItemsFound>
@@ -88,13 +89,13 @@
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div>
                                 <span class="form-label fw-bold me-3">Polling Station Name : </span>
-                                <span class="form-label">Saint Frankas Street</span>
+                                <span class="form-label">Test</span>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div>
                                 <span class="form-label fw-bold me-3">Polling Station Code : </span>
-                                <span class="form-label">AD-1442</span>
+                                <span class="form-label">Test</span>
                             </div>
                         </div>
 
@@ -105,75 +106,59 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10%;" scope="col">S/No.</th>
-                                            <th style="width: 20%;" scope="col">NAME OF CANDIDATE</th>
-                                            <th style="width: 20%;" scope="col">PARTY INITAL</th>
+                                            <th style="width: 35%;" scope="col">NAME OF CANDIDATE</th>
+                                            <th style="width: 10%;" scope="col">PARTY INITAL</th>
                                             <th style="width: 15%;" scope="col">VOTES OBTAINED<br>(IN FIGURES)</th>
-                                            <th style="width: 35%;" scope="col">VOTES OBTAINED<br>(IN WORDS)</th>
+                                            <th style="width: 30%;" scope="col">VOTES OBTAINED<br>(IN WORDS)</th>
                                         </tr>
                                     </thead>
-                                    <tbody >
-                                        <tr>
-                                            <td class="fw-bold">1.</td>
-                                            <td>Andrews</td>
-                                            <td>Cycle</td>
-                                            <td>1,23,456</td>
+                                    <tbody *ngIf="results && results.length > 0; else noItemsFound">
+                                        <tr *ngFor="let result of results; let i=index">
+                                            <td class="fw-bold">{{i+1}}</td>
+                                            <td>{{result.candidate.name}}</td>
+                                            <td>{{result.candidate.partySymbol}}</td>
+                                            <td>{{result.votes}}</td>
                                             <td>
-                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                                {{convertToWords(result.votes)}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td  class="fw-bold">2.</td>
-                                            <td>Sibal</td>
-                                            <td>Fan</td>
-                                            <td>1,23,456</td>
+                                            <td class="fw-bold">A.</td>
+                                            <td colspan="2" class="fw-bold text-center">Total Valid Votes </td>
+                                            <td>{{totalVotes}}</td>
                                             <td>
-                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                                {{convertToWords(totalVotes)}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td  class="fw-bold">A.</td>
-                                            <td colspan="2"  class="fw-bold text-center">Total Valid Votes </td>
-                                            <td>1,23,456</td>
+                                            <td class="fw-bold">B.</td>
+                                            <td colspan="2" class="fw-bold text-center">Total rejected Votes </td>
+                                            <td>{{rejectedVotes}}</td>
                                             <td>
-                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                                {{convertToWords(rejectedVotes)}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td  class="fw-bold">B.</td>
-                                            <td colspan="2"  class="fw-bold text-center">Total rejected Votes (from D6 above) </td>
-                                            <td>1,23,456</td>
-                                            <td>
-                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                            <td class="fw-bold">C.</td>
+                                            <td colspan="2" class="fw-bold text-center">Total Votes in Ballot Box (A+B)
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td  class="fw-bold">C.</td>
-                                            <td colspan="2"  class="fw-bold text-center">Total Votes in Ballot Box (A+B) </td>
-                                            <td>1,23,456</td>
+                                            <td>{{totalBallots}}</td>
                                             <td>
-                                                One Lakh Twenty Three Thousand Four Hundred and Fifty Six
+                                                {{convertToWords(totalBallots)}}
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <ng-template #noItemsFound>
                                 <tbody>
                                     <tr>
-                                        <td colspan="5">No stations found for the filters applied</td>
+                                        <td colspan="5">No results entered yet</td>
                                     </tr>
                                 </tbody>
                             </ng-template>
 
-                        </div>
-
-                        <div class="col-12">
-                            <div class="mb-3 float-end">
-                                <button class="btn btn-light " >Cancel</button>
-                                <button class="btn btn-primary ms-2"
-                                    >Submit</button>
-                            </div>
                         </div>
 
                     </div>
