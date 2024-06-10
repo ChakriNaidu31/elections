@@ -1,0 +1,9 @@
+@media (max-width: 767px) {
+    .sm-none {
+        display: none !important;
+    }
+}
+.border-custom {
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+}

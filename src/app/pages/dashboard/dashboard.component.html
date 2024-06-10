@@ -2,21 +2,25 @@
 <div class="container-fluid ">
     <div class="row">
         <div class="col-12 bg-light bg-gradient mb-5">
-            <div class="bg-white m-4 rounded">
+            <div class="bg-white m-4 rounded pb-4">
                 <h5 class="pt-4 p-4">Dashboard</h5>
 
                 
 
                 <div class="row px-4">
-                    <div class="col-12 bg-light mb-3 p-3" *ngIf="status">
-                        <span class="fw-bold me-3">STATUS : </span> <span class="badge bg-primary">{{status}}</span>
-                     </div>
-                    <div class="col-lg-7 col-md-7 col-sm-12">
+                     <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <div class="p-3 border-custom bg-light">
+                            <span class="fw-bold me-3">STATUS : </span> <span class="badge bg-primary">{{status}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 col-md-12 col-sm-12 sm-none">
                         <div #chart ></div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12">
+
+                    <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="col-12 rounded">
-                            <div class="bg-light p-5 text-center">
+                            <div class="bg-light p-5 text-center border-custom">
                                 <p class="fw-bold">{{election.electionName}}</p>
                                 <p class="fw-bold">{{election.electionDate | date: 'yyyy-MM-dd'}}</p>
                             </div>
@@ -24,14 +28,14 @@
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 rounded mt-4">
-                                    <div class="bg-light p-5 text-center">
+                                <div class="col-lg-6 col-md-12 col-sm-12 rounded mt-4">
+                                    <div class="bg-light p-5 text-center border-custom">
                                         <p class="fw-bold">{{election.candidates.length}}</p>
                                         <p class="fw-bold">Candidates</p>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 rounded mt-4">
-                                    <div class="bg-light p-5 text-center">
+                                <div class="col-lg-6 col-md-12 col-sm-12 rounded mt-4">
+                                    <div class="bg-light p-5 text-center border-custom">
                                         <p class="fw-bold">12</p>
                                         <p class="fw-bold">Candidates </p>
                                     </div>
