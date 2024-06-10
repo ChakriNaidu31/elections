@@ -25,10 +25,11 @@ export class DashboardComponent implements OnInit {
         this._service.showError(error.error?.error?.message);
         return '';
       }))
-     .subscribe((response: any) => {
-      this.election = response.election;
-      this.status = response.status;
-    });
+      .subscribe((response: any) => {
+        this.election = response.data?.election;
+        this.status = response.data?.status;
+      });
+
     if (typeof google !== 'undefined' && google.charts) {
       google.charts.load('current', {
         'packages': ['geochart'],

@@ -203,11 +203,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                                         <span>POLLING STATION NAME</span>: <span
-                                                            class="fw-bold">MUSHEERABAD</span>
+                                                            class="fw-bold">TEST</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                                         <span>POLLING STATION CODE</span>: <span
-                                                            class="fw-bold">MSD</span>
+                                                            class="fw-bold">TEST</span>
                                                     </div>
 
                                                     <div class="col-12 mt-4">
@@ -218,12 +218,12 @@
                                                         <div class="col-12 question">
                                                             <span class="number">1</span> What is the number of Ballots
                                                             issued to this polling station?<span
-                                                                class="float-end fw-bold">100</span>
+                                                                class="float-end fw-bold">{{beforePollStatement.numberOfBallotsIssued}}</span>
                                                         </div>
                                                         <div class="col-12 question">
                                                             <span class="number">2</span> What is the range of serial
                                                             numbers of the ballot papers issued to the polling
-                                                            station?<span class="float-end fw-bold">0000-0010</span>
+                                                            station?<span class="float-end fw-bold">{{beforePollStatement.serialNumberOfBallotsIssued}}</span>
                                                         </div>
 
                                                         <div class="col-12 mt-3">
@@ -234,15 +234,15 @@
                                                                             <th scope="col">Range of 100 BOOKLETS</th>
                                                                             <th scope="col">Range of 50 BOOKLETS</th>
                                                                             <th scope="col">Range of 25 BOOKLETS</th>
-                                                                            <th scope="col">Range of 0 BOOKLETS</th>
+                                                                            <th scope="col">Range of 10 BOOKLETS</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <th scope="row">0000-0010</th>
-                                                                            <th scope="row">2000-2010</th>
-                                                                            <th scope="row">3000-3020</th>
-                                                                            <th scope="row">5000-5050</th>
+                                                                            <td scope="row">{{beforePollStatement.serialNumberRange[0]?.range}}</td>
+                                                                            <td scope="row">{{beforePollStatement.serialNumberRange[1]?.range}}</td>
+                                                                            <td scope="row">{{beforePollStatement.serialNumberRange[2]?.range}}</td>
+                                                                            <td scope="row">{{beforePollStatement.serialNumberRange[3]?.range}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>

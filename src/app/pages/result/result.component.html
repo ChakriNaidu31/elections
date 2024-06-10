@@ -149,6 +149,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div *ngIf="results && results.length > 0;" class="p-2" style="text-align: right;">Last updated at: {{results[0].updatedDate | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
                             </div>
 
                             <ng-template #noItemsFound>
