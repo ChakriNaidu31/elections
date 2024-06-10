@@ -13,6 +13,7 @@ import { BallotAccessService } from 'src/app/services/ballot-access.service';
 export class PollingStatementDetailsComponent implements OnInit {
 
   @ViewChild('stepper') private stepper!: MatStepper;
+  beforePollStatement: any = {};
 
   statementForm: FormGroup = this._fb.group({
     totalNumberOfRegisteredVoters: [0, [Validators.required, Validators.nullValidator, Validators.min(1)]],
@@ -36,6 +37,10 @@ export class PollingStatementDetailsComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _activatedRoute: ActivatedRoute, private _router: Router) { }
 
   ngOnInit(): void {
+    this._service.getDetailsBeforePoll().subscribe((response: any) => {
+      this.beforePollStatement = response.data?.pollStatementBeforePoll;
+    });
+
     this._service.getDetailsAtPoll().subscribe((response: any) => {
       this.statementForm.patchValue(response.data?.pollStatementAtPoll);
       if (this.stepper) {
