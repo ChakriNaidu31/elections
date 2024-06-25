@@ -30,20 +30,13 @@ export class UserCreateComponent implements OnInit {
     { key: 'RETURNING_OFFICER', value: 'Returning Officer' },
     { key: 'POLLING_OFFICER', value: 'Polling Officer' }
   ];
-  enableAdmin: boolean = false;
+  showPasswordField: boolean = false;
 
   constructor(private _service: BallotAccessService, private _fb: FormBuilder, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchConstituencyList();
-    const urlSegments = this._activatedRoute.snapshot.url;
-    console.log(urlSegments[1]);
-    console.log(this._activatedRoute.snapshot);
-    if (urlSegments && urlSegments.length > 1 && urlSegments[1].path === 'admin') {
-      this.enableAdmin = true;
-    }
   }
-
 
   fetchConstituencyList(): void {
     this._service.getConstituencyList()
@@ -71,18 +64,23 @@ export class UserCreateComponent implements OnInit {
   }
 
   createUser() {
-    console.log(this.enableAdmin);
-    if (this.enableAdmin) {
-      this._service.createAdminUser(this.userForm.value)
-        .pipe(catchError((error) => {
-          this._service.showError(error.error?.error?.message);
-          return '';
-        }))
-        .subscribe((response: any) => {
-          this.userForm.reset();
-          this._service.showSuccess('Success', 'User created successfully');
-          this._router.navigateByUrl('/admin/user');
-        });
+    if (this.showPasswordField) {
+      const createdPass = this.userForm.controls['password'].value;
+      if (!createdPass) {
+        this._service.showError('Password is required');
+        return;
+      } else {
+        this._service.createAdminUser(this.userForm.value)
+          .pipe(catchError((error) => {
+            this._service.showError(error.error?.error?.message);
+            return '';
+          }))
+          .subscribe((response: any) => {
+            this.userForm.reset();
+            this._service.showSuccess('Success', 'User created successfully');
+            this._router.navigateByUrl('/admin/user');
+          });
+      }
     } else {
       this._service.createUser(this.userForm.value)
         .pipe(catchError((error) => {
@@ -94,6 +92,15 @@ export class UserCreateComponent implements OnInit {
           this._service.showSuccess('Success', 'User created successfully');
           this._router.navigateByUrl('/admin/user');
         });
+    }
+  }
+
+  togglePasswordShow(event: Event): void {
+    const selectedRole = (event.target as HTMLSelectElement).value;
+    if (selectedRole === 'ADMIN') {
+      this.showPasswordField = true;
+    } else {
+      this.showPasswordField = false;
     }
   }
 

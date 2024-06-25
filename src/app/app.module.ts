@@ -35,6 +35,7 @@ import { ElectionsDetailsComponent } from './pages/elections-details/elections-d
 import { SetPasswordComponent } from './pages/set-password/set-password.component';
 import { ResultEntryComponent } from './pages/result-entry/result-entry.component';
 import { ResultComponent } from './pages/result/result.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ResultComponent } from './pages/result/result.component';
       maxOpened: 3,
       autoDismiss: true,
       preventDuplicates: true
-    })
+    }),
+    ColorPickerModule
   ],
   providers: [
     BallotAccessService,

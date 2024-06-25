@@ -28,20 +28,20 @@
                                 <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
                                     class="text-danger f-13">Enter a valid email</div>
                             </div>
-                            <div class="mb-3" *ngIf="enableAdmin">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control" formControlName="password">
-                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Role<span style="color: red">*</span></label>
                                 <select class="form-select" formControlName="role"
-                                    [ngClass]="{ 'is-invalid': userForm.get('role')?.invalid && userForm.get('role')?.touched }">
+                                    [ngClass]="{ 'is-invalid': userForm.get('role')?.invalid && userForm.get('role')?.touched }" (change)="togglePasswordShow($event)">
                                     <option selected value="">Select Role</option>
                                     <option *ngFor="let role of roleList" value="{{role.key}}">{{role.value}}
                                     </option>
                                 </select>
                                 <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched"
                                     class="text-danger f-13">This field is required.</div>
+                            </div>
+                            <div class="mb-3" *ngIf="showPasswordField">
+                                <label class="form-label">Password<span style="color: red">*</span></label>
+                                <input type="password" class="form-control" formControlName="password">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Constituency</label>

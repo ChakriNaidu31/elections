@@ -9,8 +9,8 @@
                         <form [formGroup]="electionForm" (submit)="createElection()">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="mb-3">
-                                        <label for="commissionName" class="form-label">Election Commission Name<span
+                                    <!-- <div class="mb-3">
+                                        <label for="commissionName" class="form-label">Electoral Commission Name<span
                                                 style="color: red">*</span></label>
                                         <input type="text" class="form-control" formControlName="commissionName"
                                             [ngClass]="{ 'is-invalid': electionForm.get('commissionName')?.invalid && electionForm.get('commissionName')?.touched }">
@@ -18,9 +18,9 @@
                                             class="text-danger f-13">This field is required.</div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="commissionLogo" class="form-label">Election Commission Logo</label>
+                                        <label for="commissionLogo" class="form-label">Electoral Commission Logo</label>
                                         <input type="file" class="form-control" formControlName="commissionLogo">
-                                    </div>
+                                    </div> -->
                                     <div class="mb-3">
                                         <label for="electionName" class="form-label">Election Name<span
                                                 style="color: red">*</span></label>
@@ -59,10 +59,10 @@
                                         </select>
                                     </div>
                                     <form [formGroup]="candidatesForm">
-                                        <div class="row mb-3">
+                                        <div class="row mb-3 mt-5">
                                             <div class="col-12">
                                                 <div class="row mb-3">
-                                                    <div class="col-5">
+                                                    <div class="col-6">
                                                         <label for="name" class="form-label">Candidate Name<span
                                                                 style="color: red">*</span></label>
                                                         <input type="text" class="form-control" formControlName="name"
@@ -70,7 +70,7 @@
                                                         <div *ngIf="candidatesForm.get('name')?.invalid && candidatesForm.get('name')?.touched"
                                                             class="text-danger f-13">This field is required.</div>
                                                     </div>
-                                                    <div class="col-5">
+                                                    <div class="col-6">
                                                         <label for="partyName" class="form-label">Party Name<span
                                                                 style="color: red">*</span></label>
                                                         <input type="text" class="form-control"
@@ -79,13 +79,22 @@
                                                         <div *ngIf="candidatesForm.get('partyName')?.invalid && candidatesForm.get('partyName')?.touched"
                                                             class="text-danger f-13">This field is required.</div>
                                                     </div>
-                                                    <div class="col-5">
+                                                    <div class="col-6">
                                                         <label for="partySymbol" class="form-label">Party Symbol<span
                                                                 style="color: red">*</span></label>
                                                         <input type="text" class="form-control"
                                                             formControlName="partySymbol"
                                                             [ngClass]="{ 'is-invalid': candidatesForm.get('partySymbol')?.invalid && candidatesForm.get('partySymbol')?.touched }">
                                                         <div *ngIf="candidatesForm.get('partySymbol')?.invalid && candidatesForm.get('partySymbol')?.touched"
+                                                            class="text-danger f-13">This field is required.</div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="partyColor" class="form-label">Party Color<span
+                                                                style="color: red">*</span></label>
+                                                        <input type="text" class="form-control" [(colorPicker)]="defaultColor" [style.background]="defaultColor"
+                                                            formControlName="partyColor" [value]="defaultColor" [cpOutputFormat]="'hex'"
+                                                            [ngClass]="{ 'is-invalid': candidatesForm.get('partyColor')?.invalid && candidatesForm.get('partyColor')?.touched }">
+                                                        <div *ngIf="candidatesForm.get('partyColor')?.invalid && candidatesForm.get('partyColor')?.touched"
                                                             class="text-danger f-13">This field is required.</div>
                                                     </div>
                                                 </div>
@@ -104,9 +113,11 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 50%;" scope="col">Candidate </th>
-                                                    <th style="width: 30%;" scope="col">Party</th>
-                                                    <th style="width: 20%;" scope="col">Symbol</th>
+                                                    <th style="width: 45%;" scope="col">Candidate </th>
+                                                    <th style="width: 25%;" scope="col">Party</th>
+                                                    <th style="width: 15%;" scope="col">Symbol</th>
+                                                    <th style="width: 15%;" scope="col">Color</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody *ngIf="candidates && candidates.length > 0; else noItemsFound">
@@ -114,6 +125,7 @@
                                                     <td>{{candidate.name}}</td>
                                                     <td>{{candidate.partyName}}</td>
                                                     <td>{{candidate.partySymbol}}</td>
+                                                    <td>{{candidate.partyColor}}</td>
                                                     <td>
                                                         <button type="button" class="btn btn-info ms-4"
                                                             (click)="deleteCandidate(candidate)"><i
@@ -128,7 +140,7 @@
                                     <ng-template #noItemsFound>
                                         <tbody>
                                             <tr>
-                                                <td colspan="3">No candidates found</td>
+                                                <td colspan="5">No candidates found</td>
                                             </tr>
                                         </tbody>
                                     </ng-template>

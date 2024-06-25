@@ -14,19 +14,21 @@ import { BallotAccessService } from 'src/app/services/ballot-access.service';
 })
 export class ElectionsDetailsComponent implements OnInit {
 
+    defaultColor: string = '#B0B0B0';
     minElectionDate: Date = new Date();
     electionForm: FormGroup = this._fb.group({
         electionName: ['', Validators.required],
         electionDate: ['', Validators.required],
-        commissionName: ['', Validators.required],
-        commissionLogo: [''],
+        commissionName: ['Electoral Commission of Ghana', Validators.required],
+        // commissionLogo: [''],
         region: [''],
         constituency: ['']
     });
     candidatesForm: FormGroup = this._fb.group({
         name: ['', Validators.required],
         partyName: ['', Validators.required],
-        partySymbol: ['', Validators.required]
+        partySymbol: ['', Validators.required],
+        partyColor: [this.defaultColor, Validators.required]
     });
     candidates: any[] = [];
     pageTitle: string = "Add New Election";
@@ -140,8 +142,11 @@ export class ElectionsDetailsComponent implements OnInit {
 
     addCandidate() {
         if (this.candidatesForm.valid) {
+            this.candidatesForm.controls['partyColor'].setValue(this.defaultColor);
             this.candidates.push(this.candidatesForm.value);
             this.candidatesForm.reset();
+            this.defaultColor = "#B0B0B0";
+            this.candidatesForm.controls['partyColor'].setValue("#B0B0B0");
         }
     }
 
