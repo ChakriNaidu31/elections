@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
+import { PollingStation } from 'src/app/models/polling-station';
 import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class PollingStatementDetailsComponent implements OnInit {
 
   @ViewChild('stepper') private stepper!: MatStepper;
   beforePollStatement: any = {};
+  currentStation!: PollingStation;
 
   statementForm: FormGroup = this._fb.group({
     totalNumberOfRegisteredVoters: [0, [Validators.required, Validators.nullValidator, Validators.min(1)]],
@@ -37,6 +39,15 @@ export class PollingStatementDetailsComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _service: BallotAccessService, private _activatedRoute: ActivatedRoute, private _router: Router) { }
 
   ngOnInit(): void {
+    this._service.getUserAccess()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.currentStation = response.data?.station;
+      });
+
     this._service.getDetailsBeforePoll().subscribe((response: any) => {
       this.beforePollStatement = response.data?.pollStatementBeforePoll;
     });

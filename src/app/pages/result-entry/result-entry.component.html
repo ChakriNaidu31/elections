@@ -12,13 +12,13 @@
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div>
                                 <span class="form-label fw-bold me-3">Polling Station Name : </span>
-                                <span class="form-label">Test</span>
+                                <span class="form-label" *ngIf="currentStation">{{currentStation.name}}</span>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div>
                                 <span class="form-label fw-bold me-3">Polling Station Code : </span>
-                                <span class="form-label">Test</span>
+                                <span class="form-label" *ngIf="currentStation">{{currentStation.code}}</span>
                             </div>
                         </div>
 

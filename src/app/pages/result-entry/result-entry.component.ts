@@ -12,12 +12,26 @@ import { Router } from '@angular/router';
 })
 export class ResultEntryComponent implements OnInit {
 
-  station!: PollingStation;
+  currentStation!: PollingStation;
   candidates: any[] = [];
 
   constructor(private _service: BallotAccessService, private _router: Router) { }
 
   ngOnInit(): void {
+    const pageAccess = this._service.canUpdateResults();
+    if (!pageAccess) {
+      this._router.navigateByUrl('/dashboard');
+      return;
+    }
+    this._service.getUserAccess()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.currentStation = response.data?.station;
+      });
+
     this._service.getCurrentElectionDetails().pipe(
       catchError((error) => {
         this._service.showError(error.error?.error?.message);

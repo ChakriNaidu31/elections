@@ -6,96 +6,56 @@
                 <div class="container pt-4 px-4">
                     <div class="row">
                         <div class="col-lg-9 col-sm-12 col-md-9 my-3">
-                            <h4>Polling Station - Result</h4>
+                            <h4 *ngIf="canUpdateResults">Polling Station - Result</h4>
+                            <h4 *ngIf="!canUpdateResults">Result Summary</h4>
                         </div>
-                        <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end">
+                        <div class="col-lg-3 col-sm-12 col-md-3 my-3 text-end" *ngIf="canUpdateResults">
                             <button class="btn btn-primary f-13" (click)="redirectToResultEntry()">Update
                                 result</button>
                         </div>
-                        <!-- <div class="col-lg-6 col-sm-12 col-md-12">
+                        <div class="col-lg-6 col-sm-12 col-md-12" *ngIf="!canUpdateResults">
                             <div class="mb-3">
                                 <label class="form-label">Region</label>
-                                <select class="form-select" (change)="filterStationByRegion($event)">
-                                    <option selected value="">Select Region</option>
+                                <select class="form-select" (change)="filterByRegion($event)">
+                                    <option selected value="">All Regions</option>
                                     <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
                                     </option>
                                 </select>
                             </div>
-                        </div> -->
-                        <!-- <div class="col-lg-6 col-sm-12 col-md-12">
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-md-12" *ngIf="!canUpdateResults">
                             <div class="mb-3">
                                 <label class="form-label">Constituency</label>
-                                <select class="form-select" (change)="filterStationByConstituency($event)">
-                                    <option selected value="">Select constituency</option>
+                                <select class="form-select" (change)="filterByConstituency($event)">
+                                    <option selected value="">All constituencies</option>
                                     <option *ngFor="let con of constituencyList" value="{{con._id}}">{{con.name}}
                                     </option>
                                 </select>
                             </div>
-                        </div> -->
-                        <!-- <div class="col-lg-6 col-sm-12 col-md-12">
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-md-12" *ngIf="!canUpdateResults">
                             <div class="mb-3">
-                                <label class="form-label">Ward</label>
-                                <select class="form-select" (change)="filterStationByWard($event)">
+                                <label class="form-label">Polling Station</label>
+                                <select class="form-select" (change)="filterByStation($event)">
                                     <option selected value="">Select ward</option>
-                                    <option *ngFor="let ward of wardList" value="{{ward._id}}">{{ward.name}}
+                                    <option *ngFor="let station of stationList" value="{{station._id}}">{{station.name}}
                                     </option>
                                 </select>
                             </div>
-                        </div> -->
-                        <!-- <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 20%;" scope="col">Name</th>
-                                            <th style="width: 20%;" scope="col">Code</th>
-                                            <th style="width: 20%;" scope="col">Constituency</th>
-                                            <th style="width: 20%;" scope="col">Ward</th>
-                                            <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead> -->
-                        <!-- <tbody *ngIf="stationList && stationList.length > 0; else noItemsFound">
-                                        <tr *ngFor="let station of stationList">
-                                            <td>{{station.name}}</td>
-                                            <td>{{station.code}}</td>
-                                            <td>{{station.constituency.name}}</td>
-                                            <td>{{station.ward.name}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary"
-                                                    (click)="editStation(station)"> <i class="fa-solid fa-pen me-2"
-                                                        width="16px" height="16px" alt="edit icon"></i>Edit</button>
-                                                <button type="button" class="btn btn-danger ms-3"
-                                                    (click)="deleteStation(station)"><i
-                                                        class="fa-solid fa-trash me-2" width="16px" height="16px"
-                                                        alt="Delete icon"></i>Delete</button>
-                                            </td>
-                                        </tr>
-                                    </tbody> -->
-                        <!-- </table>
-                            </div>
-                            
-                            <ng-template #noItemsFound>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="5">No stations found for the filters applied</td>
-                                    </tr>
-                                </tbody>
-                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="row">
 
-                        </div> -->
-
-
-
-                        <div class="col-lg-6 col-sm-12 col-md-12">
+                        <div class="col-lg-6 col-sm-12 col-md-12" *ngIf="canUpdateResults">
                             <div>
                                 <span class="form-label fw-bold me-3">Polling Station Name : </span>
-                                <span class="form-label">Test</span>
+                                <span class="form-label" *ngIf="currentStation">{{currentStation.name}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12 col-md-12">
+                        <div class="col-lg-6 col-sm-12 col-md-12" *ngIf="canUpdateResults">
                             <div>
                                 <span class="form-label fw-bold me-3">Polling Station Code : </span>
-                                <span class="form-label">Test</span>
+                                <span class="form-label" *ngIf="currentStation">{{currentStation.code}}</span>
                             </div>
                         </div>
 
@@ -149,7 +109,8 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="results && results.length > 0;" class="p-2" style="text-align: right;">Last updated at: {{results[0].updatedDate | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                                <div *ngIf="results && results.length > 0;" class="p-2" style="text-align: right;">Last
+                                    updated at: {{results[0].updatedDate | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
                             </div>
 
                             <ng-template #noItemsFound>

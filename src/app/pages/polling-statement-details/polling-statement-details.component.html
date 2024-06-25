@@ -203,11 +203,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                                         <span>POLLING STATION NAME</span>: <span
-                                                            class="fw-bold">TEST</span>
+                                                            class="fw-bold" *ngIf="currentStation">{{currentStation.name}}</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                                         <span>POLLING STATION CODE</span>: <span
-                                                            class="fw-bold">TEST</span>
+                                                            class="fw-bold" *ngIf="currentStation">{{currentStation.code}}</span>
                                                     </div>
 
                                                     <div class="col-12 mt-4">

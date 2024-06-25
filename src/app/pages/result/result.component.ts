@@ -5,6 +5,8 @@ import { ToWords } from 'to-words';
 import { ElectionResult } from 'src/app/models/election-result';
 import { PollingStation } from 'src/app/models/polling-station';
 import { BallotAccessService } from 'src/app/services/ballot-access.service';
+import { Region } from 'src/app/models/region';
+import { Constituency } from 'src/app/models/constituency';
 
 @Component({
   selector: 'app-result',
@@ -13,29 +15,34 @@ import { BallotAccessService } from 'src/app/services/ballot-access.service';
 })
 export class ResultComponent implements OnInit {
 
-  station!: PollingStation;
+  regionList: Region[] = [];
+  constituencyList: Constituency[] = [];
+  stationList: PollingStation[] = [];
+  currentStation!: PollingStation;
   results: ElectionResult[] = [];
   totalVotes: number = 0;
   rejectedVotes: number = 0;
   totalBallots: number = 0;
+  canUpdateResults: boolean = false;
+  regionId: string = '';
+  constituencyId: string = '';
+  stationId: string = '';
 
   constructor(private _service: BallotAccessService, private _router: Router) {
   }
 
   ngOnInit(): void {
-    this.rejectedVotes = this.totalBallots - this.totalVotes;
-    this._service.getResult().pipe(
-      catchError((error) => {
+    this._service.getUserAccess()
+      .pipe(catchError((error) => {
         this._service.showError(error.error?.error?.message);
         return '';
       }))
       .subscribe((response: any) => {
-        this.results = response.data?.results;
-        this.totalVotes = this.results.reduce((totalVotes, currentVote) => totalVotes + currentVote.votes, 0);
-        if (this.totalBallots > 0) {
-          this.rejectedVotes = this.totalBallots - this.totalVotes;
-        }
+        this.currentStation = response.data?.station;
       });
+
+    this.rejectedVotes = this.totalBallots - this.totalVotes;
+    this.getData();
     this._service.getDetailsAfterPoll().pipe(
       catchError((error) => {
         this._service.showError(error.error?.error?.message);
@@ -47,6 +54,95 @@ export class ResultComponent implements OnInit {
           this.rejectedVotes = this.totalBallots - this.totalVotes;
         }
       });
+    this.canUserUpdateResults();
+  }
+
+  getData(): void {
+    this._service.getResult(this.regionId, this.constituencyId, this.stationId).pipe(
+      catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.results = response.data?.results;
+        this.totalVotes = this.results.reduce((totalVotes, currentVote) => totalVotes + currentVote.votes, 0);
+        if (this.totalBallots > 0) {
+          this.rejectedVotes = this.totalBallots - this.totalVotes;
+        }
+      });
+  }
+
+  fetchRegionList(): void {
+    this._service.getRegionList()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.regionList = response.data?.regions;
+      });
+  }
+
+  loadConstituencyByRegion(regionId: string = ''): void {
+    this.stationList = [];
+    this.stationId = '';
+    if (!regionId) {
+      this.constituencyList = [];
+      this.constituencyId = '';
+      return;
+    } else {
+      this._service.getConstituencyList()
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          const constituencies = response.data?.constituencies;
+          this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
+        });
+    }
+  }
+
+  loadStationByConstituency(constituencyId: string = ''): void {
+    if (!constituencyId) {
+      this.stationList = [];
+      this.stationId = '';
+      return;
+    } else {
+      this._service.getPollingStationList()
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          const stations = response.data?.stations;
+          this.stationList = stations.filter((station: PollingStation) => station.constituency._id === constituencyId);
+        });
+    }
+  }
+
+  filterByRegion(event: Event): void {
+    this.regionId = (event.target as HTMLSelectElement).value;
+    this.loadConstituencyByRegion(this.regionId);
+    this.getData();
+  }
+
+  filterByConstituency(event: Event): void {
+    this.constituencyId = (event.target as HTMLSelectElement).value;
+    this.loadStationByConstituency(this.constituencyId);
+    this.getData();
+  }
+
+  filterByStation(event: Event): void {
+    this.stationId = (event.target as HTMLSelectElement).value;
+    this.getData();
+  }
+
+  canUserUpdateResults(): void {
+    this.canUpdateResults = this._service.canUpdateResults();
+    if (!this.canUpdateResults) {
+      this.fetchRegionList();
+    }
   }
 
   redirectToResultEntry() {

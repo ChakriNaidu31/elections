@@ -47,6 +47,14 @@ export class BallotAccessService {
     sessionStorage.setItem('brPermissions', JSON.stringify(roles));
   }
 
+  canUpdateResults(): boolean {
+    const rolesInSession: string[] = this.getRolesFromSession();
+    if (rolesInSession.length > 0) {
+      return rolesInSession.indexOf(`RESULT: write`) > -1;
+    } else {
+      return false;
+    }
+  }
 
   /******************* METHODS BEGIN ************************/
   loginUser(username: string, password: string) {
@@ -171,7 +179,7 @@ export class BallotAccessService {
     return this.http.post(this.apiUrl + '/user/createAdmin', user, { headers: this.getHttpHeaders() });
   }
   deactivateUser(id: string) {
-    return this.http.delete(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() } );
+    return this.http.delete(this.apiUrl + '/user/' + id, { headers: this.getHttpHeaders() });
   }
   getUserDetails(id: string) {
     return this.http.get(this.apiUrl + '/user/single/' + id, { headers: this.getHttpHeaders() });
@@ -201,8 +209,8 @@ export class BallotAccessService {
   addResult(result: any) {
     return this.http.post(this.apiUrl + '/result', result, { headers: this.getHttpHeaders() });
   }
-  getResult() {
-    return this.http.get(this.apiUrl + '/result', { headers: this.getHttpHeaders() });
+  getResult(regionId: string = '', constituencyId: string = '', stationId: string = '') {
+    return this.http.get(`${this.apiUrl}/result?region=${regionId}&constituency=${constituencyId}&station=${stationId}`, { headers: this.getHttpHeaders() });
   }
 
   // Dashboard API
