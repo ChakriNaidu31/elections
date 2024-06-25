@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { Constituency } from 'src/app/models/constituency';
+import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
 import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
@@ -14,6 +15,8 @@ import { BallotAccessService } from 'src/app/services/ballot-access.service';
 
 
 export class UserListComponent implements OnInit {
+
+  regionList: Region[] = [];
   userList!: User[];
   userListFull!: User[];
   constituencyList: Constituency[] = [];
@@ -26,13 +29,28 @@ export class UserListComponent implements OnInit {
   pageSize: number = 5;
   totalItems: number = 0;
   pageNumber: number = 1;
+  regionId: string = '';
+  constituencyId: string = '';
+  selectedName: string = '';
+  selectedRole: string = '';
 
   constructor(private _service: BallotAccessService, private _router: Router) {
   }
 
   ngOnInit(): void {
-    this.fetchConstituencyList();
+    this.fetchRegionList();
     this.fetchUserList();
+  }
+
+  fetchRegionList(): void {
+    this._service.getRegionList()
+      .pipe(catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.regionList = response.data?.regions;
+      });
   }
 
   fetchUserList(): void {
@@ -48,49 +66,66 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  fetchConstituencyList(): void {
-    this._service.getConstituencyList()
-      .pipe(catchError((error) => {
-        this._service.showError(error.error?.error?.message);
-        return '';
-      }))
-      .subscribe((response: any) => {
-        this.constituencyList = response.data?.constituencies;
-      });
+  loadConstituencyByRegion(regionId: string = ''): void {
+    if (!regionId) {
+      this.constituencyList = [];
+      this.constituencyId = '';
+      return;
+    } else {
+      this._service.getConstituencyList()
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          const constituencies = response.data?.constituencies;
+          this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
+        });
+    }
+  }
+
+  filterByRegion(event: Event): void {
+    this.regionId = (event.target as HTMLSelectElement).value;
+    this.loadConstituencyByRegion(this.regionId);
+    this.getData();
   }
 
   filterByRole(event: Event): void {
-    const roleName: string = (event.target as HTMLSelectElement).value;
-    this.getData('', roleName);
+    this.selectedRole = (event.target as HTMLSelectElement).value;
+    this.getData();
   }
 
   filterByConstituency(event: Event): void {
-    const constituencyId: string = (event.target as HTMLSelectElement).value;
-    this.getData('', '', constituencyId);
+    this.constituencyId = (event.target as HTMLSelectElement).value;
+    this.getData();
   }
 
   filterByName(event: Event): void {
-    const name: string = (event.target as HTMLInputElement).value;
-    this.getData(name);
+    this.selectedName = (event.target as HTMLInputElement).value;
+    this.getData();
   }
 
-  getData(name: string = '', role: string = '', constituencyId: string = '') {
+  getData() {
     let filteredList: User[] = this.userListFull;
-    if (name) {
+    if (this.selectedName) {
       filteredList = filteredList
         .filter((user: User) => {
-          return (user.firstName.toLowerCase().includes(name.toLowerCase()) || user.lastName.toLowerCase().includes(name.toLowerCase()));
+          return (user.firstName.toLowerCase().includes(this.selectedName.toLowerCase()) || user.lastName.toLowerCase().includes(this.selectedName.toLowerCase()));
         });
     }
-    if (role) {
+    if (this.selectedRole) {
       filteredList = filteredList
-        .filter((user: User) => user.role === role);
+        .filter((user: User) => user.role === this.selectedRole);
     }
-    if (constituencyId) {
+    if (this.regionId) {
+      filteredList = this.userListFull
+       .filter((user: User) => user.station?.region?._id === this.regionId);
+    }
+    if (this.constituencyId) {
       filteredList = filteredList
-        .filter((user: User) => user.station?.constituency?._id === constituencyId)
+        .filter((user: User) => user.station?.constituency?._id === this.constituencyId)
     }
-    if (!name && !role && !constituencyId) {
+    if (!this.selectedName && !this.selectedRole && !this.regionId && !this.constituencyId) {
       this.userList = this.userListFull
         .slice((this.pageNumber - 1) * this.pageSize, (this.pageNumber - 1) * this.pageSize + this.pageSize);
       this.totalItems = this.userListFull.length;

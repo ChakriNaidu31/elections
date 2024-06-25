@@ -31,6 +31,16 @@
                         </div>
                         <div class="col-lg-6 col-sm-12 col-md-12">
                             <div class="mb-3">
+                                <label class="form-label">Region</label>
+                                <select class="form-select" (change)="filterByRegion($event)">
+                                    <option selected value="">All Regions</option>
+                                    <option *ngFor="let region of regionList" value="{{region._id}}">{{region.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-md-12">
+                            <div class="mb-3">
                                 <label class="form-label">Constituency</label>
                                 <select class="form-select" (change)="filterByConstituency($event)">
                                     <option selected value="">Select constituency</option>
@@ -44,21 +54,11 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID <i
-                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
-                                                class="fa-solid fa-arrow-down"></i></th>
-                                            <th style="width: 20%;" scope="col">Name <i
-                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
-                                                class="fa-solid fa-arrow-down"></i></th>
-                                            <th scope="col">Role <i
-                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
-                                                class="fa-solid fa-arrow-down"></i></th>
-                                            <th scope="col">Email <i
-                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
-                                                class="fa-solid fa-arrow-down"></i></th>
-                                            <th style="width: 18%;" scope="col">Last Logged-in <i
-                                                class="fa-solid fa-arrow-up ms-1 me-1 pe-auto"></i> <i
-                                                class="fa-solid fa-arrow-down"></i></th>
+                                            <th scope="col">ID</th>
+                                            <th style="width: 20%;" scope="col">Name</th>
+                                            <th scope="col">Role </th>
+                                            <th scope="col">Email </th>
+                                            <th style="width: 18%;" scope="col">Last Logged-in </th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -88,9 +88,6 @@
                                                 <button type="button" class="btn btn-primary" *ngIf="!user.isActive && user.lastLoggedIn"
                                                     (click)="activateUser(user)"> <i class="fa-solid fa-check me-2"
                                                         width="16px" height="16px" alt="Activate icon"></i>Activate</button>
-                                                <button type="button" class="btn btn-info ms-3" (click)="viewUser(user)"><i
-                                                        class="fa-solid fa-eye me-2" width="16px" height="16px"
-                                                        alt="View icon"></i>View</button>
                                             </td>
                                         </tr>
                                     </tbody>

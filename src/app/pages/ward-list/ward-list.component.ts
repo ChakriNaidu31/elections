@@ -26,7 +26,6 @@ export class WardListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchRegionList();
-    this.fetchConstituencyList();
     this.fetchWardList();
   }
 
@@ -43,17 +42,6 @@ export class WardListComponent implements OnInit {
       });
   }
 
-  fetchConstituencyList(): void {
-    this._service.getConstituencyList()
-      .pipe(catchError((error) => {
-        this._service.showError(error.error?.error?.message);
-        return '';
-      }))
-      .subscribe((response: any) => {
-        this.constituencyList = response.data?.constituencies;
-      });
-  }
-
   fetchRegionList(): void {
     this._service.getRegionList()
       .pipe(catchError((error) => {
@@ -65,8 +53,26 @@ export class WardListComponent implements OnInit {
       });
   }
 
+  loadConstituencyByRegion(regionId: string = ''): void {
+    if (!regionId) {
+      this.constituencyList = [];
+      return;
+    } else {
+      this._service.getConstituencyList()
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          const constituencies = response.data?.constituencies;
+          this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
+        });
+    }
+  }
+
   filterWardByRegion(event: Event): void {
     const regionId: string = (event.target as HTMLSelectElement).value;
+    this.loadConstituencyByRegion(regionId);
     this.getData(regionId);
   }
 
@@ -84,15 +90,15 @@ export class WardListComponent implements OnInit {
     if (constituencyId) {
       filteredList = filteredList
         .filter((ward: Ward) => ward.constituency._id === constituencyId)
-    } 
-    if (!regionId && !constituencyId){
+    }
+    if (!regionId && !constituencyId) {
       this.wardList = this.wardListFull
         .slice((this.pageNumber - 1) * this.pageSize, (this.pageNumber - 1) * this.pageSize + this.pageSize);
-        this.totalItems = this.wardListFull.length;
+      this.totalItems = this.wardListFull.length;
     } else {
       this.wardList = filteredList
         .slice((this.pageNumber - 1) * this.pageSize, (this.pageNumber - 1) * this.pageSize + this.pageSize);
-        this.totalItems = filteredList.length;
+      this.totalItems = filteredList.length;
     }
   }
 

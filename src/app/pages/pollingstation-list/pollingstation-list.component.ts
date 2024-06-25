@@ -32,8 +32,6 @@ export class PollingstationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchRegionList();
-    this.fetchConstituencyList();
-    this.fetchWardList();
     this.fetchStationList();
   }
 
@@ -50,28 +48,6 @@ export class PollingstationListComponent implements OnInit {
       });
   }
 
-  fetchWardList(): void {
-    this._service.getWardList()
-      .pipe(catchError((error) => {
-        this._service.showError(error.error?.error?.message);
-        return '';
-      }))
-      .subscribe((response: any) => {
-        this.wardList = response.data?.wards;
-      });
-  }
-
-  fetchConstituencyList(): void {
-    this._service.getConstituencyList()
-      .pipe(catchError((error) => {
-        this._service.showError(error.error?.error?.message);
-        return '';
-      }))
-      .subscribe((response: any) => {
-        this.constituencyList = response.data?.constituencies;
-      });
-  }
-
   fetchRegionList(): void {
     this._service.getRegionList()
       .pipe(catchError((error) => {
@@ -83,13 +59,50 @@ export class PollingstationListComponent implements OnInit {
       });
   }
 
+  loadConstituency(regionId: string = ''): void {
+    if (!regionId) {
+      this.constituencyList = [];
+      this.wardList = [];
+      return;
+    } else {
+      this._service.getConstituencyList()
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          const constituencies = response.data?.constituencies;
+          this.constituencyList = constituencies.filter((constituency: Constituency) => constituency.region._id === regionId);
+        });
+    }
+  }
+
+  loadWard(constituencyId: string = ''): void {
+    if (!constituencyId) {
+      this.wardList = [];
+      return;
+    } else {
+      this._service.getWardList()
+        .pipe(catchError((error) => {
+          this._service.showError(error.error?.error?.message);
+          return '';
+        }))
+        .subscribe((response: any) => {
+          const wards = response.data?.wards;
+          this.wardList = wards.filter((ward: Ward) => ward.constituency._id === constituencyId);
+        });
+    }
+  }
+
   filterStationByRegion(event: Event): void {
     const regionId: string = (event.target as HTMLSelectElement).value;
+    this.loadConstituency(regionId);
     this.getData(regionId);
   }
 
   filterStationByConstituency(event: Event): void {
     const constituencyId: string = (event.target as HTMLSelectElement).value;
+    this.loadWard(constituencyId);
     this.getData('', constituencyId);
   }
 
