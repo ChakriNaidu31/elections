@@ -93,7 +93,8 @@ const routes: Routes = [
     canActivateChild: [authGuard]
   },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'dataupload', component: DataUploadComponent, canActivate: [authGuard] },
+  { path: 'view-result', component: ResultComponent },
+  // { path: 'dataupload', component: DataUploadComponent, canActivate: [authGuard] },
   { path: '**', component: PagenotfoundComponent }
 ];
 
