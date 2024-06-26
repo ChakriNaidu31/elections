@@ -12,10 +12,31 @@ declare var google: any;
 })
 export class DashboardComponent implements OnInit {
 
+  regionWinners: { [region: string]: string } = {
+    region1: 'party1',
+    region2: 'party2',
+    region3: 'party3',
+    region4: 'party1',
+    region5: 'party2',
+    region6: 'party3',
+    region7: 'party1',
+    region8: 'party2',
+    region9: 'party3',
+    region10: 'party1',
+    region11: 'party2',
+    region12: 'party3',
+    region13: 'party1',
+    region14: 'party2',
+    region15: 'party3',
+    region16: 'party1'
+  };
+
+
   @ViewChild('chart', { static: true }) chartElement!: ElementRef;
 
   election!: Election;
   status: string = '';
+
 
   constructor(private _service: BallotAccessService) { }
 
@@ -29,50 +50,27 @@ export class DashboardComponent implements OnInit {
         this.election = response.data?.election;
         this.status = response.data?.status;
       });
-
-    if (typeof google !== 'undefined' && google.charts) {
-      google.charts.load('current', {
-        'packages': ['geochart'],
-        'mapsApiKey': 'AIzaSyBKIZnOIhiGKMQ6Mm1I68LfrViSD5BI5vo'
-        // You can add additional parameters here if needed
-      });
-      google.charts.setOnLoadCallback(this.drawRegionsMap.bind(this));
-    } else {
-      console.error('Google Charts API not loaded');
-    }
   }
 
-  drawRegionsMap() {
-    const data = google.visualization.arrayToDataTable([
-      ['Region', 'Voters'],
-      ['Ashanti', 0],
-      ['Brong-Ahafo', 0],
-      ['Central', 0],
-      ['Eastern', 0],
-      ['Greater Accra', 0],
-      ['Northern', 0],
-      ['Upper East', 0],
-      ['Upper West', 0],
-      ['Volta', 0],
-      ['Western', 0],
-      ['Western North', 0],
-      ['Bono', 0],
-      ['Oti', 0],
-      ['North East', 0],
-      ['Savannah', 0],
-      ['Ahafo', 0]
-    ]);
 
-    const options = {
-      region: 'GH',
-      displayMode: 'regions',
-      datalessRegionColor: '#fff',
-      resolution: 'provinces',
-      // colorAxis: { colors: ['#FFD700', '#FF0000'] }
-    };
 
-    const chart = new google.visualization.GeoChart(this.chartElement.nativeElement);
-    chart.draw(data, options);
+
+  getRegionColor(region: string): string {
+    const winner = this.regionWinners[region];
+    if (winner === 'party1') {
+      return 'red';
+    } else if (winner === 'party2') {
+      return 'blue';
+    } else if (winner === 'party3') {
+      return 'green';
+    }
+    return 'gray'; 
+  }
+
+  
+  regionClicked(region: string): void {
+    const winner = this.regionWinners[region];
+    console.log(` ${region} won ${winner}`);
   }
 
 }

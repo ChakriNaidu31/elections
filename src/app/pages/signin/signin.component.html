@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center py-4 bg-body-tertiary h-100vh">
     <div class="form-signin w-100 m-auto text-center">
         <form [formGroup]="myForm" (submit)="submitUserLogin()">
-            <img class="mb-4" src="../../../assets/signin/logo.png" width="128" height="115" alt="Electoral commission logo">
+            <img class="mb-4 logo" src="../../../assets/signin/logo.png" width="128" height="115" alt="Electoral commission logo">
             <h1 class="h3 fw-normal">Login to your account</h1>
             <p class="error_msg" *ngIf="errorMessage">{{errorMessage}}</p>
             <input type="text" formControlName="username" class="form-control" id="username" aria-describedby="username"
