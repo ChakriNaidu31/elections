@@ -70,3 +70,6 @@ body {
 .modal-content {
     width: 400px;
 }
+.md-80 {
+    margin-bottom: 80px !important;
+}
