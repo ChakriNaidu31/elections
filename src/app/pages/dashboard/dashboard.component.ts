@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
 
   election!: Election;
   status: string = '';
+  winnersbyRegion: any[] = [];
 
 
   constructor(private _service: BallotAccessService) { }
@@ -50,24 +51,32 @@ export class DashboardComponent implements OnInit {
         this.election = response.data?.election;
         this.status = response.data?.status;
       });
+
+    this._service.fetchStats().pipe(
+      catchError((error) => {
+        this._service.showError(error.error?.error?.message);
+        return '';
+      }))
+      .subscribe((response: any) => {
+        this.winnersbyRegion = response.data?.results;
+      });
   }
-
-
-
 
   getRegionColor(region: string): string {
-    const winner = this.regionWinners[region];
-    if (winner === 'party1') {
-      return 'red';
-    } else if (winner === 'party2') {
-      return 'blue';
-    } else if (winner === 'party3') {
-      return 'green';
+
+    if (this.winnersbyRegion.length <= 0) {
+      return 'grey';
     }
-    return 'gray'; 
+
+    const filteredRegion = this.winnersbyRegion.filter((localRegion) => localRegion.region?.code === region );
+    if (filteredRegion && filteredRegion.length > 0 && filteredRegion[0]?.winner?.partyColor) {
+      return filteredRegion[0].winner.partyColor;
+    } else {
+      return 'grey';
+    }
   }
 
-  
+
   regionClicked(region: string): void {
     const winner = this.regionWinners[region];
     console.log(` ${region} won ${winner}`);

@@ -41,19 +41,7 @@ export class ResultComponent implements OnInit {
         this.currentStation = response.data?.station;
       });
 
-    this.rejectedVotes = this.totalBallots - this.totalVotes;
     this.getData();
-    this._service.getDetailsAfterPoll().pipe(
-      catchError((error) => {
-        this._service.showError(error.error?.error?.message);
-        return '';
-      }))
-      .subscribe((response: any) => {
-        this.totalBallots = response.data?.pollStatementAfterPoll?.numberOfBallotsIssuedToRegisteredVoters;
-        if (this.totalVotes > 0) {
-          this.rejectedVotes = this.totalBallots - this.totalVotes;
-        }
-      });
     this.canUserUpdateResults();
   }
 
@@ -66,6 +54,7 @@ export class ResultComponent implements OnInit {
       .subscribe((response: any) => {
         this.results = response.data?.results;
         this.totalVotes = this.results.reduce((totalVotes, currentVote) => totalVotes + currentVote.votes, 0);
+        this.totalBallots = response.data?.totalBallots;
         if (this.totalBallots > 0) {
           this.rejectedVotes = this.totalBallots - this.totalVotes;
         }
@@ -150,10 +139,14 @@ export class ResultComponent implements OnInit {
   }
 
   convertToWords(digit: number): string {
-    const toWords = new ToWords({
-      localeCode: 'en-GB'
-    });
-    return toWords.convert(digit);
+    if (digit) {
+      const toWords = new ToWords({
+        localeCode: 'en-GB'
+      });
+      return toWords.convert(digit);
+    } else {
+      return '';
+    }
   }
 
 }

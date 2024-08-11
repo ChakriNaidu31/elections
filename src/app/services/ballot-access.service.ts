@@ -217,6 +217,9 @@ export class BallotAccessService {
   fetchDashboard() {
     return this.http.get(this.apiUrl + '/dashboard', { headers: this.getHttpHeaders() });
   }
+  fetchStats() {
+    return this.http.get(this.apiUrl + '/dashboard/stats', { headers: this.getHttpHeaders() });
+  }
 
   /******************* METHODS END ************************/
 

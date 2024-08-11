@@ -37,7 +37,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Polling Station</label>
                                 <select class="form-select" (change)="filterByStation($event)">
-                                    <option selected value="">Select ward</option>
+                                    <option selected value="">Select Station</option>
                                     <option *ngFor="let station of stationList" value="{{station._id}}">{{station.name}}
                                     </option>
                                 </select>
@@ -109,7 +109,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="results && results.length > 0;" class="p-2" style="text-align: right;">Last
+                                <div *ngIf="results && results.length > 0 && canUpdateResults" class="p-2" style="text-align: right;">Last
                                     updated at: {{results[0].updatedDate | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
                             </div>
 
